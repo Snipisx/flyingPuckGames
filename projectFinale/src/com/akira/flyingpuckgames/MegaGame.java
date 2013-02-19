@@ -5,15 +5,12 @@ import com.badlogic.gdx.Game;
 
 public class MegaGame extends Game {
 
-	public static final String VERSION = "0.0.1";
-	public static final String LOG = "projectFinal - ";
+	public static final String VERSION = "0.0.2";
+	public static final String LOG = "projectFinale - ";
 	
-
-
 	@Override
 	public void create() {
 		setScreen(new screenTest(this));
-		
 	}
 
 	@Override
@@ -40,6 +37,5 @@ public class MegaGame extends Game {
 	@Override
 	public void resize(int width, int height) {
 		super.resize(width, height);
-	
 	}
 }

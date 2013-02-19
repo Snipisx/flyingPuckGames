@@ -30,7 +30,6 @@ public class screenTest implements Screen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		renderWorld();
 		fpsLogger.log();
-
 	}
 
 	@Override
@@ -50,7 +49,6 @@ public class screenTest implements Screen {
 		tileAtlas = new TileAtlas(tiledMap, Gdx.files.internal("maps"));
 		tileMapRenderer = new TileMapRenderer(tiledMap, tileAtlas, 16, 16);
 		fpsLogger = new FPSLogger();
-
 	}
 
 	@Override
