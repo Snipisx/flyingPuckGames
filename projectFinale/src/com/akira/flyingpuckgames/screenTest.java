@@ -6,14 +6,13 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.tiled.TileAtlas;
 import com.badlogic.gdx.graphics.g2d.tiled.TileMapRenderer;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledLoader;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
+
 
 public class screenTest implements Screen {
 	private OrthographicCamera camera;
@@ -25,12 +24,13 @@ public class screenTest implements Screen {
 	private FPSLogger fpsLogger;
 	private MegaGame megagame;
 	private Texture plahChar;
+	private Texture bkgrnd;
 	private SpriteBatch batch;
 	private Rectangle plahRectangle;
 	
+	//plahChar
 	public static final float plahRectangleWidth = 16;
 	public static final float plahRectangleHeight = 16;
-	
 	public float plahRectangleX;
 	public float plahRectangleY;
 	
@@ -43,6 +43,9 @@ public class screenTest implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		batch.begin();
+		batch.draw(bkgrnd, delta, delta);
+		batch.end();
 		renderWorld();
 		fpsLogger.log();
 		
@@ -68,6 +71,7 @@ public class screenTest implements Screen {
 		plahRectangle.y =32;
 		
 		plahChar = new Texture(Gdx.files.internal("data/plahCharacter.png"));
+		bkgrnd = new Texture(Gdx.files.internal("maps/background.png"));
 		
 		batch = new SpriteBatch();
 		w = Gdx.graphics.getWidth();
@@ -75,7 +79,7 @@ public class screenTest implements Screen {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, w, h);
 		tiledMap = TiledLoader.createMap(Gdx.files
-				.internal("maps/testMap001.tmx"));
+				.internal("maps/plahTilemap.tmx"));
 		tileAtlas = new TileAtlas(tiledMap, Gdx.files.internal("maps"));
 		tileMapRenderer = new TileMapRenderer(tiledMap, tileAtlas, 16, 16);
 		fpsLogger = new FPSLogger();
