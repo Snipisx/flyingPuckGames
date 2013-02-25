@@ -3,7 +3,7 @@ package com.akira.flyingpuckgames;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.tiled.TileMapRenderer;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledLoader;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
-
 
 public class screenTest implements Screen {
 	private OrthographicCamera camera;
@@ -27,13 +26,12 @@ public class screenTest implements Screen {
 	private Texture bkgrnd;
 	private SpriteBatch batch;
 	private Rectangle plahRectangle;
-	
-	//plahChar
+
+	// plahChar
 	public static final float plahRectangleWidth = 16;
 	public static final float plahRectangleHeight = 16;
 	public float plahRectangleX;
 	public float plahRectangleY;
-	
 
 	public screenTest(MegaGame megagame) {
 		this.megagame = megagame;
@@ -41,19 +39,21 @@ public class screenTest implements Screen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+		Gdx.graphics.getGL20().glClearColor(1, 0, 0, 1);
+		Gdx.graphics.getGL20().glClear(
+				GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+
 		batch.begin();
 		batch.draw(bkgrnd, delta, delta);
 		batch.end();
 		renderWorld();
 		fpsLogger.log();
-		
+
 		batch.begin();
 		batch.draw(plahChar, plahRectangle.x, plahRectangle.y);
 		batch.end();
-		
-		
+
 	}
 
 	@Override
@@ -67,12 +67,12 @@ public class screenTest implements Screen {
 		plahRectangle = new Rectangle();
 		plahRectangle.width = plahRectangleWidth;
 		plahRectangle.height = plahRectangleHeight;
-		plahRectangle.x =16+16/2;
-		plahRectangle.y =32;
-		
+		plahRectangle.x = 16 + 16 / 2;
+		plahRectangle.y = 32;
+
 		plahChar = new Texture(Gdx.files.internal("data/plahCharacter.png"));
 		bkgrnd = new Texture(Gdx.files.internal("maps/background.png"));
-		
+
 		batch = new SpriteBatch();
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
@@ -83,7 +83,7 @@ public class screenTest implements Screen {
 		tileAtlas = new TileAtlas(tiledMap, Gdx.files.internal("maps"));
 		tileMapRenderer = new TileMapRenderer(tiledMap, tileAtlas, 16, 16);
 		fpsLogger = new FPSLogger();
-		
+
 	}
 
 	@Override
