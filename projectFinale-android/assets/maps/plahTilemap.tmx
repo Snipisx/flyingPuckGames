@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="11" orientation="orthogonal" tileheight="16" tilewidth="16" version="1.0" width="20"><properties><property name="blended tiles" value="1"/></properties>
- <tileset firstgid="1" name="pickleTile" tileheight="16" tilewidth="16">
-  <image height="16" source="pickleTile.png" width="256"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="11" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="pickleTile" tilewidth="16" tileheight="16">
+  <image source="pickleTile.png" width="256" height="16"/>
   <tile id="0">
    <properties>
     <property name="solid" value="1"/>
@@ -62,8 +63,8 @@
    </properties>
   </tile>
  </tileset>
- <layer height="11" name="Tile Layer 2" width="20">
-  <data compression="zlib" encoding="base64">
+ <layer name="Tile Layer 2" width="20" height="11">
+  <data encoding="base64" compression="zlib">
    eJxjYMAEHEAsgAXzQDE2ORDmwmIWCLAg6YVhLhLkhzNgReMzUmAWMwMkHjjJ1M+IRoMAExH62IGYHwnzkmk/zCxsaYtYM9HdgiutEmsmrryAC/PjwSD7AJ+rBAE=
   </data>
  </layer>
