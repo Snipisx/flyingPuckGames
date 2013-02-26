@@ -1,4 +1,4 @@
-package com.flyingPuckGames.projectFinale;
+package com.flyingPuckGames.projectFinale.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -12,49 +12,43 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
+import com.flyingPuckGames.projectFinale.MegaGame;
+import com.flyingPuckGames.projectFinale.entity.plahCharacter;
 
-public class screenTest implements Screen {
+public class FirstSceen implements Screen {
+	private float screenW;
+	private float screenH;
 	private OrthographicCamera camera;
 	private OrthogonalTiledMapRenderer tRenderer;
 	private TiledMap tiledMap;
 	private Array<Rectangle> tiles;
-	private float w;
-	private float h;
 	private FPSLogger fpsLogger;
 	private MegaGame megagame;
-	private Texture plahChar;
+	
 	private Texture bkgrnd;
 	private SpriteBatch batch;
-	private Rectangle plahRectangle;
+	
+	private plahCharacter character;
+	
 
-	// plahChar
-	public static final float plahRectangleWidth = 16;
-	public static final float plahRectangleHeight = 16;
-	public float plahRectangleX;
-	public float plahRectangleY;
-
-	public screenTest(MegaGame megagame) {
+	
+	public FirstSceen(MegaGame megagame) {
 		this.megagame = megagame;
 	}
 
 	@Override
 	public void render(float delta) {
-
-		Gdx.graphics.getGL20().glClearColor(1, 0, 0, 1);
-		Gdx.graphics.getGL20().glClear(
-				GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		clearScreen();
 
 		batch.begin();
 		batch.draw(bkgrnd, delta, delta);
 		batch.end();
-		
-		tRenderer.setView(camera);
-		tRenderer.render();
-		
+
 		batch.begin();
-		batch.draw(plahChar, plahRectangle.x, plahRectangle.y);
+		batch.draw(character.getPlahCharText(), character.getPlahCharRect().x, character.getPlahCharRect().y);
 		batch.end();
-		
+
+		renderWorld();
 		fpsLogger.log();
 	}
 
@@ -66,26 +60,18 @@ public class screenTest implements Screen {
 
 	@Override
 	public void show() {
-		plahRectangle = new Rectangle();
-		plahRectangle.width = plahRectangleWidth;
-		plahRectangle.height = plahRectangleHeight;
-		plahRectangle.x = 16 + 16 / 2;
-		plahRectangle.y = 32;
-
-		plahChar = new Texture(Gdx.files.internal("data/plahCharacter.png"));
+		screenW = Gdx.graphics.getWidth();
+		screenH = Gdx.graphics.getHeight();
+		
 		bkgrnd = new Texture(Gdx.files.internal("maps/background.png"));
-
 		batch = new SpriteBatch();
-		w = Gdx.graphics.getWidth();
-		h = Gdx.graphics.getHeight();
+		character = new plahCharacter();
 		
 		fpsLogger = new FPSLogger();
 		tiles = new Array<Rectangle>();
-		
-		createWorld();
-		prepareCamera();
-		
 
+		createWorld();
+		createCamera();
 	}
 
 	@Override
@@ -113,23 +99,37 @@ public class screenTest implements Screen {
 	}
 
 	/**
-	 * TODO
+	 * Instances the tiledMap and the tiledRenderer.
 	 */
 	private void createWorld() {
 		tiledMap = new TmxMapLoader().load("maps/plahTilemap.tmx");
-		tRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1/16f);
+		tRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / 16f);
 	}
+
 	/**
-	 * TODO
+	 * Instances the orthographicCamera() and sets the principal values.
 	 */
-	private void prepareCamera(){
+	private void createCamera() {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 20, 11);
 		camera.update();
 	}
+
+	/**
+	 * Method used for rendering the tiled map on the screen.
+	 */
+	private void renderWorld() {
+		tRenderer.setView(camera);
+		tRenderer.render();
+	}
 	
-	private void renderWorld(){
-		
+	/**
+	 * This method clears the screen.
+	 */
+	private void clearScreen(){
+		Gdx.graphics.getGL20().glClearColor(1, 0, 0, 1);
+		Gdx.graphics.getGL20().glClear(
+				GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 	}
 
 }
