@@ -8,14 +8,14 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
 	
-	public enum EntityType {
-		GenericEntity, PlayerEntity, EnemyEntity, ProjectilEntity
-	}
+	public enum State {
+		GenericEntity,NoMobableEntity, MobableEntity
+	};
 	
 	protected int nextId = 0;
 	protected static Random random = new Random();
 	protected int id;
-	
+	protected State entityState = State.GenericEntity;
 	protected Vector2 position = new Vector2();
 	protected Vector2 velocity = new Vector2();
 	
@@ -23,5 +23,7 @@ public abstract class Entity {
 	protected static float entityRectangleY;
 	protected static Texture texture;
 	protected static Rectangle bounds;
+	
+	
 		
 }
