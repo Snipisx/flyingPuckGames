@@ -9,8 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Entity {
 	
 	public enum State {
-		GenericEntity,NoMobableEntity, MobableEntity
+		GenericEntity,PlayerEntity,EnemyEntity,ProjectileEntity
 	};
+	protected State state = State.GenericEntity;
 	
 	protected int nextId = 0;
 	protected static Random random = new Random();
@@ -24,6 +25,7 @@ public abstract class Entity {
 	protected static Texture texture;
 	protected static Rectangle bounds;
 	
+
 	
 		
 }
