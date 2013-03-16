@@ -184,7 +184,11 @@ public class plahCharacter extends Entity {
 		for (int y = startY; y <= endY; y++) {
 			for (int x = startX; x <= endX; x++) {
 				Cell cell = layer.getCell(x, y);
+
 				if (cell != null) {
+					if(cell.getTile().getProperties().containsKey("solid")){
+						System.out.println(cell.getTile().getProperties().get("solid").toString());
+					}
 					Rectangle rect = rectPool.obtain();
 					rect.set(x, y, 1, 1);
 					tiles.add(rect);
