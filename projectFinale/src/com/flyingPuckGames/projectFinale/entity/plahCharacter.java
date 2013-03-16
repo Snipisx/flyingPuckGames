@@ -40,9 +40,6 @@ public class plahCharacter extends Entity {
 	public plahCharacter(OrthogonalTiledMapRenderer tRenderer,
 			Pool<Rectangle> rectPool, Array<Rectangle> tiles, TiledMap tiledMap) {
 
-		bounds = new Rectangle();
-		bounds.x = 16 + 16 / 2;
-		bounds.y = 32;
 		texture = new Texture(Gdx.files.internal("data/plahCharacter.png"));
 		WIDTH = 1 / 16f * texture.getWidth();
 		HEIGHT = 1 / 16f * texture.getHeight();
@@ -76,8 +73,8 @@ public class plahCharacter extends Entity {
 				this.state = State.Walking;
 			this.facesRight = true;
 		}
-		if (!grounded)
-			this.velocity.add(0, GRAVITY);
+
+		this.velocity.add(0, GRAVITY);
 
 		// clamp the velocity to the maximum, x-axis only
 		if (Math.abs(this.velocity.x) > plahCharacter.MAX_VELOCITY) {
@@ -100,7 +97,8 @@ public class plahCharacter extends Entity {
 				plahCharacter.HEIGHT);
 		int startX, startY, endX, endY;
 		if (this.velocity.x > 0) {
-			startX = endX = (int) (this.position.x + plahCharacter.WIDTH + this.velocity.x);
+			startX = (int) (this.position.x + plahCharacter.WIDTH);
+			endX = (int) (this.position.x + plahCharacter.WIDTH + this.velocity.x);
 		} else {
 			startX = endX = (int) (this.position.x + this.velocity.x);
 		}
@@ -152,7 +150,6 @@ public class plahCharacter extends Entity {
 			}
 		}
 		rectPool.free(charRect);
-
 		// unscale the velocity by the inverse delta time and set
 		// the latest position
 		this.position.add(this.velocity);
@@ -174,7 +171,7 @@ public class plahCharacter extends Entity {
 		if (this.facesRight) {
 			batch.draw(texture, this.position.x, this.position.y, WIDTH, HEIGHT);
 		} else {
-			batch.draw(texture, this.position.x + bounds.width,
+			batch.draw(texture, this.position.x + WIDTH,
 					this.position.y, -WIDTH, HEIGHT);
 		}
 		batch.end();

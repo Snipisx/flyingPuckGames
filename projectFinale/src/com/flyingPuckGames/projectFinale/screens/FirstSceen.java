@@ -50,7 +50,7 @@ public class FirstSceen implements Screen {
 		camera.update();
 		renderWorld();
 		
-		System.out.println(character.toString());
+//		System.out.println(character.toString());
 		
 		character.updatePlayer(delta);
 		character.renderCharacter(delta);

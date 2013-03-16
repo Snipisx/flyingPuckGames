@@ -19,11 +19,7 @@ public abstract class Entity {
 	protected EntityType entityState = EntityType.GenericEntity;
 	public Vector2 position = new Vector2();
 	protected Vector2 velocity = new Vector2();
-	
-	protected static float entityRectangleX;
-	protected static float entityRectangleY;
 	protected static Texture texture;
-	protected static Rectangle bounds;
 	
 
 	
