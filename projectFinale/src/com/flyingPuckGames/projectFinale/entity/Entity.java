@@ -8,16 +8,16 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
 	
-	public enum State {
+	public enum EntityType {
 		GenericEntity,PlayerEntity,EnemyEntity,ProjectileEntity
 	};
-	protected State state = State.GenericEntity;
+	protected EntityType entityType = EntityType.GenericEntity;
 	
 	protected int nextId = 0;
 	protected static Random random = new Random();
 	protected int id;
-	protected State entityState = State.GenericEntity;
-	protected Vector2 position = new Vector2();
+	protected EntityType entityState = EntityType.GenericEntity;
+	public Vector2 position = new Vector2();
 	protected Vector2 velocity = new Vector2();
 	
 	protected static float entityRectangleX;

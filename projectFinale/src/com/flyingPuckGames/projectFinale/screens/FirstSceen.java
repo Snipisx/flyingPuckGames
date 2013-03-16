@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.entity.plahCharacter;
 
@@ -24,6 +25,7 @@ public class FirstSceen implements Screen {
 	private Array<Rectangle> tiles;
 	private FPSLogger fpsLogger;
 	private MegaGame megagame;
+	private Pool<Rectangle> rectPool;
 	
 	private Texture bkgrnd;
 	private SpriteBatch batch;
@@ -41,14 +43,18 @@ public class FirstSceen implements Screen {
 		clearScreen();
 
 		batch.begin();
-		batch.draw(bkgrnd, delta, delta);
+		batch.draw(bkgrnd, delta, delta, screenW,screenH);
 		batch.end();
-
-		batch.begin();
-		batch.draw(character.getPlahCharText(), character.getPlahCharRect().x, character.getPlahCharRect().y);
-		batch.end();
-
+		
+		camera.position.x = character.position.x;
+		camera.update();
 		renderWorld();
+		
+		System.out.println(character.toString());
+		
+		character.updatePlayer(delta);
+		character.renderCharacter(delta);
+	
 		fpsLogger.log();
 	}
 
@@ -62,22 +68,31 @@ public class FirstSceen implements Screen {
 	public void show() {
 		screenW = Gdx.graphics.getWidth();
 		screenH = Gdx.graphics.getHeight();
+		rectPool = new Pool<Rectangle>() {
+			@Override
+			protected Rectangle newObject () {
+				return new Rectangle();
+			}
+		};
+		tiles = new Array<Rectangle>();
+		
+		
 		
 		bkgrnd = new Texture(Gdx.files.internal("maps/background.png"));
 		batch = new SpriteBatch();
-		character = new plahCharacter();
-		
-		fpsLogger = new FPSLogger();
-		tiles = new Array<Rectangle>();
-
 		createWorld();
 		createCamera();
+		character = new plahCharacter(tRenderer, rectPool, tiles, tiledMap);
+		
+		fpsLogger = new FPSLogger();
+		
+
+		
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-
+	
 	}
 
 	@Override
