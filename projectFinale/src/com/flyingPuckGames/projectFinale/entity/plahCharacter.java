@@ -97,8 +97,8 @@ public class plahCharacter extends Entity {
 				plahCharacter.HEIGHT);
 		int startX, startY, endX, endY;
 		if (this.velocity.x > 0) {
-			startX = (int) (this.position.x + plahCharacter.WIDTH);
-			endX = (int) (this.position.x + plahCharacter.WIDTH + this.velocity.x);
+			startX = endX = (int) (this.position.x + plahCharacter.WIDTH + this.velocity.x);
+			
 		} else {
 			startX = endX = (int) (this.position.x + this.velocity.x);
 		}
