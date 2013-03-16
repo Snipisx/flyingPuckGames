@@ -97,8 +97,7 @@ public class plahCharacter extends Entity {
 				plahCharacter.HEIGHT);
 		int startX, startY, endX, endY;
 		if (this.velocity.x > 0) {
-			startX = endX = (int) (this.position.x + plahCharacter.WIDTH + this.velocity.x);
-			
+			startX = endX = (int) (this.position.x + plahCharacter.WIDTH + this.velocity.x);	
 		} else {
 			startX = endX = (int) (this.position.x + this.velocity.x);
 		}
@@ -171,8 +170,7 @@ public class plahCharacter extends Entity {
 		if (this.facesRight) {
 			batch.draw(texture, this.position.x, this.position.y, WIDTH, HEIGHT);
 		} else {
-			batch.draw(texture, this.position.x + WIDTH,
-					this.position.y, -WIDTH, HEIGHT);
+			batch.draw(texture, this.position.x + WIDTH,this.position.y, -WIDTH, HEIGHT);
 		}
 		batch.end();
 	}
