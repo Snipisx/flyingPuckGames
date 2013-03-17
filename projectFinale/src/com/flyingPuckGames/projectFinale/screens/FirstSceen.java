@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.flyingPuckGames.projectFinale.MegaGame;
-import com.flyingPuckGames.projectFinale.entity.plahCharacter;
+import com.flyingPuckGames.projectFinale.entity.Player;
 
 public class FirstSceen implements Screen {
 	private float screenW;
@@ -30,7 +30,7 @@ public class FirstSceen implements Screen {
 	private Texture bkgrnd;
 	private SpriteBatch batch;
 	
-	private plahCharacter character;
+	private Player character;
 	
 
 	
@@ -56,6 +56,7 @@ public class FirstSceen implements Screen {
 		character.renderCharacter(delta);
 	
 		fpsLogger.log();
+		
 	}
 
 	@Override
@@ -82,10 +83,11 @@ public class FirstSceen implements Screen {
 		batch = new SpriteBatch();
 		createWorld();
 		createCamera();
-		character = new plahCharacter(tRenderer, rectPool, tiles, tiledMap);
+		character = new Player(tRenderer, rectPool, tiles, tiledMap);
 		
 		fpsLogger = new FPSLogger();
 		
+
 
 		
 	}

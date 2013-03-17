@@ -6,7 +6,7 @@ import com.flyingPuckGames.projectFinale.screens.FirstSceen;
 
 public class MegaGame extends Game {
 
-	public static final String VERSION = "0.0.2";
+	public static final String VERSION = "0.0.3";
 	public static final String LOG = "projectFinale - ";
 	
 	@Override

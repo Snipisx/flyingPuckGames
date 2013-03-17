@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 
-public class plahCharacter extends Entity {
+public class Player extends Entity {
 	private EntityType entityType = EntityType.PlayerEntity;
 
 	private float stateTime;
@@ -37,13 +37,13 @@ public class plahCharacter extends Entity {
 
 	private State state = State.Walking;
 
-	public plahCharacter(OrthogonalTiledMapRenderer tRenderer,
+	public Player(OrthogonalTiledMapRenderer tRenderer,
 			Pool<Rectangle> rectPool, Array<Rectangle> tiles, TiledMap tiledMap) {
 
 		texture = new Texture(Gdx.files.internal("data/plahCharacter.png"));
 		WIDTH = 1 / 16f * texture.getWidth();
 		HEIGHT = 1 / 16f * texture.getHeight();
-		plahCharacter.tRenderer = tRenderer;
+		Player.tRenderer = tRenderer;
 		this.position.set(2, 3);
 		this.rectPool = rectPool;
 		this.tiles = tiles;
@@ -51,16 +51,17 @@ public class plahCharacter extends Entity {
 	}
 
 	public void updatePlayer(float delta) {
+	
 		this.stateTime += delta;
 
-		if (Gdx.input.isKeyPressed(Keys.SPACE) & this.grounded) {
-			this.velocity.y += plahCharacter.JUMP_VELOCITY;
+		if ((Gdx.input.isKeyPressed(Keys.SPACE) & this.grounded) || (Gdx.input.isKeyPressed(Keys.UP) & this.grounded)) {
+			this.velocity.y += Player.JUMP_VELOCITY;
 			state = State.Jumping;
 			this.grounded = false;
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)) {
-			this.velocity.x = -plahCharacter.MAX_VELOCITY;
+			this.velocity.x = -Player.MAX_VELOCITY;
 			if (this.grounded)
 				this.state = State.Walking;
 			this.facesRight = false;
@@ -68,7 +69,7 @@ public class plahCharacter extends Entity {
 
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)
 				|| Gdx.input.isKeyPressed(Keys.D)) {
-			this.velocity.x = plahCharacter.MAX_VELOCITY;
+			this.velocity.x = Player.MAX_VELOCITY;
 			if (this.grounded)
 				this.state = State.Walking;
 			this.facesRight = true;
@@ -77,32 +78,32 @@ public class plahCharacter extends Entity {
 		this.velocity.add(0, GRAVITY);
 
 		// clamp the velocity to the maximum, x-axis only
-		if (Math.abs(this.velocity.x) > plahCharacter.MAX_VELOCITY) {
+		if (Math.abs(this.velocity.x) > Player.MAX_VELOCITY) {
 			this.velocity.x = Math.signum(this.velocity.x)
-					* plahCharacter.MAX_VELOCITY;
+					* Player.MAX_VELOCITY;
 		}
 
 		// clamp the velocity to 0 if it's < 1, and set the state to standing
 		if (Math.abs(this.velocity.x) < 1) {
 			this.velocity.x = 0;
 			if (this.grounded)
-				this.state = plahCharacter.State.Standing;
+				this.state = Player.State.Standing;
 		}
 		// multiply by delta time so we know how far we go
 		// in this frame
 		this.velocity.mul(delta);
 
 		Rectangle charRect = rectPool.obtain();
-		charRect.set(this.position.x, this.position.y, plahCharacter.WIDTH,
-				plahCharacter.HEIGHT);
+		charRect.set(this.position.x, this.position.y, Player.WIDTH,
+				Player.HEIGHT);
 		int startX, startY, endX, endY;
 		if (this.velocity.x > 0) {
-			startX = endX = (int) (this.position.x + plahCharacter.WIDTH + this.velocity.x);	
+			startX = endX = (int) (this.position.x + Player.WIDTH + this.velocity.x);	
 		} else {
 			startX = endX = (int) (this.position.x + this.velocity.x);
 		}
 		startY = (int) (this.position.y);
-		endY = (int) (this.position.y + plahCharacter.HEIGHT);
+		endY = (int) (this.position.y + Player.HEIGHT);
 		getTiles(startX, startY, endX, endY, tiles);
 		charRect.x += this.velocity.x;
 		for (Rectangle tile : tiles) {
@@ -117,12 +118,12 @@ public class plahCharacter extends Entity {
 		// it's
 		// top bounding box edge, otherwise check the ones to the bottom
 		if (this.velocity.y > 0) {
-			startY = endY = (int) (this.position.y + plahCharacter.HEIGHT + this.velocity.y);
+			startY = endY = (int) (this.position.y + Player.HEIGHT + this.velocity.y);
 		} else {
 			startY = endY = (int) (this.position.y + this.velocity.y);
 		}
 		startX = (int) (this.position.x);
-		endX = (int) (this.position.x + plahCharacter.WIDTH);
+		endX = (int) (this.position.x + Player.WIDTH);
 		getTiles(startX, startY, endX, endY, tiles);
 		charRect.y += this.velocity.y;
 		for (Rectangle tile : tiles) {
@@ -130,16 +131,13 @@ public class plahCharacter extends Entity {
 				// we actually reset the character y-position here
 				// so it is just below/above the tile we collided with
 				// this removes bouncing :)
-				System.out.println("Height" + this.velocity.y);
 				if (this.velocity.y > 0) {
-					System.out.println("Height2");
-					this.position.y = tile.y - plahCharacter.HEIGHT;
+					this.position.y = tile.y - Player.HEIGHT;
 					// we hit a block jumping upwards, let's destroy it!
 					TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap
 							.getLayers().getLayer(0);
 					layer.setCell((int) tile.x, (int) tile.y, null);
 				} else {
-					System.out.println("Height3");
 					this.position.y = tile.y + tile.height;
 					// if we hit the ground, mark us as grounded so we can jump
 					this.grounded = true;
@@ -156,7 +154,7 @@ public class plahCharacter extends Entity {
 
 		// Apply damping to the velocity on the x-axis so we don't
 		// walk infinitely once a key was pressed
-		this.velocity.x *= plahCharacter.DAMPING;
+		this.velocity.x *= Player.DAMPING;
 		// System.out.println(position.x + " " + position.y );
 	}
 
@@ -187,7 +185,7 @@ public class plahCharacter extends Entity {
 
 				if (cell != null) {
 					if(cell.getTile().getProperties().containsKey("solid")){
-						System.out.println(cell.getTile().getProperties().get("solid").toString());
+					//	System.out.println(cell.getTile().getProperties().get("solid").toString());
 					}
 					Rectangle rect = rectPool.obtain();
 					rect.set(x, y, 1, 1);
