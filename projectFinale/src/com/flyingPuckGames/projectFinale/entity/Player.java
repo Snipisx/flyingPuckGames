@@ -41,8 +41,8 @@ public class Player extends Entity {
 			Pool<Rectangle> rectPool, Array<Rectangle> tiles, TiledMap tiledMap) {
 
 		texture = new Texture(Gdx.files.internal("data/plahCharacter.png"));
-		WIDTH = 1 / 16f * texture.getWidth();
-		HEIGHT = 1 / 16f * texture.getHeight();
+		WIDTH = .999f / 16f * texture.getWidth();
+		HEIGHT = .999f * 2 / 16f * texture.getHeight();
 		Player.tRenderer = tRenderer;
 		this.position.set(2, 3);
 		this.rectPool = rectPool;
@@ -51,10 +51,22 @@ public class Player extends Entity {
 	}
 
 	public void updatePlayer(float delta) {
-	
+
 		this.stateTime += delta;
 
-		if ((Gdx.input.isKeyPressed(Keys.SPACE) & this.grounded) || (Gdx.input.isKeyPressed(Keys.UP) & this.grounded)) {
+		if ((Gdx.input.isKeyPressed(Keys.F2))) {
+			this.position.set(2, 3);
+			System.out.println("Position Reseted.");
+		}
+
+		if ((Gdx.input.isKeyPressed(Keys.DOWN))) {
+			HEIGHT = .999f / 16f * texture.getHeight();
+		} else {
+			HEIGHT = .999f * 2 / 16f * texture.getHeight();
+		}
+
+		if ((Gdx.input.isKeyPressed(Keys.SPACE) & this.grounded)
+				|| (Gdx.input.isKeyPressed(Keys.UP) & this.grounded)) {
 			this.velocity.y += Player.JUMP_VELOCITY;
 			state = State.Jumping;
 			this.grounded = false;
@@ -98,7 +110,7 @@ public class Player extends Entity {
 				Player.HEIGHT);
 		int startX, startY, endX, endY;
 		if (this.velocity.x > 0) {
-			startX = endX = (int) (this.position.x + Player.WIDTH + this.velocity.x);	
+			startX = endX = (int) (this.position.x + Player.WIDTH + this.velocity.x);
 		} else {
 			startX = endX = (int) (this.position.x + this.velocity.x);
 		}
@@ -108,7 +120,11 @@ public class Player extends Entity {
 		charRect.x += this.velocity.x;
 		for (Rectangle tile : tiles) {
 			if (charRect.overlaps(tile)) {
+
 				this.velocity.x = 0;
+				position.x = Math.round(position.x * 1) / 1;
+				System.out.println("[Colision detected in the X axis: "
+						+ this.position + "]");
 				break;
 			}
 		}
@@ -168,7 +184,8 @@ public class Player extends Entity {
 		if (this.facesRight) {
 			batch.draw(texture, this.position.x, this.position.y, WIDTH, HEIGHT);
 		} else {
-			batch.draw(texture, this.position.x + WIDTH,this.position.y, -WIDTH, HEIGHT);
+			batch.draw(texture, this.position.x + WIDTH, this.position.y,
+					-WIDTH, HEIGHT);
 		}
 		batch.end();
 	}
@@ -184,8 +201,8 @@ public class Player extends Entity {
 				Cell cell = layer.getCell(x, y);
 
 				if (cell != null) {
-					if(cell.getTile().getProperties().containsKey("solid")){
-					//	System.out.println(cell.getTile().getProperties().get("solid").toString());
+					if (cell.getTile().getProperties().containsKey("solid")) {
+						// System.out.println(cell.getTile().getProperties().get("solid").toString());
 					}
 					Rectangle rect = rectPool.obtain();
 					rect.set(x, y, 1, 1);
