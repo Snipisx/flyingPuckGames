@@ -54,8 +54,9 @@ public class Player extends Entity {
 
 		this.stateTime += delta;
 
-		if ((Gdx.input.isKeyPressed(Keys.F2))) {
+		if ((Gdx.input.isKeyPressed(Keys.F1))) {
 			this.position.set(2, 3);
+			this.velocity.set(0, 0);
 			System.out.println("Position Reseted.");
 		}
 

@@ -2,6 +2,7 @@ package com.flyingPuckGames.projectFinale.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -26,37 +27,35 @@ public class FirstSceen implements Screen {
 	private FPSLogger fpsLogger;
 	private MegaGame megagame;
 	private Pool<Rectangle> rectPool;
-	
+
 	private Texture bkgrnd;
 	private SpriteBatch batch;
-	
-	private Player character;
-	
 
-	
+	private Player character;
+
 	public FirstSceen(MegaGame megagame) {
 		this.megagame = megagame;
 	}
 
 	@Override
 	public void render(float delta) {
-		clearScreen();
 
-		batch.begin();
-		batch.draw(bkgrnd, delta, delta, screenW,screenH);
-		batch.end();
-		
 		camera.position.x = character.position.x;
 		camera.update();
-		renderWorld();
-		
-//		System.out.println(character.toString());
-		
+		renderWorld(delta);
+
 		character.updatePlayer(delta);
 		character.renderCharacter(delta);
-	
+
 		fpsLogger.log();
-		
+
+		// System.out.println(character.toString());
+		// Reset all debug purposes.
+		if ((Gdx.input.isKeyPressed(Keys.F2))) {
+			createWorld();
+			character = new Player(tRenderer, rectPool, tiles, tiledMap);
+		}
+
 	}
 
 	@Override
@@ -71,30 +70,25 @@ public class FirstSceen implements Screen {
 		screenH = Gdx.graphics.getHeight();
 		rectPool = new Pool<Rectangle>() {
 			@Override
-			protected Rectangle newObject () {
+			protected Rectangle newObject() {
 				return new Rectangle();
 			}
 		};
 		tiles = new Array<Rectangle>();
-		
-		
-		
+
 		bkgrnd = new Texture(Gdx.files.internal("maps/background.png"));
 		batch = new SpriteBatch();
 		createWorld();
 		createCamera();
 		character = new Player(tRenderer, rectPool, tiles, tiledMap);
-		
+
 		fpsLogger = new FPSLogger();
-		
 
-
-		
 	}
 
 	@Override
 	public void hide() {
-	
+
 	}
 
 	@Override
@@ -135,15 +129,18 @@ public class FirstSceen implements Screen {
 	/**
 	 * Method used for rendering the tiled map on the screen.
 	 */
-	private void renderWorld() {
+	private void renderWorld(float delta) {
+		batch.begin();
+		batch.draw(bkgrnd, delta, delta, screenW, screenH);
+		batch.end();
 		tRenderer.setView(camera);
 		tRenderer.render();
 	}
-	
+
 	/**
 	 * This method clears the screen.
 	 */
-	private void clearScreen(){
+	private void clearScreen() {
 		Gdx.graphics.getGL20().glClearColor(1, 0, 0, 1);
 		Gdx.graphics.getGL20().glClear(
 				GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
