@@ -37,12 +37,29 @@ public class FirstSceen implements Screen {
 	private Player player;
 	private BitmapFont font;
 
+	private boolean debugON;
+
+	// Debug strings.
+	String debugInfo;
+	String debugInfoFps;
+	String debugInfoPlayePos;
+	String debugInfoPlayerVel;
+	String debugInfoPlayerState;
+	String debugInfoPlayerFacing;
+
 	public FirstSceen(MegaGame megagame) {
 		this.megagame = megagame;
 	}
 
+	/**
+	 * Executed 60 times by second. Infinite loop while this screen is running.
+	 * 
+	 * @param delta
+	 */
 	@Override
 	public void render(float delta) {
+		batch.dispose();
+		batch = new SpriteBatch();
 
 		camera.position.x = player.position.x;
 		camera.update();
@@ -51,15 +68,9 @@ public class FirstSceen implements Screen {
 		player.updatePlayer(delta);
 		player.renderCharacter(delta);
 
-		fpsLogger.log();
-
-		// System.out.println(character.toString());
-		// Reset all debug purposes.
-		if ((Gdx.input.isKeyPressed(Keys.F2))) {
-			createWorld();
-			player = new Player(tRenderer, rectPool, tiles, tiledMap);
-		}
-		renderDebugInfo(delta);
+		// fpsLogger.log();
+		// Debug Mode.
+		renderDebugMode();
 	}
 
 	@Override
@@ -88,6 +99,7 @@ public class FirstSceen implements Screen {
 
 		fpsLogger = new FPSLogger();
 		font = new BitmapFont();
+		debugON = false;
 	}
 
 	@Override
@@ -144,15 +156,21 @@ public class FirstSceen implements Screen {
 	/**
 	 * Method used to print on the screen debug information.
 	 */
-	private void renderDebugInfo(float delta) {
+	private void renderDebugMode() {
+		if ((Gdx.input.isKeyPressed(Keys.F2))) {
+			createWorld();
+			player = new Player(tRenderer, rectPool, tiles, tiledMap);
+		}
 
-		String debugInfo = "F1 resets player pos  |  F2 Resets All";
+		batch.dispose();
+		batch = new SpriteBatch();
 
-		String debugInfoFps = "Fps: " + Gdx.graphics.getFramesPerSecond();
-		String debugInfoPlayePos = "Player position: " + player.position;
-		String debugInfoPlayerVel = "Player velocity: " + player.velocity;
-		String debugInfoPlayerState = "Player state: " + player.state;
-		String debugInfoPlayerFacing;
+		debugInfo = "F1 resets player pos  |  F2 Resets All";
+
+		debugInfoFps = "Fps: " + Gdx.graphics.getFramesPerSecond();
+		debugInfoPlayePos = "Player position: " + player.position;
+		debugInfoPlayerVel = "Player velocity: " + player.velocity;
+		debugInfoPlayerState = "Player state: " + player.state;
 
 		if (player.facesRight) {
 			debugInfoPlayerFacing = "Player facing: " + "  >";
