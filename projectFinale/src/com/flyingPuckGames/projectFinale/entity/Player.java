@@ -18,7 +18,7 @@ public class Player extends Entity {
 	private EntityType entityType = EntityType.PlayerEntity;
 
 	private float stateTime;
-	private boolean facesRight = true;
+	public boolean facesRight = true;
 	private boolean grounded = false;
 	private static final float MAX_VELOCITY = 10f;
 	private static final float JUMP_VELOCITY = 40f;
@@ -35,7 +35,7 @@ public class Player extends Entity {
 		Standing, Walking, Crouching, Jumping
 	}
 
-	private State state = State.Walking;
+	public State state = State.Walking;
 
 	public Player(OrthogonalTiledMapRenderer tRenderer,
 			Pool<Rectangle> rectPool, Array<Rectangle> tiles, TiledMap tiledMap) {

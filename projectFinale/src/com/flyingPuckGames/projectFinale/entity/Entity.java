@@ -18,8 +18,8 @@ public abstract class Entity {
 	protected int id;
 	protected EntityType entityState = EntityType.GenericEntity;
 	public Vector2 position = new Vector2();
-	protected Vector2 velocity = new Vector2();
-	protected static Texture texture;
+	public Vector2 velocity = new Vector2();
+	public static Texture texture;
 	
 
 	
