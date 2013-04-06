@@ -1,7 +1,7 @@
 package com.flyingPuckGames.projectFinale;
 
 import com.badlogic.gdx.Game;
-import com.flyingPuckGames.projectFinale.screens.FirstSceen;
+import com.flyingPuckGames.projectFinale.screens.GameScreen;
 
 
 public class MegaGame extends Game {
@@ -11,7 +11,7 @@ public class MegaGame extends Game {
 	
 	@Override
 	public void create() {
-		setScreen(new FirstSceen(this));
+		setScreen(new GameScreen(this));
 	}
 
 	@Override
@@ -39,4 +39,5 @@ public class MegaGame extends Game {
 	public void resize(int width, int height) {
 		super.resize(width, height);
 	}
+	
 }
