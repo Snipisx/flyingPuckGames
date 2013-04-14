@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.model.Player;
 import com.flyingPuckGames.projectFinale.model.SolidTile;
@@ -70,7 +69,9 @@ public class WorldRenderer {
 		clearScreen();
 		drawTiledMap(delta);
 		drawPlayer();
-		renderDebugText();
+		//drawDebugBoxes();
+		if (debug)
+			drawDebug();
 		
 		camera.position.x = world.getPlayer().getPosition().x;
 		camera.update();
@@ -154,10 +155,28 @@ public class WorldRenderer {
 		debugRenderer.end();
 		System.out.println("HolaBoxes");
 	}
+	
+	
+	private void drawDebug() {
+		// render blocks
+		debugRenderer.setProjectionMatrix(camera.combined);
+		debugRenderer.begin(ShapeType.Filled);
+		for (SolidTile block : world.getDrawableBlocks((int)CAMERA_WIDTH, (int)CAMERA_HEIGHT)) {
+			Rectangle rect = block.getBounds();
+			debugRenderer.setColor(new Color(1, 0, 0, 1));
+			debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
+		}
+		// render Bob
+		Player bob = world.getPlayer();
+		Rectangle rect = bob.getBounds();
+		debugRenderer.setColor(new Color(0, 1, 0, 1));
+		debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
+		debugRenderer.end();
+	}
 	/**
 	 * Method used to print on the screen debug information.
 	 */
-	private void renderDebugText() {
+	public void renderDebugText() {
 		spriteBatch.dispose();
 		spriteBatch = new SpriteBatch();
 		

@@ -8,6 +8,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.flyingPuckGames.projectFinale.MegaGame;
+import com.flyingPuckGames.projectFinale.controller.PlayerController;
 import com.flyingPuckGames.projectFinale.model.World;
 import com.flyingPuckGames.projectFinale.view.WorldRenderer;
 
@@ -16,7 +17,7 @@ public class GameScreen implements Screen, InputProcessor {
 	private World 			world;
 	private WorldRenderer 	renderer;
 	private MegaGame		megaGame;
-//	private PlayerController controller;
+	private PlayerController controller;
 	
 	private int W, H;
 	
@@ -28,7 +29,7 @@ public class GameScreen implements Screen, InputProcessor {
 	public void show() {
 		world = new World();
 		renderer = new WorldRenderer(world, false, this.megaGame);
-//		controller = new BobController(world);
+		controller = new PlayerController(world);
 		Gdx.input.setInputProcessor(this);
 	}
 
@@ -37,7 +38,7 @@ public class GameScreen implements Screen, InputProcessor {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-//		controller.update(delta);
+		controller.update(delta);
 		renderer.render(delta);
 	}
 	
@@ -70,33 +71,33 @@ public class GameScreen implements Screen, InputProcessor {
 
 	// * InputProcessor methods ***************************//
 
-//	@Override
-//	public boolean keyDown(int keycode) {
-//		if (keycode == Keys.LEFT)
-//			controller.leftPressed();
-//		if (keycode == Keys.RIGHT)
-//			controller.rightPressed();
-//		if (keycode == Keys.Z)
-//			controller.jumpPressed();
-//		if (keycode == Keys.X)
-//			controller.firePressed();
-//		return true;
-//	}
+	@Override
+	public boolean keyDown(int keycode) {
+		if (keycode == Keys.LEFT)
+			controller.leftPressed();
+		if (keycode == Keys.RIGHT)
+			controller.rightPressed();
+		if (keycode == Keys.Z)
+			controller.jumpPressed();
+		if (keycode == Keys.X)
+			controller.firePressed();
+		return true;
+	}
 
-//	@Override
-//	public boolean keyUp(int keycode) {
-//		if (keycode == Keys.LEFT)
-//			controller.leftReleased();
-//		if (keycode == Keys.RIGHT)
-//			controller.rightReleased();
-//		if (keycode == Keys.Z)
-//			controller.jumpReleased();
-//		if (keycode == Keys.X)
-//			controller.fireReleased();
-//		if (keycode == Keys.D)
-//			renderer.setDebug(!renderer.isDebug());
-//		return true;
-//	}
+	@Override
+	public boolean keyUp(int keycode) {
+		if (keycode == Keys.LEFT)
+			controller.leftReleased();
+		if (keycode == Keys.RIGHT)
+			controller.rightReleased();
+		if (keycode == Keys.Z)
+			controller.jumpReleased();
+		if (keycode == Keys.X)
+			controller.fireReleased();
+		if (keycode == Keys.D)
+			renderer.renderDebugText();
+		return true;
+	}
 
 	@Override
 	public boolean keyTyped(char character) {
@@ -104,46 +105,34 @@ public class GameScreen implements Screen, InputProcessor {
 		return false;
 	}
 
-//	@Override
-//	public boolean touchDown(int x, int y, int pointer, int button) {
-//		if (!Gdx.app.getType().equals(ApplicationType.Android))
-//			return false;
-//		if (x < width / 2 && y > height / 2) {
-//			controller.leftPressed();
-//		}
-//		if (x > width / 2 && y > height / 2) {
-//			controller.rightPressed();
-//		}
-//		return true;
-//	}
-
-//	@Override
-//	public boolean touchUp(int x, int y, int pointer, int button) {
-//		if (!Gdx.app.getType().equals(ApplicationType.Android))
-//			return false;
-//		if (x < width / 2 && y > height / 2) {
-//			controller.leftReleased();
-//		}
-//		if (x > width / 2 && y > height / 2) {
-//			controller.rightReleased();
-//		}
-//		return true;
-//	}
-
 	@Override
-	public boolean touchDragged(int x, int y, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean touchDown(int x, int y, int pointer, int button) {
+		if (!Gdx.app.getType().equals(ApplicationType.Android))
+			return false;
+		if (x < this.W / 2 && y > this.H / 2) {
+			controller.leftPressed();
+		}
+		if (x > this.W / 2 && y > this.H / 2) {
+			controller.rightPressed();
+		}
+		return true;
 	}
 
-//	@Override
-//	public boolean touchMoved(int x, int y) {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
+	@Override
+	public boolean touchUp(int x, int y, int pointer, int button) {
+		if (!Gdx.app.getType().equals(ApplicationType.Android))
+			return false;
+		if (x < this.W / 2 && y > this.H / 2) {
+			controller.leftReleased();
+		}
+		if (x > this.W / 2 && y > this.H / 2) {
+			controller.rightReleased();
+		}
+		return true;
+	}
 
 	@Override
-	public boolean scrolled(int amount) {
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -155,26 +144,11 @@ public class GameScreen implements Screen, InputProcessor {
 	}
 
 	@Override
-	public boolean keyDown(int keycode) {
+	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

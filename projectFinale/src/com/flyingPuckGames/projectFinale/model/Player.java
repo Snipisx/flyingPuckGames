@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player extends Entity {
 	
-	private enum State {
+	public enum State {
 		IDLE, WALKING, JUMPING
 	}
 	
