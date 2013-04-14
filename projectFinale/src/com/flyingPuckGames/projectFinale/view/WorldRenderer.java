@@ -67,6 +67,7 @@ public class WorldRenderer {
 	}
 	
 	public void render(float delta) {
+		clearScreen();
 		drawTiledMap(delta);
 		drawPlayer();
 		renderDebugText();
@@ -95,8 +96,8 @@ public class WorldRenderer {
 					playerTexture,
 					world.getPlayer().getPosition().x * ppuX,
 					world.getPlayer().getPosition().y * ppuY,
-					16*3,
-					32*3
+					world.getPlayer().getWsize()*ppuX,
+					world.getPlayer().getHsize()*ppuY
 			);
 			spriteBatch.end();
 			System.out.println("HolaPlayer>");
@@ -105,13 +106,12 @@ public class WorldRenderer {
 			spriteBatch.draw(playerTexture,
 					world.getPlayer().getPosition().x ,
 					world.getPlayer().getPosition().y ,
-					16*3,
-					32*3
+					-world.getPlayer().getWsize()*ppuX,
+					world.getPlayer().getHsize()*ppuY
 			);
 			spriteBatch.end();
 			System.out.println("HolaPlayer<");
 		}
-		
 	}
 	private void drawTiledMap(float delta){
 		spriteBatch.begin();
