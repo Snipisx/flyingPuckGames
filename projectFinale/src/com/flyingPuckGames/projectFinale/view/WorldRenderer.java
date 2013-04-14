@@ -18,8 +18,8 @@ import com.flyingPuckGames.projectFinale.model.SolidTile;
 import com.flyingPuckGames.projectFinale.model.World;
 
 public class WorldRenderer {
-	private MegaGame megaGame;
 	
+	private MegaGame megaGame;
 	private static final float CAMERA_WIDTH = 20f;
 	private static final float CAMERA_HEIGHT = 11f;
 	private float W;
@@ -71,6 +71,8 @@ public class WorldRenderer {
 		drawTiledMap(delta);
 		drawPlayer();
 		renderDebugText();
+		
+		camera.position.x = world.getPlayer().getPosition().x;
 		camera.update();
 		System.out.println("X:" + world.getPlayer().getPosition().x + "\nY:" + world.getPlayer().getPosition().y);
 		System.out.println(ppuX + "-" + ppuY);
@@ -88,7 +90,6 @@ public class WorldRenderer {
 		debug = !debug;
 	}
 	private void drawPlayer(){
-
 
 		if (world.getPlayer().isFacesRight()) {
 			spriteBatch.begin();
@@ -112,6 +113,7 @@ public class WorldRenderer {
 			spriteBatch.end();
 			System.out.println("HolaPlayer<");
 		}
+		
 	}
 	private void drawTiledMap(float delta){
 		spriteBatch.begin();
@@ -129,6 +131,7 @@ public class WorldRenderer {
 	}
 	
 	private void drawDebugBoxes() {
+		
 		// render blocks
 		debugRenderer.setProjectionMatrix(camera.combined);
 		debugRenderer.begin(ShapeType.Filled);

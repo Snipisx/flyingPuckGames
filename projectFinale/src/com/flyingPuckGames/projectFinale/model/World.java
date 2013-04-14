@@ -21,7 +21,7 @@ public class World {
 	private void createWorld() {
 		tiledMap = new TmxMapLoader().load("maps/plahTilemap.tmx");
 		level = new Level(tiledMap);
-		player = new Player(new Vector2(3, 3));
+		player = new Player(new Vector2(6, 3));
 	}
 
 	// Getters -----------

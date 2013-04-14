@@ -24,6 +24,7 @@ public class OldPlayer extends Entity {
 	private static final float JUMP_VELOCITY = 40f;
 	private static final float GRAVITY = -2.5f;
 	private static final float DAMPING = 0.87f;
+	private Texture texture;
 	private OrthogonalTiledMapRenderer tRenderer;
 	private float WIDTH;
 	private float HEIGHT;
