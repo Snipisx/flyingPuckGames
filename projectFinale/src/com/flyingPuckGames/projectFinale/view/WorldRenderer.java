@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -23,8 +22,8 @@ public class WorldRenderer {
 	
 	private static final float CAMERA_WIDTH = 20f;
 	private static final float CAMERA_HEIGHT = 11f;
-	private int W;
-	private int	H;
+	private float W;
+	private float H;
 	
 	private ShapeRenderer debugRenderer = new ShapeRenderer();
 
@@ -37,7 +36,7 @@ public class WorldRenderer {
 
 	private float ppuX;	//Pixels per unit X-axis
 	private float ppuY; //Pixels per unit Y-axis
-	private TiledMapRenderer tiledMapRenderer;
+	private OrthogonalTiledMapRenderer tiledMapRenderer;
 	
 	private BitmapFont font;
 	
@@ -58,29 +57,28 @@ public class WorldRenderer {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
 		camera.update();
+		setSize(megaGame.SCREENW, megaGame.SCREENH);
 		
-		spriteBatch = new SpriteBatch();
 		font = new BitmapFont();
 		loadTextures();
+		spriteBatch = new SpriteBatch();
 		debug = true;
-		world.getPlayer().setPosition(new Vector2(camera.position.x - 2,camera.position.y - 2));
 		System.out.println("CameraX: " + camera.position.x + "\nCameraY:" + camera.position.y);
 	}
 	
 	public void render(float delta) {
-		spriteBatch.begin();
-			drawTiledMap(delta);
+//			drawTiledMap(delta);
 			drawPlayer();
-			font.draw(spriteBatch, "Hola que tal.", 14, 15);
 //			renderDebugText();
+
 //			if(debug)drawDebugBoxes();
-		spriteBatch.end();
+
 //		camera.position.set(camera.position.x + 0.05f,camera.position.y + 0.05f, 0);
-//		camera.update();
+		camera.update();
 		System.out.println("X:" + world.getPlayer().getPosition().x + "\nY:" + world.getPlayer().getPosition().y);
 		System.out.println(ppuX + "-" + ppuY);
 	}
-	public void setSize (int w, int h){
+	public void setSize (float w, float h){
 		this.W = w;
 		this.H = h;
 		ppuX = (float)W / CAMERA_WIDTH;
@@ -93,27 +91,37 @@ public class WorldRenderer {
 		debug = !debug;
 	}
 	private void drawPlayer(){
+
+		spriteBatch = tiledMapRenderer.getSpriteBatch();
+
 		if (world.getPlayer().isFacesRight()) {
+			spriteBatch.begin();
 			spriteBatch.draw(
 					playerTexture,
-					world.getPlayer().getPosition().x * ppuX ,
+					world.getPlayer().getPosition().x * ppuX,
 					world.getPlayer().getPosition().y * ppuY,
-					world.getPlayer().getWsize(),
-					world.getPlayer().getHsize()
+					16*3,
+					32*3
 			);
+			spriteBatch.end();
 			System.out.println("HolaPlayer>");
 		} else {
+			spriteBatch.begin();
 			spriteBatch.draw(playerTexture,
 					world.getPlayer().getPosition().x ,
 					world.getPlayer().getPosition().y ,
-					-world.getPlayer().getWsize(),
-					world.getPlayer().getHsize()
+					16*3,
+					32*3
 			);
+			spriteBatch.end();
 			System.out.println("HolaPlayer<");
 		}
+		
 	}
 	private void drawTiledMap(float delta){
+		spriteBatch.begin();
 		spriteBatch.draw(background, delta, delta, megaGame.SCREENW, megaGame.SCREENH);
+		spriteBatch.end();
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render();
 		System.out.println("HolaTiled");
@@ -152,19 +160,24 @@ public class WorldRenderer {
 	 * Method used to print on the screen debug information.
 	 */
 	private void renderDebugText() {
-		debugInfo = "F1 resets player pos  |  F2 Resets All";
-		debugInfoFps = "Fps: " + Gdx.graphics.getFramesPerSecond();
-		debugInfoPlayePos = "Player position: " + world.getPlayer().getPosition();
-		debugInfoPlayerVel = "Player velocity: " + world.getPlayer().getVelocity();
-		debugInfoPlayerState = "Player state: " + world.getPlayer().getState();
-		debugInfoPlayerFacing = (world.getPlayer().isFacesRight()) ? "Player facing:  >" : "Player facing:  <";
+		spriteBatch.dispose();
+		spriteBatch = new SpriteBatch();
 		
-		font.draw(spriteBatch, debugInfo, 10, megaGame.SCREENH - 3);
-		font.draw(spriteBatch, debugInfoFps, 10, megaGame.SCREENH - 37);// font = 15px by def.
-		font.draw(spriteBatch, debugInfoPlayePos, 10, megaGame.SCREENH - 54);// +17
-		font.draw(spriteBatch, debugInfoPlayerVel, 10, megaGame.SCREENH - 71);// +17
-		font.draw(spriteBatch, debugInfoPlayerState, 10, megaGame.SCREENH - 88);// +17
-		font.draw(spriteBatch, debugInfoPlayerFacing, 10, megaGame.SCREENH - 105);// +17
+		spriteBatch.begin();
+			debugInfo = "F1 resets player pos  |  F2 Resets All";
+			debugInfoFps = "Fps: " + Gdx.graphics.getFramesPerSecond();
+			debugInfoPlayePos = "Player position: " + world.getPlayer().getPosition();
+			debugInfoPlayerVel = "Player velocity: " + world.getPlayer().getVelocity();
+			debugInfoPlayerState = "Player state: " + world.getPlayer().getState();
+			debugInfoPlayerFacing = (world.getPlayer().isFacesRight()) ? "Player facing:  >" : "Player facing:  <";
+			
+			font.draw(spriteBatch, debugInfo, 10, megaGame.SCREENH - 3);
+			font.draw(spriteBatch, debugInfoFps, 10, megaGame.SCREENH - 37);// font = 15px by def.
+			font.draw(spriteBatch, debugInfoPlayePos, 10, megaGame.SCREENH - 54);// +17
+			font.draw(spriteBatch, debugInfoPlayerVel, 10, megaGame.SCREENH - 71);// +17
+			font.draw(spriteBatch, debugInfoPlayerState, 10, megaGame.SCREENH - 88);// +17
+			font.draw(spriteBatch, debugInfoPlayerFacing, 10, megaGame.SCREENH - 105);// +17
+		spriteBatch.end();
 		System.out.println("HolaText");
 	}
 	/**

@@ -15,7 +15,6 @@ public abstract class Entity {
 	protected EntityType 	entityType = EntityType.GenericEntity;
 	protected Vector2 		position = new Vector2();
 	protected Vector2 		velocity = new Vector2();
-	protected Texture 		texture;
 	protected float			stateTime;
 
 }

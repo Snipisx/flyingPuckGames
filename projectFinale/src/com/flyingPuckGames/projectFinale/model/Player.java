@@ -18,6 +18,8 @@ public class Player extends Entity {
 	private State		state = State.IDLE;
 	private boolean		facesRight = true;
 	private boolean		longJump = false;
+	private Texture 	texture;
+
 	
 	public Player(Vector2 position){
 		this.position = position;

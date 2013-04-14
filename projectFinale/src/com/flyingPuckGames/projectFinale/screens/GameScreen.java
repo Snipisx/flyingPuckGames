@@ -16,7 +16,7 @@ public class GameScreen implements Screen, InputProcessor {
 	private World 			world;
 	private WorldRenderer 	renderer;
 	private MegaGame		megaGame;
-//	private PlayerController	controller;
+//	private PlayerController controller;
 	
 	private int W, H;
 	
@@ -177,6 +177,4 @@ public class GameScreen implements Screen, InputProcessor {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-
 }
