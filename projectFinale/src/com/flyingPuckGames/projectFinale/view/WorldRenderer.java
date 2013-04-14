@@ -67,13 +67,9 @@ public class WorldRenderer {
 	}
 	
 	public void render(float delta) {
-//			drawTiledMap(delta);
-			drawPlayer();
-//			renderDebugText();
-
-//			if(debug)drawDebugBoxes();
-
-//		camera.position.set(camera.position.x + 0.05f,camera.position.y + 0.05f, 0);
+		drawTiledMap(delta);
+		drawPlayer();
+		renderDebugText();
 		camera.update();
 		System.out.println("X:" + world.getPlayer().getPosition().x + "\nY:" + world.getPlayer().getPosition().y);
 		System.out.println(ppuX + "-" + ppuY);
@@ -92,7 +88,6 @@ public class WorldRenderer {
 	}
 	private void drawPlayer(){
 
-		spriteBatch = tiledMapRenderer.getSpriteBatch();
 
 		if (world.getPlayer().isFacesRight()) {
 			spriteBatch.begin();
