@@ -69,9 +69,8 @@ public class WorldRenderer {
 		clearScreen();
 		drawTiledMap(delta);
 		drawPlayer();
-		//drawDebugBoxes();
-		if (debug)
-			drawDebug();
+		drawDebugBoxes();
+		drawDebug();
 		
 		camera.position.x = world.getPlayer().getPosition().x;
 		camera.update();
@@ -136,11 +135,11 @@ public class WorldRenderer {
 		// render blocks
 		debugRenderer.setProjectionMatrix(camera.combined);
 		debugRenderer.begin(ShapeType.Filled);
-		SolidTile[][] blocks = world.getLevel().getBlocks();
+		
 		SolidTile block;
-		for (int col = 0; col < 20; col++) {
-			for (int row = 0; row < 11; row++) {
-				block = blocks[col][row];
+		for (int col = 0; col < world.getLevel().getWidth(); col++) {
+			for (int row = 0; row < world.getLevel().getHeight(); row++) {
+				block =  world.getLevel().get(col, row); 
 				Rectangle rect = block.getBounds();
 				debugRenderer.setColor(new Color(1, 0, 0, 1));
 				debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
@@ -161,10 +160,14 @@ public class WorldRenderer {
 		// render blocks
 		debugRenderer.setProjectionMatrix(camera.combined);
 		debugRenderer.begin(ShapeType.Filled);
-		for (SolidTile block : world.getDrawableBlocks((int)CAMERA_WIDTH, (int)CAMERA_HEIGHT)) {
-			Rectangle rect = block.getBounds();
-			debugRenderer.setColor(new Color(1, 0, 0, 1));
-			debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
+		SolidTile block;
+		for (int col = 0; col <  world.getLevel().getWidth(); col++) {
+			for (int row = 0; row < world.getLevel().getHeight(); row++) {
+				block = world.getLevel().get(col, row); 
+				Rectangle rect = block.getBounds();
+				debugRenderer.setColor(new Color(1, 0, 0, 1));
+				debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
+			}
 		}
 		// render Bob
 		Player bob = world.getPlayer();
