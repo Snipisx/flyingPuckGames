@@ -3,6 +3,7 @@ package com.flyingPuckGames.projectFinale.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
@@ -45,7 +46,7 @@ public class PlayerController {
 		}
 	};
 	
-	static Map<Keys, Boolean> keys = new HashMap<PlayerController.Keys, Boolean>();
+	static Map<PlayerController.Keys, Boolean> keys = new HashMap<PlayerController.Keys, Boolean>();
 	static {
 		keys.put(Keys.LEFT, false);
 		keys.put(Keys.RIGHT, false);

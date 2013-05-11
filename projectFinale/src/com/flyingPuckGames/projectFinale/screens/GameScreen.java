@@ -13,7 +13,7 @@ import com.flyingPuckGames.projectFinale.model.World;
 import com.flyingPuckGames.projectFinale.view.MenuRenderer;
 import com.flyingPuckGames.projectFinale.view.WorldRenderer;
 
-public class GameScreen implements Screen, InputProcessor {
+public class GameScreen implements Screen,InputProcessor {
 
 	private World 			world;
 	private WorldRenderer 	rendererGame;
@@ -38,6 +38,7 @@ public class GameScreen implements Screen, InputProcessor {
 		controller = new PlayerController(world);
 		Gdx.input.setInputProcessor(this);
 		onMenu = false;
+
 	}
 
 	@Override
@@ -80,6 +81,7 @@ public class GameScreen implements Screen, InputProcessor {
 	}
 
 	// * InputProcessor methods ***************************//
+
 
 	@Override
 	public boolean keyDown(int keycode) {
@@ -160,6 +162,9 @@ public class GameScreen implements Screen, InputProcessor {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
+	
 
 
 
