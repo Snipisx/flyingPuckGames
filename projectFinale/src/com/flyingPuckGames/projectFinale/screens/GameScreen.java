@@ -10,15 +10,18 @@ import com.badlogic.gdx.graphics.GL10;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.controller.PlayerController;
 import com.flyingPuckGames.projectFinale.model.World;
+import com.flyingPuckGames.projectFinale.view.MenuRenderer;
 import com.flyingPuckGames.projectFinale.view.WorldRenderer;
 
 public class GameScreen implements Screen, InputProcessor {
 
 	private World 			world;
-	private WorldRenderer 	renderer;
+	private WorldRenderer 	rendererGame;
+	private MenuRenderer	rendererMenu;
 	private MegaGame		megaGame;
 	private MenuScreen		menuScreen;
 	private PlayerController controller;
+	private boolean onMenu;
 	
 	private int W, H;
 	
@@ -30,23 +33,28 @@ public class GameScreen implements Screen, InputProcessor {
 	@Override
 	public void show() {
 		world = new World();
-		renderer = new WorldRenderer(world, false, this.megaGame);
+		rendererGame = new WorldRenderer(world, false, this.megaGame);
+		rendererMenu = new MenuRenderer(this.megaGame,this.menuScreen);
 		controller = new PlayerController(world);
 		Gdx.input.setInputProcessor(this);
+		onMenu = false;
 	}
 
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
-		controller.update(delta);
-		renderer.render(delta);
+		if(!onMenu){
+			controller.update(delta);
+			rendererGame.render(delta);
+		}else{
+			rendererMenu.renderGameMenu(delta);
+		}
 	}
 	
 	@Override
 	public void resize(int W, int H) {
-		renderer.setSize(W, H);
+		rendererGame.setSize(W, H);
 		this.W = W;
 		this.H = H;
 	}
@@ -97,7 +105,9 @@ public class GameScreen implements Screen, InputProcessor {
 		if (keycode == Keys.X)
 			controller.fireReleased();
 		if (keycode == Keys.D)
-			renderer.renderDebugText();
+			rendererGame.renderDebugText();
+		if (keycode == Keys.ESCAPE)
+			onMenu = true;
 		return true;
 	}
 

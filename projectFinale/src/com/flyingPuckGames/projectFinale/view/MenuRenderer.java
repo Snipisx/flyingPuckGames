@@ -14,7 +14,6 @@ public class MenuRenderer {
 	private MegaGame megaGame;
 	private MenuScreen menuScreen;
 	private OrthographicCamera camera;
-	private OrthographicCamera menuCamera;
 	private static final float CAMERA_WIDTH = 20f;
 	private static final float CAMERA_HEIGHT = 11f;
 	private float W;
@@ -26,10 +25,7 @@ public class MenuRenderer {
 		this.megaGame = megaGame;
 		this.menuScreen = menuScreen;
 		camera = new OrthographicCamera();
-		menuCamera = new OrthographicCamera();
-		menuCamera.setToOrtho(false, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
-		menuCamera.update();
-		//camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
+		camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
 		camera.update();
 		setSize(megaGame.SCREENW, megaGame.SCREENH);
 		
@@ -52,11 +48,16 @@ public class MenuRenderer {
 		clearScreen();
 		camera.update();
 		
+		
 		menuScreen.stage.act(delta);
 		menuScreen.stage.draw();
 		
 		//System.out.println("X:" + world.getPlayer().getPosition().x + "\nY:" + world.getPlayer().getPosition().y);
 		System.out.println(ppuX + "-" + ppuY);
+	}
+	
+	public void renderGameMenu(float delta) {
+		clearScreen();
 	}
 	
 	/**
@@ -67,5 +68,7 @@ public class MenuRenderer {
 		Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		System.out.println("HolaClear");
 	}
+
+	
 
 }

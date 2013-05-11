@@ -22,6 +22,7 @@ public class PlayerController {
 	}
 	
 	
+	
 	private static final long LONG_JUMP_PRESS 	= 150l;
 	private static final float ACCELERATION 	= 5f;
 	private static final float GRAVITY 			= -20f;

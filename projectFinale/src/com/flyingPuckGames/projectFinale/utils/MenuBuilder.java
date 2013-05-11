@@ -88,18 +88,15 @@ public class MenuBuilder {
 			}
 			
 		});
-		
-
-
-
 		mainTable.add(exit);
 		mainTable.row();
 		
-		
-		
-		
 		return mainTable;
 		
+	}
+
+	public Actor gameMenu(MenuScreen menuScreen) {
+		return null;
 	}
 	
 }

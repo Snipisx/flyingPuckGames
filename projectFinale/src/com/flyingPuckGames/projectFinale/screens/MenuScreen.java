@@ -45,10 +45,23 @@ public class MenuScreen implements Screen {
 		
 	}
 	
-	 public void setInputSystems(InputProcessor... processors) {
-		  inputSystem = new InputMultiplexer(processors);
-		  Gdx.input.setInputProcessor(inputSystem);
-	 }
+	public void setStage(int menu){
+		switch(menu){
+			case 1:
+				stage.addActor(menuBuilder.mainMenu(this));
+				break;
+			case 2:
+				stage.addActor(menuBuilder.gameMenu(this));
+				break;
+		}
+		
+		
+	}
+	
+	public void setInputSystems(InputProcessor... processors) {
+		inputSystem = new InputMultiplexer(processors);
+		Gdx.input.setInputProcessor(inputSystem);
+	}
 
 	@Override
 	public void hide() {
