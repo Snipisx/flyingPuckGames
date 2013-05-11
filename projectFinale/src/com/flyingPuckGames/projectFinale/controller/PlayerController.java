@@ -3,6 +3,9 @@ package com.flyingPuckGames.projectFinale.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -32,7 +35,7 @@ public class PlayerController {
 	private long	jumpPressedTime;
 	private boolean jumpingPressed;
 	private boolean grounded = false;
-	
+	public InputMultiplexer inputSystem;
 	
 	private Pool<Rectangle> rectPool = new Pool<Rectangle>() {
 		@Override
@@ -148,6 +151,7 @@ public class PlayerController {
 		} else {
 			startY = endY = (int) Math.floor(player.getBounds().y + player.getBounds().height + player.getVelocity().y);
 		}
+		
 		populateCollidableBlocks(startX, startY, endX, endY);
 		playerRect.y += player.getVelocity().y;
 		for (SolidTile tile : collidable) {
@@ -174,6 +178,7 @@ public class PlayerController {
 			for (int y = startY; y <= endY; y++) {
 				if (x >= 0 && x < world.getLevel().getWidth() && y >=0 && y < world.getLevel().getHeight()) {
 					collidable.add(world.getLevel().get(x, y));
+					System.out.println(world.getLevel().get(x,y));
 				}
 			}
 		}
@@ -222,5 +227,9 @@ public class PlayerController {
 	}
 
 
+	 public void setInputSystems(InputProcessor... processors) {
+		  inputSystem = new InputMultiplexer(processors);
+		  Gdx.input.setInputProcessor(inputSystem);
+	 }
 
 }

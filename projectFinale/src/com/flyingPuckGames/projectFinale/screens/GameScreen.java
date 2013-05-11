@@ -17,12 +17,14 @@ public class GameScreen implements Screen, InputProcessor {
 	private World 			world;
 	private WorldRenderer 	renderer;
 	private MegaGame		megaGame;
+	private MenuScreen		menuScreen;
 	private PlayerController controller;
 	
 	private int W, H;
 	
-	public GameScreen(MegaGame megaGame) {
+	public GameScreen(MenuScreen menuScreen, MegaGame megaGame) {
 		this.megaGame = megaGame;
+		this.menuScreen = menuScreen;
 	}
 
 	@Override

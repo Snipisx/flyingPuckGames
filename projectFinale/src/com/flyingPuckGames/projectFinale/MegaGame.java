@@ -2,7 +2,7 @@ package com.flyingPuckGames.projectFinale;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.flyingPuckGames.projectFinale.screens.GameScreen;
+import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 import com.flyingPuckGames.projectFinale.screens.OldGameScreen;
 
 
@@ -19,7 +19,7 @@ public class MegaGame extends Game {
 		SCREENH = Gdx.graphics.getHeight();
 		System.out.println(SCREENW);
 		System.out.println(SCREENH);
-		setScreen(new GameScreen(this));
+		setScreen(new MenuScreen(this));
 	}
 
 	@Override
