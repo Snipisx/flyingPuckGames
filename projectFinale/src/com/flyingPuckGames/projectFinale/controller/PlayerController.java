@@ -3,6 +3,7 @@ package com.flyingPuckGames.projectFinale.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
@@ -15,9 +16,9 @@ import com.flyingPuckGames.projectFinale.model.Player.State;
 import com.flyingPuckGames.projectFinale.model.SolidTile;
 import com.flyingPuckGames.projectFinale.model.World;
 
-public class PlayerController {
+public class PlayerController implements InputProcessor {
 	
-	enum Keys {
+	enum Keysa {
 		LEFT, RIGHT, JUMP, FIRE
 	}
 	
@@ -44,12 +45,12 @@ public class PlayerController {
 		}
 	};
 	
-	static Map<Keys, Boolean> keys = new HashMap<PlayerController.Keys, Boolean>();
+	static Map<Keysa, Boolean> keys = new HashMap<Keysa, Boolean>();
 	static {
-		keys.put(Keys.LEFT, false);
-		keys.put(Keys.RIGHT, false);
-		keys.put(Keys.JUMP, false);
-		keys.put(Keys.FIRE, false);
+		keys.put(Keysa.LEFT, false);
+		keys.put(Keysa.RIGHT, false);
+		keys.put(Keysa.JUMP, false);
+		keys.put(Keysa.FIRE, false);
 	};
 	
 	
@@ -61,36 +62,36 @@ public class PlayerController {
 	}
 	
 	public void leftPressed() {
-		keys.get(keys.put(Keys.LEFT, true));
+		keys.get(keys.put(Keysa.LEFT, true));
 	}
 
 	public void rightPressed() {
-		keys.get(keys.put(Keys.RIGHT, true));
+		keys.get(keys.put(Keysa.RIGHT, true));
 	}
 
 	public void jumpPressed() {
-		keys.get(keys.put(Keys.JUMP, true));
+		keys.get(keys.put(Keysa.JUMP, true));
 	}
 
 	public void firePressed() {
-		keys.get(keys.put(Keys.FIRE, false));
+		keys.get(keys.put(Keysa.FIRE, false));
 	}
 
 	public void leftReleased() {
-		keys.get(keys.put(Keys.LEFT, false));
+		keys.get(keys.put(Keysa.LEFT, false));
 	}
 
 	public void rightReleased() {
-		keys.get(keys.put(Keys.RIGHT, false));
+		keys.get(keys.put(Keysa.RIGHT, false));
 	}
 
 	public void jumpReleased() {
-		keys.get(keys.put(Keys.JUMP, false));
+		keys.get(keys.put(Keysa.JUMP, false));
 		jumpingPressed = false;
 	}
 
 	public void fireReleased() {
-		keys.get(keys.put(Keys.FIRE, false));
+		keys.get(keys.put(Keysa.FIRE, false));
 	}
 
 	
@@ -185,7 +186,7 @@ public class PlayerController {
 	}
 	
 	private boolean processInput() {
-		if (keys.get(Keys.JUMP)) {
+		if (keys.get(Keysa.JUMP)) {
 			if (!player.getState().equals(State.JUMPING)) {
 				jumpingPressed = true;
 				jumpPressedTime = System.currentTimeMillis();
@@ -202,14 +203,14 @@ public class PlayerController {
 				}
 			}
 		}
-		if (keys.get(Keys.LEFT)) {
+		if (keys.get(Keysa.LEFT)) {
 			// left is pressed
 			player.setFacesRight(false);
 			if (!player.getState().equals(State.JUMPING)) {
 				player.setState(State.WALKING);
 			}
 			player.getAcceleration().x = -ACCELERATION;
-		} else if (keys.get(Keys.RIGHT)) {
+		} else if (keys.get(Keysa.RIGHT)) {
 			// left is pressed
 			player.setFacesRight(true);
 			if (!player.getState().equals(State.JUMPING)) {
@@ -231,5 +232,85 @@ public class PlayerController {
 		  inputSystem = new InputMultiplexer(processors);
 		  Gdx.input.setInputProcessor(inputSystem);
 	 }
+
+ 
+	@Override
+	public boolean keyDown(int keycode) {
+		if (keycode == Keys.LEFT)
+			leftPressed();
+		if (keycode == Keys.RIGHT)
+			rightPressed();
+		if (keycode == Keys.Z)
+			jumpPressed();
+		if (keycode == Keys.X)
+			firePressed();
+		return true;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		if (keycode == Keys.LEFT)
+			leftReleased();
+		if (keycode == Keys.RIGHT)
+			rightReleased();
+		if (keycode == Keys.Z)
+			jumpReleased();
+		if (keycode == Keys.X)
+			fireReleased();
+		if (keycode == Keys.D)
+			System.out.println("debug");
+			//renderDebugText();
+		return true;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int x, int y, int pointer, int button) {
+//		if (!Gdx.app.getType().equals(ApplicationType.Android))
+//			return false;
+//		if (x < this.W / 2 && y > this.H / 2) {
+//			.leftPressed();
+//		}
+//		if (x > this.W / 2 && y > this.H / 2) {
+//			.rightPressed();
+//		}
+		return true;
+	}
+
+	@Override
+	public boolean touchUp(int x, int y, int pointer, int button) {
+//		if (!Gdx.app.getType().equals(ApplicationType.Android))
+//			return false;
+//		if (x < this.W / 2 && y > this.H / 2) {
+//			.leftReleased();
+//		}
+//		if (x > this.W / 2 && y > this.H / 2) {
+//			.rightReleased();
+//		}
+		return true;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

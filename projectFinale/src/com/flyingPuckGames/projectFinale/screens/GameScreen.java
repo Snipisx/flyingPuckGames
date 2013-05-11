@@ -12,7 +12,7 @@ import com.flyingPuckGames.projectFinale.controller.PlayerController;
 import com.flyingPuckGames.projectFinale.model.World;
 import com.flyingPuckGames.projectFinale.view.WorldRenderer;
 
-public class GameScreen implements Screen, InputProcessor {
+public class GameScreen implements Screen{
 
 	private World 			world;
 	private WorldRenderer 	renderer;
@@ -32,7 +32,7 @@ public class GameScreen implements Screen, InputProcessor {
 		world = new World();
 		renderer = new WorldRenderer(world, false, this.megaGame);
 		controller = new PlayerController(world);
-		Gdx.input.setInputProcessor(this);
+		Gdx.input.setInputProcessor(controller);
 	}
 
 	@Override
@@ -72,85 +72,85 @@ public class GameScreen implements Screen, InputProcessor {
 	}
 
 	// * InputProcessor methods ***************************//
-
-	@Override
-	public boolean keyDown(int keycode) {
-		if (keycode == Keys.LEFT)
-			controller.leftPressed();
-		if (keycode == Keys.RIGHT)
-			controller.rightPressed();
-		if (keycode == Keys.Z)
-			controller.jumpPressed();
-		if (keycode == Keys.X)
-			controller.firePressed();
-		return true;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		if (keycode == Keys.LEFT)
-			controller.leftReleased();
-		if (keycode == Keys.RIGHT)
-			controller.rightReleased();
-		if (keycode == Keys.Z)
-			controller.jumpReleased();
-		if (keycode == Keys.X)
-			controller.fireReleased();
-		if (keycode == Keys.D)
-			renderer.renderDebugText();
-		return true;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int x, int y, int pointer, int button) {
-		if (!Gdx.app.getType().equals(ApplicationType.Android))
-			return false;
-		if (x < this.W / 2 && y > this.H / 2) {
-			controller.leftPressed();
-		}
-		if (x > this.W / 2 && y > this.H / 2) {
-			controller.rightPressed();
-		}
-		return true;
-	}
-
-	@Override
-	public boolean touchUp(int x, int y, int pointer, int button) {
-		if (!Gdx.app.getType().equals(ApplicationType.Android))
-			return false;
-		if (x < this.W / 2 && y > this.H / 2) {
-			controller.leftReleased();
-		}
-		if (x > this.W / 2 && y > this.H / 2) {
-			controller.rightReleased();
-		}
-		return true;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+//
+//	@Override
+//	public boolean keyDown(int keycode) {
+//		if (keycode == Keys.LEFT)
+//			controller.leftPressed();
+//		if (keycode == Keys.RIGHT)
+//			controller.rightPressed();
+//		if (keycode == Keys.Z)
+//			controller.jumpPressed();
+//		if (keycode == Keys.X)
+//			controller.firePressed();
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean keyUp(int keycode) {
+//		if (keycode == Keys.LEFT)
+//			controller.leftReleased();
+//		if (keycode == Keys.RIGHT)
+//			controller.rightReleased();
+//		if (keycode == Keys.Z)
+//			controller.jumpReleased();
+//		if (keycode == Keys.X)
+//			controller.fireReleased();
+//		if (keycode == Keys.D)
+//			renderer.renderDebugText();
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean keyTyped(char character) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	@Override
+//	public boolean touchDown(int x, int y, int pointer, int button) {
+//		if (!Gdx.app.getType().equals(ApplicationType.Android))
+//			return false;
+//		if (x < this.W / 2 && y > this.H / 2) {
+//			controller.leftPressed();
+//		}
+//		if (x > this.W / 2 && y > this.H / 2) {
+//			controller.rightPressed();
+//		}
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean touchUp(int x, int y, int pointer, int button) {
+//		if (!Gdx.app.getType().equals(ApplicationType.Android))
+//			return false;
+//		if (x < this.W / 2 && y > this.H / 2) {
+//			controller.leftReleased();
+//		}
+//		if (x > this.W / 2 && y > this.H / 2) {
+//			controller.rightReleased();
+//		}
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean touchDragged(int screenX, int screenY, int pointer) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	@Override
+//	public boolean mouseMoved(int screenX, int screenY) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	@Override
+//	public boolean scrolled(int amount) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
 
 
 }
