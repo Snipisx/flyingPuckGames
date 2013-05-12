@@ -3,6 +3,7 @@ package com.flyingPuckGames.projectFinale.model;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
 public class Level {
@@ -14,8 +15,8 @@ public class Level {
 	private TiledMapTileLayer layer;
 
 
-	public Level(TiledMap tiledMap) {
-		this.setTiledMap(tiledMap);
+	public Level(String targetTileMap) {
+		tiledMap = new TmxMapLoader().load(targetTileMap);
 		layer = (TiledMapTileLayer) tiledMap.getLayers().getLayer(0);
 		loadLevel();
 	}

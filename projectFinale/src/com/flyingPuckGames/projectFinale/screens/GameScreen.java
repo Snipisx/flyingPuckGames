@@ -1,6 +1,5 @@
 package com.flyingPuckGames.projectFinale.screens;
 
-
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -14,10 +13,10 @@ import com.flyingPuckGames.projectFinale.view.WorldRenderer;
 
 public class GameScreen implements Screen, InputProcessor {
 
-	private World 			world;
-	private WorldRenderer 	renderer;
-	private MegaGame		megaGame;
-	private PlayerController controller;
+	private World 				world;
+	private WorldRenderer 		renderer;
+	private MegaGame			megaGame;
+	private PlayerController 	controller;
 	
 	private int W, H;
 	
@@ -148,7 +147,5 @@ public class GameScreen implements Screen, InputProcessor {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
 
 }

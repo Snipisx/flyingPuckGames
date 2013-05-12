@@ -19,7 +19,7 @@ public class MegaGame extends Game {
 		SCREENH = Gdx.graphics.getHeight();
 		System.out.println(SCREENW);
 		System.out.println(SCREENH);
-		setScreen(new GameScreen(this));
+		setScreen(new OldGameScreen(this));
 	}
 
 	@Override

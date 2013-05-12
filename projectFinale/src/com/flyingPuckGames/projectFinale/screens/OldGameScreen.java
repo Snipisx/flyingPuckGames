@@ -51,7 +51,33 @@ public class OldGameScreen implements Screen {
 	public OldGameScreen(MegaGame megagame) {
 		this.megagame = megagame;
 	}
+	
+	/* 
+	 * Method called when the windows is created.
+	 */
+	@Override
+	public void show() {
+		megagame.SCREENW = Gdx.graphics.getWidth();
+		megagame.SCREENH = Gdx.graphics.getHeight();
+		rectPool = new Pool<Rectangle>() {
+			@Override
+			protected Rectangle newObject() {
+				return new Rectangle();
+			}
+		};
+		tiles = new Array<Rectangle>();
 
+		bkgrnd = new Texture(Gdx.files.internal("maps/background.png"));
+		batch = new SpriteBatch();
+		createWorld();
+		createCamera();
+		oldPlayer = new OldPlayer(tRenderer, rectPool, tiles, tiledMap);
+
+		fpsLogger = new FPSLogger();
+		font = new BitmapFont();
+		debugON = false;
+	}
+	
 	/**
 	 * Executed 60 times by second.
 	 * @param delta
@@ -89,32 +115,6 @@ public class OldGameScreen implements Screen {
 	
 	}
 	
-	/* 
-	 * Method called when the windows is created.
-	 */
-	@Override
-	public void show() {
-		megagame.SCREENW = Gdx.graphics.getWidth();
-		megagame.SCREENH = Gdx.graphics.getHeight();
-		rectPool = new Pool<Rectangle>() {
-			@Override
-			protected Rectangle newObject() {
-				return new Rectangle();
-			}
-		};
-		tiles = new Array<Rectangle>();
-
-		bkgrnd = new Texture(Gdx.files.internal("maps/background.png"));
-		batch = new SpriteBatch();
-		createWorld();
-		createCamera();
-		oldPlayer = new OldPlayer(tRenderer, rectPool, tiles, tiledMap);
-
-		fpsLogger = new FPSLogger();
-		font = new BitmapFont();
-		debugON = false;
-	}
-
 	@Override
 	public void hide() {
 	}

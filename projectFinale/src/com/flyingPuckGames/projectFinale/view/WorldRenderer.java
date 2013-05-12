@@ -67,13 +67,15 @@ public class WorldRenderer {
 	
 	public void render(float delta) {
 		clearScreen();
-		drawTiledMap(delta);
-		drawPlayer();
-		drawDebugBoxes();
-		drawDebug();
 		
 		camera.position.x = world.getPlayer().getPosition().x;
 		camera.update();
+
+		drawTiledMap(delta);
+		drawPlayer();
+		drawDebugBoxes();
+		renderDebugText();
+		
 		System.out.println("X:" + world.getPlayer().getPosition().x + "\nY:" + world.getPlayer().getPosition().y);
 		System.out.println(ppuX + "-" + ppuY);
 	}
@@ -90,9 +92,10 @@ public class WorldRenderer {
 		debug = !debug;
 	}
 	private void drawPlayer(){
-
+		
+		spriteBatch.begin();
+		
 		if (world.getPlayer().isFacesRight()) {
-			spriteBatch.begin();
 			spriteBatch.draw(
 					playerTexture,
 					world.getPlayer().getPosition().x * ppuX,
@@ -100,8 +103,6 @@ public class WorldRenderer {
 					world.getPlayer().getWsize()*ppuX,
 					world.getPlayer().getHsize()*ppuY
 			);
-			spriteBatch.end();
-			System.out.println("HolaPlayer>");
 		} else {
 			spriteBatch.begin();
 			spriteBatch.draw(playerTexture,
@@ -110,9 +111,9 @@ public class WorldRenderer {
 					-world.getPlayer().getWsize()*ppuX,
 					world.getPlayer().getHsize()*ppuY
 			);
-			spriteBatch.end();
-			System.out.println("HolaPlayer<");
 		}
+		
+		spriteBatch.end();
 		
 	}
 	private void drawTiledMap(float delta){
@@ -121,12 +122,11 @@ public class WorldRenderer {
 		spriteBatch.end();
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render();
-		System.out.println("HolaTiled");
 	}
 	private void loadTextures(){
 		playerTexture =  new Texture(Gdx.files.internal("data/plahCharacter.png"));
 		background = new Texture(Gdx.files.internal("maps/background.png"));
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(world.getTiledMap(), 1f/16f);
+		tiledMapRenderer = new OrthogonalTiledMapRenderer(world.getLevel().getTiledMap(), 1f/16f);
 		System.out.println("TexturesLoaded");
 	}
 	
@@ -142,7 +142,7 @@ public class WorldRenderer {
 				block =  world.getLevel().get(col, row); 
 				Rectangle rect = block.getBounds();
 				debugRenderer.setColor(new Color(1, 0, 0, 1));
-				debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
+				debugRenderer.rect(rect.x, rect.y, rect.width*ppuX, rect.height*ppuY);
 			}
 		}
 		
@@ -155,27 +155,6 @@ public class WorldRenderer {
 		System.out.println("HolaBoxes");
 	}
 	
-	
-	private void drawDebug() {
-		// render blocks
-		debugRenderer.setProjectionMatrix(camera.combined);
-		debugRenderer.begin(ShapeType.Filled);
-		SolidTile block;
-		for (int col = 0; col <  world.getLevel().getWidth(); col++) {
-			for (int row = 0; row < world.getLevel().getHeight(); row++) {
-				block = world.getLevel().get(col, row); 
-				Rectangle rect = block.getBounds();
-				debugRenderer.setColor(new Color(1, 0, 0, 1));
-				debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
-			}
-		}
-		// render Bob
-		Player bob = world.getPlayer();
-		Rectangle rect = bob.getBounds();
-		debugRenderer.setColor(new Color(0, 1, 0, 1));
-		debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
-		debugRenderer.end();
-	}
 	/**
 	 * Method used to print on the screen debug information.
 	 */

@@ -15,7 +15,7 @@ public class World {
 	private Player player;
 	private Level level;
 	private TiledMap tiledMap;
-	
+	private String selectedTileMap;
 	Array<Rectangle> collisionRects = new Array<Rectangle>();
 	
 	public World() {
@@ -23,11 +23,13 @@ public class World {
 	}
 
 	private void createWorld() {
-		tiledMap = new TmxMapLoader().load("maps/plahTilemap.tmx");
-		level = new Level(tiledMap);
+		level = new Level(selectedTileMap);
 		player = new Player(new Vector2(6, 8));
 	}
 
+	public void selectLevel(String selectTileMap){
+		//TODO Metodo para cambiar de level.
+	}
 	// Getters -----------
 	public Array<Rectangle> getCollisionRects() {
 		return collisionRects;
