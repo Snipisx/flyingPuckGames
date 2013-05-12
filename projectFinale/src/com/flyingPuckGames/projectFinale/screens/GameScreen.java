@@ -15,13 +15,13 @@ import com.flyingPuckGames.projectFinale.view.WorldRenderer;
 
 public class GameScreen implements Screen,InputProcessor {
 
-	private World 			world;
-	private WorldRenderer 	rendererGame;
-	private MenuRenderer	rendererMenu;
-	private MegaGame		megaGame;
-	private MenuScreen		menuScreen;
-	private PlayerController controller;
-	private boolean onMenu;
+	private World 				world;
+	private WorldRenderer 		rendererGame;
+	private MenuRenderer		rendererMenu;
+	private MegaGame			megaGame;
+	private MenuScreen			menuScreen;
+	private PlayerController 	controller;
+	private boolean 			onMenu;
 	
 	private int W, H;
 	
@@ -81,8 +81,7 @@ public class GameScreen implements Screen,InputProcessor {
 	}
 
 	// * InputProcessor methods ***************************//
-
-
+	
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.LEFT)
@@ -162,10 +161,5 @@ public class GameScreen implements Screen,InputProcessor {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
 	
-
-
-
 }

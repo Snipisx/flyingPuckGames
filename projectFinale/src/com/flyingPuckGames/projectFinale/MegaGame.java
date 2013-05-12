@@ -8,7 +8,7 @@ import com.flyingPuckGames.projectFinale.screens.OldGameScreen;
 
 public class MegaGame extends Game {
 
-	public static final String VERSION = "0.0.5 preMVC";
+	public static final String VERSION = "0.0.6 Menus-MVC";
 	public static final String LOG = "projectFinale - ";
 	public float SCREENW;
 	public float SCREENH;
