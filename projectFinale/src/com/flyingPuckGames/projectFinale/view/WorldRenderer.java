@@ -50,18 +50,18 @@ public class WorldRenderer {
 		camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
 		camera.update();
 		setSize(megaGame.SCREENW, megaGame.SCREENH);
-		playerRenderer = new PlayerRenderer(world);
 		font = new BitmapFont();
 		prepareWorldRenderer();
 		spriteBatch = new SpriteBatch();
 		debug = true;
 		System.out.println("CameraX: " + camera.position.x + "\nCameraY:" + camera.position.y);
+		playerRenderer = new PlayerRenderer(world);
 	}
 	
 	public void render(float delta) {
-		RenderUtils.clearScreen();
-		drawBackground(delta);
-		drawTiledMap();
+//		RenderUtils.clearScreen();
+//		drawBackground(delta);
+//		drawTiledMap();
 		playerRenderer.drawPlayer();
 		
 		camera.position.x = world.getPlayer().getPosition().x;
