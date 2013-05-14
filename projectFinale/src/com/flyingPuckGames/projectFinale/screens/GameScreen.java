@@ -7,9 +7,11 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.controller.PlayerController;
 import com.flyingPuckGames.projectFinale.model.World;
+import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
 import com.flyingPuckGames.projectFinale.view.MenuRenderer;
 import com.flyingPuckGames.projectFinale.view.WorldRenderer;
 
@@ -17,45 +19,47 @@ public class GameScreen implements Screen,InputProcessor {
 
 	private World 				world;
 	private WorldRenderer 		rendererGame;
-	private MenuRenderer		rendererMenu;
 	private MegaGame			megaGame;
-	private MenuScreen			menuScreen;
+	private MenuRenderer		rendererMenu;
 	private PlayerController 	controller;
-	private boolean 			onMenu;
+	private MenuBuilder			menuBuilder;
+	private Stage				stage;
+	public boolean 			onMenu;
 	
 	private int W, H;
 	
-	public GameScreen(MenuScreen menuScreen, MegaGame megaGame) {
+	public GameScreen(MegaGame megaGame) {
 		this.megaGame = megaGame;
-		this.menuScreen = menuScreen;
 	}
 
 	@Override
 	public void show() {
 		world = new World();
 		rendererGame = new WorldRenderer(world, false, this.megaGame);
-		rendererMenu = new MenuRenderer(this.megaGame,this.menuScreen);
+		rendererMenu = new MenuRenderer(megaGame);
 		controller = new PlayerController(world);
-		Gdx.input.setInputProcessor(this);
+		menuBuilder = new MenuBuilder();
+		stage = new Stage();
+		setInputProcessor();
 		onMenu = false;
 
 	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
 		if(!onMenu){
 			controller.update(delta);
 			rendererGame.render(delta);
 		}else{
-			rendererMenu.renderGameMenu(delta);
+			rendererMenu.render(delta);
 		}
 	}
 	
 	@Override
 	public void resize(int W, int H) {
 		rendererGame.setSize(W, H);
+		rendererMenu.setSize(W, H);
 		this.W = W;
 		this.H = H;
 	}
@@ -80,6 +84,9 @@ public class GameScreen implements Screen,InputProcessor {
 		Gdx.input.setInputProcessor(null);
 	}
 
+	public void setInputProcessor(){
+		Gdx.input.setInputProcessor(this);
+	}
 	// * InputProcessor methods ***************************//
 	
 	@Override
@@ -107,8 +114,13 @@ public class GameScreen implements Screen,InputProcessor {
 			controller.fireReleased();
 		if (keycode == Keys.D)
 			rendererGame.renderDebugText();
-		if (keycode == Keys.ESCAPE)
+		if (keycode == Keys.ESCAPE){
+			stage = new Stage();
+			stage.addActor(menuBuilder.gameMenu(this));
+			//rendererMenu.setBackground(rendererGame.doScreenShot());
+			rendererMenu.setStage(stage);
 			onMenu = true;
+		}
 		return true;
 	}
 
@@ -161,5 +173,4 @@ public class GameScreen implements Screen,InputProcessor {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
 }

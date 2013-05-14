@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
@@ -14,7 +15,8 @@ public class MenuScreen implements Screen {
 	private MegaGame megaGame;
 	private MenuBuilder menuBuilder;
 	private MenuRenderer renderer;
-	public Stage stage;
+	private Stage stage;
+	private Texture background;
 	public InputMultiplexer inputSystem;
 	
 	public MenuScreen(MegaGame megaGame) {
@@ -23,13 +25,11 @@ public class MenuScreen implements Screen {
 	
 	@Override
 	public void show() {
+		
 		menuBuilder = new MenuBuilder();
-		renderer = new MenuRenderer(megaGame,this);
+		renderer = new MenuRenderer(megaGame);
 		stage = new Stage();
-		
-		stage.addActor(menuBuilder.mainMenu(this));
-		setInputSystems(stage);
-		
+		setStage();
 	}
 	
 	
@@ -45,18 +45,13 @@ public class MenuScreen implements Screen {
 		
 	}
 	
-	public void setStage(int menu){
-		switch(menu){
-			case 1:
-				stage.addActor(menuBuilder.mainMenu(this));
-				break;
-			case 2:
-				stage.addActor(menuBuilder.gameMenu(this));
-				break;
-		}
+	public void setStage(){
 		
-		
+		stage.addActor(menuBuilder.mainMenu(this));
+		renderer.setStage(stage);
 	}
+	
+
 	
 	public void setInputSystems(InputProcessor... processors) {
 		inputSystem = new InputMultiplexer(processors);
@@ -86,7 +81,7 @@ public class MenuScreen implements Screen {
 	public void changeScreen(Integer screen){
 		switch(screen){
 			case 1:
-				megaGame.setScreen(new GameScreen(this,megaGame));
+				megaGame.setScreen(new GameScreen(megaGame));
 				break;
 			case 2:
 				System.out.println("In construction");

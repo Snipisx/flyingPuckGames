@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,6 +17,7 @@ import com.flyingPuckGames.projectFinale.model.Player;
 import com.flyingPuckGames.projectFinale.model.SolidTile;
 import com.flyingPuckGames.projectFinale.model.World;
 import com.flyingPuckGames.projectFinale.utils.RenderUtils;
+import com.flyingPuckGames.projectFinale.utils.Screenshots;
 
 public class WorldRenderer {
 	
@@ -25,7 +27,8 @@ public class WorldRenderer {
 	private float W, H;
 	
 	private ShapeRenderer debugRenderer = new ShapeRenderer();
-
+	private Screenshots shots;
+	
 	private World world;
 	private OrthographicCamera camera;
 	private Texture background;
@@ -59,13 +62,13 @@ public class WorldRenderer {
 	}
 	
 	public void render(float delta) {
-//		RenderUtils.clearScreen();
-//		drawBackground(delta);
-//		drawTiledMap();
+		RenderUtils.clearScreen();
+		drawBackground(delta);
+		drawTiledMap();
 		playerRenderer.drawPlayer();
-		
 		camera.position.x = world.getPlayer().getPosition().x;
 		camera.update();
+	
 		System.out.println("X:" + world.getPlayer().getPosition().x + "\nY:" + world.getPlayer().getPosition().y);
 		System.out.println(ppuX + "-" + ppuY);
 	}
@@ -98,6 +101,11 @@ public class WorldRenderer {
 		System.out.println("TexturesLoaded");
 	}
 	
+	public Pixmap doScreenShot(){
+		
+		return shots.saveScreenshot();
+		
+	}
 	/**
 	 * Method used to print on the screen debug information.
 	 */
