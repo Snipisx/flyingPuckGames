@@ -40,6 +40,8 @@ public class MenuRenderer {
 		camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
 		camera.update();
 		setSize(megaGame.SCREENW, megaGame.SCREENH);
+		onMainMenu(true);
+		setBackground();
 //		loadTextures();
 		spriteBatch = new SpriteBatch();
 //		debug = true;
@@ -58,18 +60,16 @@ public class MenuRenderer {
 
 	public void render(float delta) {
 		
-		if(onMainMenu){
-			RenderUtils.clearScreen();
-		}
 		
-		if(onGameMenu){
-			spriteBatch.begin();
-			background.draw(spriteBatch, 0.8f);
-			spriteBatch.end();
-		}
+		spriteBatch.begin();
+		background.draw(spriteBatch, 0.8f);
+		spriteBatch.end();
+		
 		camera.update();
 		stage.act(delta);
 		stage.draw();
+		
+		
 		//System.out.println(ppuX + "-" + ppuY);
 	}
 	

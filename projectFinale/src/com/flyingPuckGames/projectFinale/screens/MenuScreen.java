@@ -46,7 +46,7 @@ public class MenuScreen implements Screen,InputProcessor {
 	}
 	
 	public void setStage(Actor actor){
-		
+		stage = new Stage();
 		stage.addActor(actor);
 		renderer.setStage(stage);
 	}
