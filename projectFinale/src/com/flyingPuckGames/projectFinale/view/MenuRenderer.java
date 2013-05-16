@@ -16,23 +16,23 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.model.World;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
+import com.flyingPuckGames.projectFinale.utils.RenderUtils;
 
 public class MenuRenderer {
 	
 	private MegaGame megaGame;
 	private Stage stage;
 	private OrthographicCamera camera;
-	private Stage background;
 	private SpriteBatch spriteBatch;
-	private Actor actor;
-	private Image img;
+	private Image background;
+	private Boolean onGameMenu;
+	private Boolean onMainMenu;
 	private static final float CAMERA_WIDTH = 20f;
 	private static final float CAMERA_HEIGHT = 11f;
 	private float W;
 	private float H;
 	private float ppuX;	//Pixels per unit X-axis
 	private float ppuY; //Pixels per unit Y-axis
-	private int i;
 	
 	public MenuRenderer(MegaGame megaGame){
 		this.megaGame = megaGame;
@@ -40,19 +40,12 @@ public class MenuRenderer {
 		camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
 		camera.update();
 		setSize(megaGame.SCREENW, megaGame.SCREENH);
-		background = new Stage();
-//		font = new BitmapFont();
 //		loadTextures();
 		spriteBatch = new SpriteBatch();
 //		debug = true;
-		System.out.println("CameraX: " + camera.position.x + "\nCameraY:" + camera.position.y);
-		background.setViewport(W, H, true);
-		actor = new Actor();
-		actor.setColor(0, 0, 0, 0.5f);
-		actor.setSize(W,H);
-		img = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/negro.png")))));
-		img.setColor(0, 0, 0, 0.1f);
-		i = 0;
+		//System.out.println("CameraX: " + camera.position.x + "\nCameraY:" + camera.position.y);
+
+		
 	}
 	
 	public void setSize (float w, float h){
@@ -64,39 +57,41 @@ public class MenuRenderer {
 		
 
 	public void render(float delta) {
-		clearScreen();
 		
-
-		spriteBatch.begin();
-		img.draw(spriteBatch, 0.2f);
-		spriteBatch.end();
+		if(onMainMenu){
+			RenderUtils.clearScreen();
+		}
 		
+		if(onGameMenu){
+			spriteBatch.begin();
+			background.draw(spriteBatch, 0.8f);
+			spriteBatch.end();
+		}
 		camera.update();
 		stage.act(delta);
 		stage.draw();
-		System.out.println(ppuX + "-" + ppuY);
+		//System.out.println(ppuX + "-" + ppuY);
 	}
 	
 
-	/**
-	 * This method clears the screen.
-	 */
-	private void clearScreen() {
-		
-		Gdx.graphics.getGL20().glBlendColor(0,0,0,0.5f);
-		//Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-		System.out.println("HolaClear");
+	public void setBackground(){
+		background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/negro.png")))));
+		background.setColor(0, 0, 0, 0.8f);
 	}
 	
 	public void setStage(Stage actor){
 		stage = actor;
-		
+		stage.setKeyboardFocus(stage.getActors().first());
 		Gdx.input.setInputProcessor(stage);
 	}
-	
-	public void setBackground(Pixmap back){
-
+	public void onGameMenu(Boolean menu){
+		onGameMenu = menu;
 	}
+	
+	public void onMainMenu(Boolean menu){
+		onMainMenu = menu;
+	}
+
 	
 
 }

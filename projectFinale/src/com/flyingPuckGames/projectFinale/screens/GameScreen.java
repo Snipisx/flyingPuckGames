@@ -52,6 +52,7 @@ public class GameScreen implements Screen,InputProcessor {
 			controller.update(delta);
 			rendererGame.render(delta);
 		}else{
+			rendererGame.render(delta);
 			rendererMenu.render(delta);
 		}
 	}
@@ -87,6 +88,35 @@ public class GameScreen implements Screen,InputProcessor {
 	public void setInputProcessor(){
 		Gdx.input.setInputProcessor(this);
 	}
+	
+	private void setOnMenu(){
+		stage = new Stage();
+		stage.addActor(menuBuilder.gameMenu(this));
+		rendererMenu.setStage(stage);
+		rendererMenu.setBackground();
+		onMenu = true;
+		rendererMenu.onGameMenu(true);
+	}
+	
+	
+	public void changeMenu1(int menu){
+		
+		switch(menu){
+		case 1: 
+			setOnMenu();
+			break;
+		case 2:
+			stage = new Stage();
+			stage.addActor(menuBuilder.optionMenu(this));
+			rendererMenu.setStage(stage);
+			break;
+		case 3:
+			//TODO Inventory
+			break;
+		}
+		
+		
+	}
 	// * InputProcessor methods ***************************//
 	
 	@Override
@@ -101,7 +131,7 @@ public class GameScreen implements Screen,InputProcessor {
 			controller.firePressed();
 		return true;
 	}
-
+	
 	@Override
 	public boolean keyUp(int keycode) {
 		if (keycode == Keys.LEFT)
@@ -115,11 +145,7 @@ public class GameScreen implements Screen,InputProcessor {
 		if (keycode == Keys.D)
 			rendererGame.renderDebugText();
 		if (keycode == Keys.ESCAPE){
-			stage = new Stage();
-			stage.addActor(menuBuilder.gameMenu(this));
-			//rendererMenu.setBackground(rendererGame.doScreenShot());
-			rendererMenu.setStage(stage);
-			onMenu = true;
+			setOnMenu();
 		}
 		return true;
 	}

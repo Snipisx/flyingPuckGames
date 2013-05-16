@@ -1,23 +1,22 @@
 package com.flyingPuckGames.projectFinale.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
+
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
 import com.flyingPuckGames.projectFinale.view.MenuRenderer;
 
-public class MenuScreen implements Screen {
+public class MenuScreen implements Screen,InputProcessor {
 
 	private MegaGame megaGame;
 	private MenuBuilder menuBuilder;
 	private MenuRenderer renderer;
 	private Stage stage;
-	private Texture background;
-	public InputMultiplexer inputSystem;
+
 	
 	public MenuScreen(MegaGame megaGame) {
 		this.megaGame = megaGame;
@@ -29,7 +28,8 @@ public class MenuScreen implements Screen {
 		menuBuilder = new MenuBuilder();
 		renderer = new MenuRenderer(megaGame);
 		stage = new Stage();
-		setStage();
+		setStage(menuBuilder.mainMenu(this));
+		renderer.onGameMenu(false);
 	}
 	
 	
@@ -45,19 +45,12 @@ public class MenuScreen implements Screen {
 		
 	}
 	
-	public void setStage(){
+	public void setStage(Actor actor){
 		
-		stage.addActor(menuBuilder.mainMenu(this));
+		stage.addActor(actor);
 		renderer.setStage(stage);
 	}
 	
-
-	
-	public void setInputSystems(InputProcessor... processors) {
-		inputSystem = new InputMultiplexer(processors);
-		Gdx.input.setInputProcessor(inputSystem);
-	}
-
 	@Override
 	public void hide() {
 		
@@ -84,7 +77,7 @@ public class MenuScreen implements Screen {
 				megaGame.setScreen(new GameScreen(megaGame));
 				break;
 			case 2:
-				System.out.println("In construction");
+				
 				break;
 			case 3: 
 				System.out.println("In Construction");
@@ -95,6 +88,84 @@ public class MenuScreen implements Screen {
 				break;
 		}
 		
+	}
+	
+	public void changeMenu(Integer menu){
+		switch(menu){
+		case 1: 
+			setStage(menuBuilder.mainMenu(this));
+			break;
+		case 2:
+			setStage(menuBuilder.optionMenu(this));
+		}
+	}
+	
+	@Override
+	public boolean keyDown(int keycode) {
+		if (keycode == Keys.LEFT)
+			
+		if (keycode == Keys.RIGHT)
+			
+		if (keycode == Keys.Z)
+			
+		if (keycode == Keys.X)
+
+		return true;
+		return true;
+	}
+	
+	@Override
+	public boolean keyUp(int keycode) {
+		if (keycode == Keys.LEFT)
+			
+		if (keycode == Keys.RIGHT)
+			
+		if (keycode == Keys.DOWN)
+			
+		if (keycode == Keys.UP)
+			
+		if (keycode == Keys.D)
+			
+		if (keycode == Keys.ESCAPE){
+		}
+		return true;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int x, int y, int pointer, int button) {
+		
+		return true;
+	}
+
+	@Override
+	public boolean touchUp(int x, int y, int pointer, int button) {
+
+		
+		return true;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

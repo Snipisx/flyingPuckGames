@@ -101,11 +101,6 @@ public class WorldRenderer {
 		System.out.println("TexturesLoaded");
 	}
 	
-	public Pixmap doScreenShot(){
-		
-		return shots.saveScreenshot();
-		
-	}
 	/**
 	 * Method used to print on the screen debug information.
 	 */
