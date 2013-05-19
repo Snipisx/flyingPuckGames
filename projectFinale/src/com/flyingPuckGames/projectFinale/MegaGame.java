@@ -3,7 +3,6 @@ package com.flyingPuckGames.projectFinale;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
-import com.flyingPuckGames.projectFinale.screens.OldGameScreen;
 
 
 public class MegaGame extends Game {

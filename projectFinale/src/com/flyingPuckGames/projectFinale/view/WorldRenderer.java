@@ -1,20 +1,13 @@
 package com.flyingPuckGames.projectFinale.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.flyingPuckGames.projectFinale.MegaGame;
-import com.flyingPuckGames.projectFinale.model.Player;
-import com.flyingPuckGames.projectFinale.model.SolidTile;
 import com.flyingPuckGames.projectFinale.model.World;
 import com.flyingPuckGames.projectFinale.utils.RenderUtils;
 import com.flyingPuckGames.projectFinale.utils.Screenshots;
@@ -69,15 +62,15 @@ public class WorldRenderer {
 		camera.position.x = world.getPlayer().getPosition().x;
 		camera.update();
 	
-		System.out.println("X:" + world.getPlayer().getPosition().x + "\nY:" + world.getPlayer().getPosition().y);
-		System.out.println(ppuX + "-" + ppuY);
+//		System.out.println("X:" + world.getPlayer().getPosition().x + "\nY:" + world.getPlayer().getPosition().y);
+//		System.out.println(ppuX + "-" + ppuY);
 	}
 	
 	public void setSize (float w, float h){
 		this.W = w;
 		this.H = h;
-		ppuX = (float)W / CAMERA_WIDTH;
-		ppuY = (float)H / CAMERA_HEIGHT;
+		ppuX = W / CAMERA_WIDTH;
+		ppuY = H / CAMERA_HEIGHT;
 	}
 	
 	public void toggleDebug(){

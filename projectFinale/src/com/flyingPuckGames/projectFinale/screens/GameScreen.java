@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.controller.PlayerController;
@@ -24,7 +23,8 @@ public class GameScreen implements Screen,InputProcessor {
 	private PlayerController 	controller;
 	private MenuBuilder			menuBuilder;
 	private Stage				stage;
-	public boolean 			onMenu;
+	public boolean 				onMenu;
+	public Integer				cont;
 	
 	private int W, H;
 	
@@ -39,9 +39,10 @@ public class GameScreen implements Screen,InputProcessor {
 		rendererMenu = new MenuRenderer(megaGame);
 		controller = new PlayerController(world);
 		menuBuilder = new MenuBuilder();
-		stage = new Stage();
+		menuBuilder.setStyles();
 		setInputProcessor();
 		onMenu = false;
+		cont = 0;
 
 	}
 
@@ -99,7 +100,7 @@ public class GameScreen implements Screen,InputProcessor {
 	}
 	
 	
-	public void changeMenu1(int menu){
+	public void changeMenu(int menu){
 		
 		switch(menu){
 		case 1: 
@@ -115,6 +116,10 @@ public class GameScreen implements Screen,InputProcessor {
 			stage.addActor(menuBuilder.statusMenu(this));
 			rendererMenu.setStage(stage);
 			break;
+		case 4:
+			onMenu = false;
+			setInputProcessor();
+			break;
 		}
 		
 		
@@ -124,12 +129,20 @@ public class GameScreen implements Screen,InputProcessor {
 		
 		switch(menu){
 			case 1:
+				stage = new Stage();
+				stage.addActor(menuBuilder.equipMenu(this));
+				rendererMenu.setStage(stage);
 				break;
 			case 2:
 				break;
 			case 3:
 				stage = new Stage();
 				stage.addActor(menuBuilder.gameMenu(this));
+				rendererMenu.setStage(stage);
+				break;
+			case 4:
+				stage = new Stage();
+				stage.addActor(menuBuilder.statusMenu(this));
 				rendererMenu.setStage(stage);
 				break;
 		}
@@ -163,7 +176,13 @@ public class GameScreen implements Screen,InputProcessor {
 		if (keycode == Keys.D)
 			rendererGame.renderDebugText();
 		if (keycode == Keys.ESCAPE){
-			setOnMenu();
+			if(cont == 1){
+				cont = 0;
+			}else{
+				cont = 1;
+				setOnMenu();
+			}
+			
 		}
 		return true;
 	}

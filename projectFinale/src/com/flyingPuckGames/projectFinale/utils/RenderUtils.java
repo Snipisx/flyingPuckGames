@@ -19,7 +19,7 @@ public class RenderUtils {
 			Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		}
 		
-		System.out.println("HolaClear");
+		//System.out.println("HolaClear");
 	}
 
 }

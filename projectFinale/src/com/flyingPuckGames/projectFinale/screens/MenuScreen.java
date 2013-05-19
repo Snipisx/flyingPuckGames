@@ -27,9 +27,11 @@ public class MenuScreen implements Screen,InputProcessor {
 		
 		menuBuilder = new MenuBuilder();
 		renderer = new MenuRenderer(megaGame);
+		menuBuilder.setStyles();
 		stage = new Stage();
 		setStage(menuBuilder.mainMenu(this));
 		renderer.onGameMenu(false);
+		
 	}
 	
 	

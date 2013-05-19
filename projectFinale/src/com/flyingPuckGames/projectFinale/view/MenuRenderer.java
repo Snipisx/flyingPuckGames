@@ -1,22 +1,15 @@
 package com.flyingPuckGames.projectFinale.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.flyingPuckGames.projectFinale.MegaGame;
-import com.flyingPuckGames.projectFinale.model.World;
-import com.flyingPuckGames.projectFinale.screens.MenuScreen;
-import com.flyingPuckGames.projectFinale.utils.RenderUtils;
 
 public class MenuRenderer {
 	
@@ -53,8 +46,8 @@ public class MenuRenderer {
 	public void setSize (float w, float h){
 		this.W = w;
 		this.H = h;
-		ppuX = (float)W / CAMERA_WIDTH;
-		ppuY = (float)H / CAMERA_HEIGHT;
+		ppuX = W / CAMERA_WIDTH;
+		ppuY = H / CAMERA_HEIGHT;
 	}
 		
 
@@ -62,7 +55,7 @@ public class MenuRenderer {
 		
 		
 		spriteBatch.begin();
-//		background.draw(spriteBatch, 0.8f);
+		background.draw(spriteBatch, 0.8f);
 		spriteBatch.end();
 		
 		camera.update();
@@ -75,9 +68,9 @@ public class MenuRenderer {
 	
 
 	public void setBackground(){
-//		background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/negro.png")))));
-//		background.setBounds(0, 0,megaGame.SCREENW, megaGame.SCREENH);
-//		background.setColor(0, 0, 0, 0.8f);
+		background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/negro.png")))));
+		background.setBounds(0, 0,megaGame.SCREENW, megaGame.SCREENH);
+		background.setColor(0, 0, 0, 0.8f);
 	}
 	
 	public void setStage(Stage actor){
