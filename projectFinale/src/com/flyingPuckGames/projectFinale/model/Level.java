@@ -16,7 +16,7 @@ public class Level {
 
 	public Level(TiledMap tiledMap) {
 		this.setTiledMap(tiledMap);
-		layer = (TiledMapTileLayer) tiledMap.getLayers().getLayer(0);
+		layer = (TiledMapTileLayer) tiledMap.getLayers().get(0);
 		loadLevel();
 	}
 

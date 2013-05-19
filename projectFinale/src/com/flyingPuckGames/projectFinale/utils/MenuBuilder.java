@@ -48,8 +48,9 @@ public class MenuBuilder {
 
 		Image img = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
 		img.setColor(0.2f, 0.2f, 0.2f, 0.5f);
-		img.setX(250);
-		img.setY(50);
+		img.setBounds(((float)Gdx.graphics.getWidth() * 0.22f) ,((float)Gdx.graphics.getHeight() * 0.10f), img.getWidth(), img.getHeight());
+//		img.setX(250);
+//		img.setY(50);
 		
 		p.addActor(img);
 		final Table mainTable = new Table();
@@ -133,12 +134,13 @@ public class MenuBuilder {
 		style.pressedOffsetX = style.unpressedOffsetX + 1f;
 		style.pressedOffsetY = -1f;
 
-		Image img = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
-		img.setColor(0.2f, 0.2f, 0.2f, 0.8f);
-		img.setX(250);
-		img.setY(50);
+		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
+		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.8f);
+		backMenu.setBounds((float)Gdx.graphics.getWidth() * 0.30f,(float)Gdx.graphics.getHeight() * 0.30f , Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//		img.setX(250);
+//		img.setY(50);
 
-		p.addActor(img);
+		p.addActor(backMenu);
 		LabelStyle lStyle = new LabelStyle();
 		lStyle.font = font;
 
@@ -162,13 +164,13 @@ public class MenuBuilder {
 		mainTable.row();
 
 		Button inventory = new Button(style);
-		inventory.add(new Label("Inventory(In construction)", lStyle));
+		inventory.add(new Label("Status", lStyle));
 		inventory.center();
 		inventory.addListener(new ChangeListener() {
 
 			public void changed(ChangeEvent event, Actor actor) {
 
-				// TODO
+				game.changeMenu1(3);
 			}
 
 		});
@@ -235,12 +237,13 @@ public class MenuBuilder {
 		style.pressedOffsetX = style.unpressedOffsetX + 1f;
 		style.pressedOffsetY = -1f;
 
-		Image img = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
-		img.setColor(0.2f, 0.2f, 0.2f, 0.5f);
-		img.setX(250);
-		img.setY(50);
+		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
+		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.5f);
+		backMenu.setX(250);
+		backMenu.setY(50);
 
-		p.addActor(img);
+		p.addActor(backMenu);
+		
 		LabelStyle lStyle = new LabelStyle();
 		lStyle.font = font;
 
@@ -303,12 +306,9 @@ public class MenuBuilder {
 		Group p = new Group();
 		font.setUseIntegerPositions(true);
 		ButtonStyle style = new ButtonStyle();
-		// style.up = new TextureRegionDrawable(new TextureRegion(new
-		// Texture(Gdx.files.internal("textures/buttonup.jpg"))));
-		style.down = new TextureRegionDrawable(new TextureRegion(new Texture(
-				Gdx.files.internal("textures/buttonpressed.jpg"))));
-		style.over = new TextureRegionDrawable(new TextureRegion(new Texture(
-				Gdx.files.internal("textures/buttonover.png"))));
+		// style.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/buttonup.jpg"))));
+		style.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/buttonpressed.jpg"))));
+		style.over = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/buttonover.png"))));
 		style.unpressedOffsetX = 5f;
 		style.pressedOffsetX = style.unpressedOffsetX + 1f;
 		style.pressedOffsetY = -1f;
@@ -316,8 +316,9 @@ public class MenuBuilder {
 		Image img = new Image(new TextureRegionDrawable(new TextureRegion(
 				new Texture(Gdx.files.internal("textures/gris.png")))));
 		img.setColor(0.2f, 0.2f, 0.2f, 0.5f);
-		img.setX(250);
-		img.setY(50);
+		img.setBounds((float)Gdx.graphics.getWidth() * 0.30f,(float)Gdx.graphics.getHeight() * 0.30f , Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//		img.setX(250);
+//		img.setY(50);
 
 		p.addActor(img);
 		LabelStyle lStyle = new LabelStyle();
@@ -377,4 +378,49 @@ public class MenuBuilder {
 
 	}
 
+	public Group statusMenu(){
+		
+		
+		Group p = new Group();
+		
+		Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/statusBack.png")))));
+		background.setColor(0.8f,0.8f,0.8f,0.8f);
+		background.setX(0);
+		background.setY(0);
+		
+		p.addActor(background);
+		
+		font.setUseIntegerPositions(true);
+		ButtonStyle style = new ButtonStyle();
+		// style.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/buttonup.jpg"))));
+		style.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/buttonpressed.jpg"))));
+		style.over = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/buttonover.png"))));
+		style.unpressedOffsetX = 5f;
+		style.pressedOffsetX = style.unpressedOffsetX + 1f;
+		style.pressedOffsetY = -1f;
+		
+		
+		LabelStyle lStyle = new LabelStyle();
+		lStyle.font = font;
+		
+		Label nameChar = new Label("Name Character", lStyle);
+		nameChar.setX( (float) (background.getWidth() * 0.05 + nameChar.getWidth()) );
+		nameChar.setY( (float) (background.getHeight() * 0.95 - nameChar.getHeight()) );
+		
+		p.addActor(nameChar);
+		
+		
+		
+		Table optionTable = new Table();
+		optionTable.defaults().width( 100 );
+		optionTable.setX( Gdx.graphics.getWidth() / 2 );
+		optionTable.setY( Gdx.graphics.getHeight() / 2 );
+		
+		
+		
+		return p;
+		
+	}
+	
+	
 }

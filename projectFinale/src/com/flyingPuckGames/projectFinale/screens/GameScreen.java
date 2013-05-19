@@ -111,7 +111,9 @@ public class GameScreen implements Screen,InputProcessor {
 			rendererMenu.setStage(stage);
 			break;
 		case 3:
-			//TODO Inventory
+			stage = new Stage();
+			stage.addActor(menuBuilder.statusMenu());
+			rendererMenu.setStage(stage);
 			break;
 		}
 		

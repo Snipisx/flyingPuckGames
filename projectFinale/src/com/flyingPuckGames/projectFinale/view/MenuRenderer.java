@@ -62,7 +62,7 @@ public class MenuRenderer {
 		
 		
 		spriteBatch.begin();
-		background.draw(spriteBatch, 0.8f);
+//		background.draw(spriteBatch, 0.8f);
 		spriteBatch.end();
 		
 		camera.update();
@@ -75,8 +75,9 @@ public class MenuRenderer {
 	
 
 	public void setBackground(){
-		background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/negro.png")))));
-		background.setColor(0, 0, 0, 0.8f);
+//		background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/negro.png")))));
+//		background.setBounds(0, 0,megaGame.SCREENW, megaGame.SCREENH);
+//		background.setColor(0, 0, 0, 0.8f);
 	}
 	
 	public void setStage(Stage actor){

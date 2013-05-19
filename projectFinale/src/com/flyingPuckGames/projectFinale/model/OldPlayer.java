@@ -118,7 +118,7 @@ public class OldPlayer extends Entity {
 		getTiles(startX, startY, endX, endY, tiles);
 		charRect.x += this.velocity.x;
 		for (Rectangle tile : tiles) {
-			if (Intersector.overlapRectangles(charRect, tile)) {
+			if (Intersector.overlaps(charRect, tile)) {
 				this.velocity.x = 0;
 				System.out.println("[Colision detected in the X axis: "
 						+ this.position + "]");
@@ -139,7 +139,7 @@ public class OldPlayer extends Entity {
 		getTiles(startX, startY, endX, endY, tiles);
 		charRect.y += this.velocity.y;
 		for (Rectangle tile : tiles) {
-			if (Intersector.overlapRectangles(this.charRect, tile)) {
+			if (Intersector.overlaps(this.charRect, tile)) {
 				// we actually reset the character y-position here
 				// so it is just below/above the tile we collided with
 				// this removes bouncing :)
@@ -185,7 +185,7 @@ public class OldPlayer extends Entity {
 	private void getTiles(int startX, int startY, int endX, int endY,
 			Array<Rectangle> tiles) {
 		TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers()
-				.getLayer(0);
+				.get(0);
 		rectPool.freeAll(tiles);
 		tiles.clear();
 		for (int y = startY; y <= endY; y++) {
