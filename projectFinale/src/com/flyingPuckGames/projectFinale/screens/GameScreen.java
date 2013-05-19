@@ -92,7 +92,7 @@ public class GameScreen implements Screen,InputProcessor {
 	
 	private void setOnMenu(){
 		stage = new Stage();
-		stage.addActor(menuBuilder.gameMenu(this));
+		stage.addActor(menuBuilder.statusMenu(this));
 		rendererMenu.setStage(stage);
 		rendererMenu.setBackground();
 		onMenu = true;
@@ -112,9 +112,7 @@ public class GameScreen implements Screen,InputProcessor {
 			rendererMenu.setStage(stage);
 			break;
 		case 3:
-			stage = new Stage();
-			stage.addActor(menuBuilder.statusMenu(this));
-			rendererMenu.setStage(stage);
+			//TODO GRIMORIO
 			break;
 		case 4:
 			onMenu = false;
@@ -136,9 +134,6 @@ public class GameScreen implements Screen,InputProcessor {
 			case 2:
 				break;
 			case 3:
-				stage = new Stage();
-				stage.addActor(menuBuilder.gameMenu(this));
-				rendererMenu.setStage(stage);
 				break;
 			case 4:
 				stage = new Stage();
@@ -202,6 +197,10 @@ public class GameScreen implements Screen,InputProcessor {
 		}
 		if (x > this.W / 2 && y > this.H / 2) {
 			controller.rightPressed();
+		}
+		
+		if (x < this.W * 0.10f && y > this.H * 0.10f) {
+			setOnMenu();
 		}
 		return true;
 	}
