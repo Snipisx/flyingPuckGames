@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 
@@ -136,7 +137,7 @@ public class MenuBuilder {
 
 		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
 		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.8f);
-		backMenu.setBounds((float)Gdx.graphics.getWidth() * 0.30f,(float)Gdx.graphics.getHeight() * 0.30f , Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		backMenu.setBounds(((float)Gdx.graphics.getWidth() * 0.22f) ,((float)Gdx.graphics.getHeight() * 0.10f), backMenu.getWidth(), backMenu.getHeight());
 //		img.setX(250);
 //		img.setY(50);
 
@@ -238,9 +239,10 @@ public class MenuBuilder {
 		style.pressedOffsetY = -1f;
 
 		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
-		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.5f);
-		backMenu.setX(250);
-		backMenu.setY(50);
+		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.8f);
+		backMenu.setBounds(((float)Gdx.graphics.getWidth() * 0.22f) ,((float)Gdx.graphics.getHeight() * 0.10f), backMenu.getWidth(), backMenu.getHeight());
+	//	backMenu.setX(250);
+	//	backMenu.setY(50);
 
 		p.addActor(backMenu);
 		
@@ -313,14 +315,13 @@ public class MenuBuilder {
 		style.pressedOffsetX = style.unpressedOffsetX + 1f;
 		style.pressedOffsetY = -1f;
 
-		Image img = new Image(new TextureRegionDrawable(new TextureRegion(
-				new Texture(Gdx.files.internal("textures/gris.png")))));
-		img.setColor(0.2f, 0.2f, 0.2f, 0.5f);
-		img.setBounds((float)Gdx.graphics.getWidth() * 0.30f,(float)Gdx.graphics.getHeight() * 0.30f , Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
+		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.8f);
+		backMenu.setBounds(((float)Gdx.graphics.getWidth() * 0.22f) ,((float)Gdx.graphics.getHeight() * 0.10f), backMenu.getWidth(), backMenu.getHeight());
 //		img.setX(250);
 //		img.setY(50);
 
-		p.addActor(img);
+		p.addActor(backMenu);
 		LabelStyle lStyle = new LabelStyle();
 		lStyle.font = font;
 
@@ -378,7 +379,7 @@ public class MenuBuilder {
 
 	}
 
-	public Group statusMenu(){
+	public Group statusMenu(final GameScreen game){
 		
 		
 		Group p = new Group();
@@ -413,10 +414,52 @@ public class MenuBuilder {
 		
 		Table optionTable = new Table();
 		optionTable.defaults().width( 100 );
+		optionTable.defaults().height( 50 );
 		optionTable.setX( Gdx.graphics.getWidth() / 2 );
 		optionTable.setY( Gdx.graphics.getHeight() / 2 );
 		
 		
+		Button equip = new Button(style);
+		equip.add(new Label("Equip",lStyle));
+		equip.center();
+		equip.addListener(new ChangeListener() {
+			
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				game.changeMenuStatus(1);
+				
+			}
+		});
+		
+		Button inventory = new Button(style);
+		inventory.add(new Label("Inventory",lStyle));
+		inventory.center();
+		inventory.addListener(new ChangeListener() {
+			
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				game.changeMenuStatus(2);
+				
+			}
+		});
+		Button back = new Button(style);
+		back.add(new Label("Back",lStyle));
+		back.center();
+		back.addListener(new ChangeListener() {
+			
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				game.changeMenuStatus(3);
+				
+			}
+		});
+		optionTable.add(equip);
+		optionTable.row();
+		optionTable.add(inventory);
+		optionTable.row();
+		optionTable.add(back);
+		
+		p.addActor(optionTable);
 		
 		return p;
 		

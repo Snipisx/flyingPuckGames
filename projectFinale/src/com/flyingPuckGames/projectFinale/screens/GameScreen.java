@@ -112,11 +112,27 @@ public class GameScreen implements Screen,InputProcessor {
 			break;
 		case 3:
 			stage = new Stage();
-			stage.addActor(menuBuilder.statusMenu());
+			stage.addActor(menuBuilder.statusMenu(this));
 			rendererMenu.setStage(stage);
 			break;
 		}
 		
+		
+	}
+	
+	public void changeMenuStatus(int menu){
+		
+		switch(menu){
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				stage = new Stage();
+				stage.addActor(menuBuilder.gameMenu(this));
+				rendererMenu.setStage(stage);
+				break;
+		}
 		
 	}
 	// * InputProcessor methods ***************************//
