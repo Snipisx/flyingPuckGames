@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.flyingPuckGames.projectFinale.MegaGame;
+import com.flyingPuckGames.projectFinale.utils.RenderUtils;
 
 public class MenuRenderer {
 	
@@ -52,7 +53,7 @@ public class MenuRenderer {
 		
 
 	public void render(float delta) {
-		
+		RenderUtils.clearScreen();
 		
 		spriteBatch.begin();
 		background.draw(spriteBatch, 0.8f);

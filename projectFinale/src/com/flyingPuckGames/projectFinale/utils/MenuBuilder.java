@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
@@ -32,20 +33,24 @@ public class MenuBuilder {
 
 	
 	
-	private BitmapFont font = new BitmapFont();
+	private BitmapFont font;
 	private ButtonStyle style = new ButtonStyle();
 	private LabelStyle lStyle = new LabelStyle();
 	private TextFieldStyle  tt = new TextFieldStyle();
 	
 	public void setStyles(){
-		font.setUseIntegerPositions(true);
+		FreeTypeFontGenerator f = new FreeTypeFontGenerator(Gdx.files.internal("fonts/akiras_font.ttf"));
+		font = f.generateFont(12);
+		f.dispose();
+				//new BitmapFont(Gdx.files.internal("fonts/font.font"),Gdx.files.internal("fonts/font.png"), false,true);
 		// style.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/buttonup.jpg"))));
-		style.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/buttonpressed.jpg"))));
-		style.over = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/buttonover.png"))));
-		style.unpressedOffsetX = 5f;
-		style.pressedOffsetX = style.unpressedOffsetX + 1f;
-		style.pressedOffsetY = -1f;
+		style.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selected2.png"))));
+		style.over = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/hover2.png"))));
+//		style.unpressedOffsetX = 5f;
+//		style.pressedOffsetX = style.unpressedOffsetX + 1f;
+		style.pressedOffsetY = 1f;
 		lStyle.font = font;
+		lStyle.fontColor = Color.valueOf("ededed");
 		tt.font = font;
 		tt.fontColor = Color.YELLOW;
 		
@@ -58,17 +63,17 @@ public class MenuBuilder {
 		
 		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
 		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.5f);
-		backMenu.setBounds((Gdx.graphics.getWidth() * 0.22f) ,(Gdx.graphics.getHeight() * 0.10f), backMenu.getWidth(), backMenu.getHeight());
+		backMenu.setBounds((Gdx.graphics.getWidth() * 0.395f) ,(Gdx.graphics.getHeight() * 0.34f), Gdx.graphics.getWidth()*0.21f, Gdx.graphics.getHeight()*0.3f);
 		
 		p.addActor(backMenu);
 		final Table mainTable = new Table();
-		mainTable.defaults().width(300);
-		mainTable.defaults().height(50);
+		mainTable.defaults().width(Gdx.graphics.getWidth() * 0.2f);
+		mainTable.defaults().height(Gdx.graphics.getHeight()* 0.05f);
 		mainTable.setX(Gdx.graphics.getWidth() / 2);
 		mainTable.setY(Gdx.graphics.getHeight() / 2);
 
 		Button play = new Button(style);
-		play.add(new Label("Play", lStyle));
+		play.add(new Label("PLAY", lStyle));
 		play.center();
 		play.addListener(new ChangeListener() {
 
@@ -83,7 +88,7 @@ public class MenuBuilder {
 		mainTable.row();
 
 		Button options = new Button(style);
-		options.add(new Label("Options(In construction)", lStyle));
+		options.add(new Label("OPTIONS", lStyle));
 		options.setColor(new Color(100, 100, 100, 100));
 		options.center();
 		options.addListener(new ChangeListener() {
@@ -100,7 +105,7 @@ public class MenuBuilder {
 		mainTable.row();
 
 		Button grimoire = new Button(style);
-		grimoire.add(new Label("Grimoire(In construction)", lStyle));
+		grimoire.add(new Label("GRIMOIRE", lStyle));
 		grimoire.center();
 		grimoire.addListener(new ChangeListener() {
 
@@ -115,7 +120,7 @@ public class MenuBuilder {
 		mainTable.row();
 
 		Button exit = new Button(style);
-		exit.add(new Label("Close game", lStyle));
+		exit.add(new Label("CLOSE GAME", lStyle));
 		exit.center();
 		exit.addListener(new ChangeListener() {
 
@@ -152,18 +157,19 @@ public class MenuBuilder {
 
 		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
 		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.8f);
-		backMenu.setBounds((Gdx.graphics.getWidth() * 0.22f) ,(Gdx.graphics.getHeight() * 0.10f), backMenu.getWidth(), backMenu.getHeight());
+		backMenu.setBounds((Gdx.graphics.getWidth() * 0.40f) ,(Gdx.graphics.getHeight() * 0.34f), Gdx.graphics.getWidth()*0.2f, Gdx.graphics.getHeight()*0.3f);
 
 		p.addActor(backMenu);
 		
 		
 		Table mainTable = new Table();
-		mainTable.defaults().width(300);
+		mainTable.defaults().width(Gdx.graphics.getWidth() * 0.2f);
+		mainTable.defaults().height(Gdx.graphics.getHeight()* 0.05f);
 		mainTable.setX(Gdx.graphics.getWidth() / 2);
 		mainTable.setY(Gdx.graphics.getHeight() / 2);
 
 		Button video = new Button(style);
-		video.add(new Label("Video Options", lStyle));
+		video.add(new Label("VIDEO OPTIONS", lStyle));
 		video.center();
 		video.addListener(new ChangeListener() {
 
@@ -178,7 +184,7 @@ public class MenuBuilder {
 		mainTable.row();
 
 		Button sound = new Button(style);
-		sound.add(new Label("Sound Options", lStyle));
+		sound.add(new Label("SOUND OPTIONS", lStyle));
 		sound.center();
 		sound.addListener(new ChangeListener() {
 
@@ -194,7 +200,7 @@ public class MenuBuilder {
 		mainTable.row();
 
 		Button back = new Button(style);
-		back.add(new Label("Back", lStyle));
+		back.add(new Label("BACK", lStyle));
 		back.center();
 		back.addListener(new ChangeListener() {
 
@@ -230,18 +236,19 @@ public class MenuBuilder {
 
 		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
 		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.8f);
-		backMenu.setBounds((Gdx.graphics.getWidth() * 0.22f) ,(Gdx.graphics.getHeight() * 0.10f), backMenu.getWidth(), backMenu.getHeight());
+		backMenu.setBounds((Gdx.graphics.getWidth() * 0.40f) ,(Gdx.graphics.getHeight() * 0.34f), Gdx.graphics.getWidth()*0.2f, Gdx.graphics.getHeight()*0.3f);
 
 
 		p.addActor(backMenu);
 
 		Table mainTable = new Table();
-		mainTable.defaults().width(300);
+		mainTable.defaults().width(Gdx.graphics.getWidth() * 0.22f);
+		mainTable.defaults().height(Gdx.graphics.getHeight()* 0.05f);
 		mainTable.setX(Gdx.graphics.getWidth() / 2);
 		mainTable.setY(Gdx.graphics.getHeight() / 2);
 
 		Button video = new Button(style);
-		video.add(new Label("Video Options", lStyle));
+		video.add(new Label("VIDEO OPTIONS", lStyle));
 		video.center();
 		video.addListener(new ChangeListener() {
 
@@ -256,7 +263,7 @@ public class MenuBuilder {
 		mainTable.row();
 
 		Button sound = new Button(style);
-		sound.add(new Label("Sound Options", lStyle));
+		sound.add(new Label("SOUND OPTIONS", lStyle));
 		sound.center();
 		sound.addListener(new ChangeListener() {
 
@@ -272,7 +279,7 @@ public class MenuBuilder {
 		mainTable.row();
 
 		Button back = new Button(style);
-		back.add(new Label("Back", lStyle));
+		back.add(new Label("BACK", lStyle));
 		back.center();
 		back.addListener(new ChangeListener() {
 
@@ -310,15 +317,14 @@ public class MenuBuilder {
 		});
 		
 		Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/statusBack.png")))));
+		background.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		background.setColor(0.8f,0.8f,0.8f,0.8f);
-		background.setX(0);
-		background.setY(0);
 		
 		p.addActor(background);
 
 		
 		
-		Label nameChar = new Label("Name Character", lStyle);
+		Label nameChar = new Label("NAME CHARACTER", lStyle);
 		nameChar.setX( (float) (background.getWidth() * 0.05 + nameChar.getWidth()) );
 		nameChar.setY( (float) (background.getHeight() * 0.95 - nameChar.getHeight()) );
 		
@@ -327,14 +333,14 @@ public class MenuBuilder {
 		
 		
 		Table optionTable = new Table();
-		optionTable.defaults().width( 100 );
-		optionTable.defaults().height( 50 );
+		optionTable.defaults().width( Gdx.graphics.getWidth() * 0.2f );
+		optionTable.defaults().height( Gdx.graphics.getHeight() * 0.05f );
 		optionTable.setX( Gdx.graphics.getWidth() / 2 );
 		optionTable.setY( Gdx.graphics.getHeight() / 2 );
 		
 		
 		Button equip = new Button(style);
-		equip.add(new Label("Equip",lStyle));
+		equip.add(new Label("EQUIP",lStyle));
 		equip.center();
 		equip.addListener(new ChangeListener() {
 			
@@ -346,7 +352,7 @@ public class MenuBuilder {
 		});
 		
 		Button grimoire = new Button(style);
-		grimoire.add(new Label("Grimoire", lStyle));
+		grimoire.add(new Label("GRIMOIRE", lStyle));
 		grimoire.center();
 		grimoire.addListener(new ChangeListener() {
 
@@ -358,7 +364,7 @@ public class MenuBuilder {
 		});
 		
 		Button options = new Button(style);
-		options.add(new Label("Options", lStyle));
+		options.add(new Label("OPTIONS", lStyle));
 		options.center();
 		options.addListener(new ChangeListener() {
 
@@ -371,7 +377,7 @@ public class MenuBuilder {
 		});
 
 		Button back = new Button(style);
-		back.add(new Label("Back",lStyle));
+		back.add(new Label("BACK",lStyle));
 		back.center();
 		back.addListener(new ChangeListener() {
 			
@@ -432,23 +438,23 @@ public class MenuBuilder {
 		equipedTab.setBounds(Gdx.graphics.getWidth() * 0.45f, Gdx.graphics.getHeight() * 0.55f, Gdx.graphics.getWidth() * 0.2f,Gdx.graphics.getHeight() * 0.5f );
 		
 		
-		Label weapon = new Label("weapon", lStyle);
+		Label weapon = new Label("WEAPON", lStyle);
 		
 		equipedTab.add(weapon);
 		equipedTab.row();
-		Label armor = new Label("armor", lStyle);
+		Label armor = new Label("ARMOR", lStyle);
 
 		equipedTab.add(armor);
 		equipedTab.row();
-		Label accesory1 = new Label("accesory1", lStyle);
+		Label accesory1 = new Label("ACCESORY1", lStyle);
 
 		equipedTab.add(accesory1);
 		equipedTab.row();
-		Label accesory2 = new Label("accesory2", lStyle);
+		Label accesory2 = new Label("ACCESORY2", lStyle);
 
 		equipedTab.add(accesory2);
 		equipedTab.row();
-		Label accesory3 = new Label("accesory3", lStyle);
+		Label accesory3 = new Label("ACCESORY3", lStyle);
 
 		equipedTab.add(accesory3);
 		equipedTab.row();	
