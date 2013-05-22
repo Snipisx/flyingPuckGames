@@ -48,7 +48,7 @@ public class MenuBuilder {
 		style.over = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/hover2.png"))));
 //		style.unpressedOffsetX = 5f;
 //		style.pressedOffsetX = style.unpressedOffsetX + 1f;
-		style.pressedOffsetY = 1f;
+		//style.pressedOffsetY = 1f;
 		lStyle.font = font;
 		lStyle.fontColor = Color.valueOf("ededed");
 		tt.font = font;
