@@ -38,8 +38,7 @@ public class GameScreen implements Screen,InputProcessor {
 		rendererGame = new WorldRenderer(world, false, this.megaGame);
 		rendererMenu = new MenuRenderer(megaGame);
 		controller = new PlayerController(world);
-		menuBuilder = new MenuBuilder();
-		menuBuilder.setStyles();
+		menuBuilder = megaGame.getMenuBuilder();
 		setInputProcessor();
 		onMenu = false;
 		cont = 0;
@@ -91,6 +90,8 @@ public class GameScreen implements Screen,InputProcessor {
 	}
 	
 	private void setOnMenu(){
+		controller.rightReleased();
+		controller.leftReleased();
 		stage = new Stage();
 		stage.addActor(menuBuilder.statusMenu(this));
 		rendererMenu.setStage(stage);
@@ -199,7 +200,7 @@ public class GameScreen implements Screen,InputProcessor {
 			controller.rightPressed();
 		}
 		
-		if (x < this.W * 0.10f && y > this.H * 0.10f) {
+		if (x < this.W * 0.10f && y > this.H * 0.90f) {
 			setOnMenu();
 		}
 		return true;

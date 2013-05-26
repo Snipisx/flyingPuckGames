@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl.jar" sourcepath="libs/gdx-backend-lwjgl-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/gdx-natives.jar"/>
 	<classpathentry kind="lib" path="libs/gdx-freetype-natives.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/gson-2.2.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

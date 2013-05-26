@@ -25,9 +25,8 @@ public class MenuScreen implements Screen,InputProcessor {
 	@Override
 	public void show() {
 		
-		menuBuilder = new MenuBuilder();
+		menuBuilder = megaGame.getMenuBuilder();
 		renderer = new MenuRenderer(megaGame);
-		menuBuilder.setStyles();
 		stage = new Stage();
 		setStage(menuBuilder.mainMenu(this));
 		renderer.onGameMenu(false);

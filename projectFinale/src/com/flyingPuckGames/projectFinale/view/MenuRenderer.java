@@ -1,6 +1,7 @@
 package com.flyingPuckGames.projectFinale.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -38,10 +39,6 @@ public class MenuRenderer {
 		setBackground();
 //		loadTextures();
 		spriteBatch = new SpriteBatch();
-//		debug = true;
-		//System.out.println("CameraX: " + camera.position.x + "\nCameraY:" + camera.position.y);
-
-		
 	}
 	
 	public void setSize (float w, float h){
@@ -53,10 +50,13 @@ public class MenuRenderer {
 		
 
 	public void render(float delta) {
-		RenderUtils.clearScreen();
+		
+		if(!onGameMenu){
+			RenderUtils.clearScreen();
+		}
 		
 		spriteBatch.begin();
-		background.draw(spriteBatch, 0.8f);
+		background.draw(spriteBatch, 0.5f);
 		spriteBatch.end();
 		
 		camera.update();
@@ -71,7 +71,7 @@ public class MenuRenderer {
 	public void setBackground(){
 		background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/negro.png")))));
 		background.setBounds(0, 0,megaGame.SCREENW, megaGame.SCREENH);
-		background.setColor(0, 0, 0, 0.8f);
+		background.setColor(Color.valueOf("3d3d3d"));
 	}
 	
 	public void setStage(Stage actor){

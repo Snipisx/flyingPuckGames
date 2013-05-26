@@ -3,6 +3,7 @@ package com.flyingPuckGames.projectFinale;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
+import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
 
 
 public class MegaGame extends Game {
@@ -11,6 +12,7 @@ public class MegaGame extends Game {
 	public static final String LOG = "projectFinale - ";
 	public float SCREENW;
 	public float SCREENH;
+	public MenuBuilder menuBuilder;
 	
 	@Override
 	public void create() {
@@ -18,9 +20,16 @@ public class MegaGame extends Game {
 		SCREENH = Gdx.graphics.getHeight();
 		System.out.println(SCREENW);
 		System.out.println(SCREENH);
+		menuBuilder = new MenuBuilder();
+		menuBuilder.setStyles();
+		menuBuilder.init();
 		setScreen(new MenuScreen(this));
 	}
 
+	
+	public MenuBuilder getMenuBuilder(){
+		return menuBuilder;
+	}
 	@Override
 	public void render() {
 		super.render();
