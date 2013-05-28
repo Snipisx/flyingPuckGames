@@ -70,7 +70,7 @@ public class OptionMenu {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				// game.changeMenu2();
+				gameScreen.changeMenuOptions(1);
 			}
 
 		});

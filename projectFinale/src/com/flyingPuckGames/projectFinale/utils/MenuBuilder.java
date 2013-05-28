@@ -18,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox.SelectBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -44,6 +46,7 @@ public class MenuBuilder {
 	private OptionMenu optionMenu;
 	private StatusMenu statusMenu;
 	private EquipMenu equipMenu;
+	private SelectBoxStyle boxStyle = new SelectBoxStyle();
 	
 	public void setStyles(){
 		//labels
@@ -52,6 +55,13 @@ public class MenuBuilder {
 		fontStatus = f.generateFont(16);
 		fontName = f.generateFont(32);
 		f.dispose();
+		
+		boxStyle.font = fontMenus;
+		boxStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selectBox.png"))));
+		boxStyle.listBackground = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/negro.png"))));
+		boxStyle.listSelection = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selectBox1.png"))));
+		boxStyle.itemSpacing = 1f;
+		boxStyle.fontColor = Color.valueOf("2BCEBF");
 		
 		statusSt.font = fontStatus;
 		statusSt.fontColor = Color.valueOf("ededed");
@@ -63,6 +73,7 @@ public class MenuBuilder {
 		
 		nameStyle.font = fontName;
 		nameStyle.fontColor = Color.valueOf("FF4FB5");
+		//nameStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/negro.png"))));
 		
 		//Buttons
 		style.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selected2.png"))));
@@ -102,13 +113,13 @@ public class MenuBuilder {
 		return equip;
 	}
 	
-	public Group videoOptions(final MenuScreen game){
+	public Group videoOptions(final GameScreen gameScreen){
 		Group p = new Group();
 		p.addListener(new InputListener() {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
 				if(keycode == Keys.ESCAPE){
-					game.changeMenu(1);
+					gameScreen.changeMenu(1);
 				}
 				
 				return true;
@@ -117,66 +128,42 @@ public class MenuBuilder {
 	
 		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
 		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.8f);
-		backMenu.setBounds((Gdx.graphics.getWidth() * 0.40f) ,(Gdx.graphics.getHeight() * 0.34f), Gdx.graphics.getWidth()*0.2f, Gdx.graphics.getHeight()*0.3f);
-	
+		backMenu.setBounds((Gdx.graphics.getWidth() * 0.3f) ,(Gdx.graphics.getHeight() * 0.34f), Gdx.graphics.getWidth()*0.4f, Gdx.graphics.getHeight()*0.4f);
 	
 		p.addActor(backMenu);
-	
-		Table mainTable = new Table();
-		mainTable.defaults().width(Gdx.graphics.getWidth() * 0.22f);
-		mainTable.defaults().height(Gdx.graphics.getHeight()* 0.05f);
-		mainTable.setX(Gdx.graphics.getWidth() / 2);
-		mainTable.setY(Gdx.graphics.getHeight() / 2);
-	
-		Button video = new Button(style);
-		video.add(new Label("VIDEO OPTIONS", lStyle));
-		video.center();
-		video.addListener(new ChangeListener() {
-	
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				// game.changeMenu2();
-			}
-	
-		});
-	
-		mainTable.add(video);
-		mainTable.row();
-	
-		Button sound = new Button(style);
-		sound.add(new Label("SOUND OPTIONS", lStyle));
-		sound.center();
-		sound.addListener(new ChangeListener() {
-	
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-	
-				// game.changeMenu2();
-			}
-	
-		});
-	
-		mainTable.add(sound);
-		mainTable.row();
-	
-		Button back = new Button(style);
-		back.add(new Label("BACK", lStyle));
-		back.center();
-		back.addListener(new ChangeListener() {
-	
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-	
-				game.changeMenu(1);
-			}
-	
-		});
-		mainTable.add(back);
-		mainTable.row();
-	
-		p.addActor(mainTable);
+		
+		
+		Label title = new Label("VIDEO CONFIGURATION",statusSt);
+		title.setBounds(Gdx.graphics.getWidth() * 0.38f, Gdx.graphics.getHeight() * 0.65f, Gdx.graphics.getWidth() * 0.25f,Gdx.graphics.getHeight() * 0.1f);
+		
+		p.addActor(title);
+		
+		Label resolution = new Label("RESOLUTION",lStyle);
+		resolution.setBounds(Gdx.graphics.getWidth() * 0.38f, Gdx.graphics.getHeight() * 0.55f, Gdx.graphics.getWidth() * 0.25f,Gdx.graphics.getHeight() * 0.1f);
+		
+		p.addActor(resolution);
+		
+		String b[] = new String[5];
+		b[0] = " 960X540";
+		b[1] = " 1024X576";
+		b[2] = " 1280X720";
+		b[3] = " 1366X768";
+		b[4] = " 1600X900";
+		
+		SelectBox resolutionBox = new SelectBox(b,boxStyle);
+		
+		resolutionBox.setBounds(Gdx.graphics.getWidth() * 0.50f, Gdx.graphics.getHeight() * 0.575f, Gdx.graphics.getWidth() * 0.09f, Gdx.graphics.getHeight() * 0.05f);
+		resolutionBox.setSelection(2);
+		p.addActor(resolutionBox);
+		
+		
+		Button save = new Button(new Label("Accept",lStyle),style);
+		
+		
+		
 	
 		return p;
+
 
 	}
 	

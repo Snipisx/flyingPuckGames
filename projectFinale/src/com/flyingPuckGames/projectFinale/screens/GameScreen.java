@@ -266,5 +266,17 @@ public class GameScreen implements Screen, InputProcessor{
 	public void setContEsc(Integer contEsc) {
 		this.contEsc = contEsc;
 	}
+
+
+	public void changeMenuOptions(int i) {
+		switch(i){
+		case 1:
+			stage = new Stage();
+			stage.addActor(menuBuilder.videoOptions(this));
+			menuRenderer.setStage(stage);
+			break;
+		}
+		
+	}
 	
 }

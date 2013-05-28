@@ -24,8 +24,8 @@ public class Constants {
 	public static final String TEST_BACKGROUND_PATH 	= "maps/background.png";
 	
 	//Options
-	public static final float RESOLUTION_X 	= 1200f;
-	public static final float RESOLUTION_Y 	= 768f;
+	public static final float RESOLUTION_X 	= 1280f;
+	public static final float RESOLUTION_Y 	= 720f;
 	public static final boolean SOUND 		= true;
 	public static final Short SOUND_VOLUME 	= 10;
 	

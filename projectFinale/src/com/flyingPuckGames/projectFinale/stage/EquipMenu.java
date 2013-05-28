@@ -52,11 +52,8 @@ public class EquipMenu {
 		
 		Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/equip.png")))));
 		background.setColor(0.8f,0.8f,0.8f,0.8f);
-		if(Gdx.app.getType().equals(ApplicationType.Android)){
-			background.setBounds(0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-		}else {
-			background.setBounds(0, 0, background.getWidth(), background.getHeight());
-		}
+		background.setBounds(0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+
 		
 		
 		p.addActor(background);
