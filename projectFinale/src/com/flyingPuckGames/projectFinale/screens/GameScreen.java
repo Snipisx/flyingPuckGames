@@ -44,7 +44,11 @@ public class GameScreen implements Screen, InputProcessor{
 		playerRenderer = new PlayerRenderer(player);
 		menuRenderer = new MenuRenderer(megaGame);
 		playerController	= new PlayerController(player);
-		
+		menuBuilder = new MenuBuilder();
+		menuBuilder.setStyles();
+		menuBuilder.init();
+		contEsc = 0;
+		setInputProcessor();
 	}
 
 
@@ -119,6 +123,9 @@ public class GameScreen implements Screen, InputProcessor{
 				break;
 				
 			case 2:
+				stage = new Stage();
+				stage.addActor(menuBuilder.optionMenu(this));
+				menuRenderer.setStage(stage);
 				break;
 				
 			case 3:
@@ -170,6 +177,7 @@ public class GameScreen implements Screen, InputProcessor{
 
 	@Override
 	public boolean keyUp(int keycode) {
+		System.out.println("hola");
 		if (keycode == Keys.LEFT)
 			playerController.leftReleased();
 		if (keycode == Keys.RIGHT)
@@ -178,8 +186,9 @@ public class GameScreen implements Screen, InputProcessor{
 			playerController.jumpReleased();
 		if (keycode == Keys.X)
 			playerController.fireReleased();
-		if (keycode == Keys.D)
-//			rendererGame.renderDebugText();
+		if (keycode == Keys.D){
+			System.out.println("psdfa");
+		}
 		if (keycode == Keys.ESCAPE){
 			if(contEsc == 1){
 				contEsc = 0;

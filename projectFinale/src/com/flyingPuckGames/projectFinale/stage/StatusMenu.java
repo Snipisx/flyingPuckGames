@@ -48,7 +48,7 @@ public class StatusMenu {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
 				if(keycode == Keys.ESCAPE){
-					gameScreen.changeMenuStatus(4);
+					gameScreen.changeMenu(4);
 					gameScreen.setContEsc(1);
 				}
 				
@@ -285,7 +285,7 @@ public class StatusMenu {
 			
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				gameScreen.changeMenuStatus(4);
+				gameScreen.changeMenu(4);
 				gameScreen.setContEsc(0);
 				
 			}
