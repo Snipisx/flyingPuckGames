@@ -31,7 +31,7 @@ public class WorldRenderer {
 	public WorldRenderer(Level level){
 		this.level = level;
 		
-		setWindowSize();
+		setActualWindowSize();
 		createCamera();
 		createWorld();
 		
@@ -46,14 +46,6 @@ public class WorldRenderer {
 	public void update(float delta, Vector2 cameraPosition){
 		updateCamera(cameraPosition);
 		renderWorld(delta);
-	}
-	
-	/**
-	 * Actual window size.
-	 */
-	private void setWindowSize(){
-		screenW = Gdx.graphics.getWidth();
-		screenH = Gdx.graphics.getHeight();
 	}
 	
 	/**
@@ -104,5 +96,14 @@ public class WorldRenderer {
 	public void setTileRenderer(OrthogonalTiledMapRenderer tileRenderer) {
 		this.tileRenderer = tileRenderer;
 	}
+	
+	/**
+	 * Actual window size.
+	 */
+	public void setActualWindowSize(){
+		screenW = Gdx.graphics.getWidth();
+		screenH = Gdx.graphics.getHeight();
+	}
+	
 	
 }

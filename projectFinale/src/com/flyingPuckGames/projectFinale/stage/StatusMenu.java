@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.screens.SecondGameScreen;
 
 public class StatusMenu {
@@ -38,7 +39,7 @@ public class StatusMenu {
 	}
 	
 	
-	public Group create(final SecondGameScreen game){
+	public Group create(final GameScreen gameScreen){
 		
 		
 		Group p = new Group();
@@ -47,8 +48,8 @@ public class StatusMenu {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
 				if(keycode == Keys.ESCAPE){
-					game.changeMenu(4);
-					game.cont = 1;
+					gameScreen.changeMenuStatus(4);
+					gameScreen.setContEsc(1);
 				}
 				
 				return true;
@@ -247,7 +248,7 @@ public class StatusMenu {
 			
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				game.changeMenuStatus(1);
+				gameScreen.changeMenuStatus(1);
 				
 			}
 		});
@@ -259,7 +260,7 @@ public class StatusMenu {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				game.changeMenu(3);
+				gameScreen.changeMenuStatus(3);
 			}
 
 		});
@@ -272,7 +273,7 @@ public class StatusMenu {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 
-				game.changeMenu(2);
+				gameScreen.changeMenuStatus(2);
 			}
 
 		});
@@ -284,8 +285,8 @@ public class StatusMenu {
 			
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				game.changeMenu(4);
-				game.cont = 0;
+				gameScreen.changeMenuStatus(4);
+				gameScreen.setContEsc(0);
 				
 			}
 		});

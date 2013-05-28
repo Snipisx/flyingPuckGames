@@ -172,6 +172,7 @@ public class SecondGameScreen implements Screen,InputProcessor {
 		if (keycode == Keys.D)
 			rendererGame.renderDebugText();
 		if (keycode == Keys.ESCAPE){
+			System.out.println("HolaESC");
 			if(cont == 1){
 				cont = 0;
 			}else{

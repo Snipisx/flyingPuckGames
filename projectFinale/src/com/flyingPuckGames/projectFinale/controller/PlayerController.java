@@ -55,9 +55,9 @@ public class PlayerController {
 	
 	private Array<SolidTile> collidable = new Array<SolidTile>();
 
-	public PlayerController(World world) {
-		this.world = world;
-		this.player = world.getPlayer();
+	public PlayerController(Player player) {
+		this.world = null;
+		this.player = player;
 	}
 	
 	public void leftPressed() {
@@ -107,7 +107,7 @@ public class PlayerController {
 		
 		player.getVelocity().add(player.getAcceleration().x, player.getAcceleration().y);
 		
-		checkCollisionWithBlocks(delta);
+//		checkCollisionWithBlocks(delta);
 		
 		player.getVelocity().x *= DAMP;
 		

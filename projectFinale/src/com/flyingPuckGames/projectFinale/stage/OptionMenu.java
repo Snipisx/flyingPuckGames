@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.screens.SecondGameScreen;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 
@@ -34,7 +35,7 @@ public class OptionMenu {
 	/*
 	 * OptionMenu from gameScreen
 	 */
-	public Group createGame(final SecondGameScreen game) {
+	public Group createGame(final GameScreen gameScreen) {
 
 		Group p = new Group();
 		
@@ -42,7 +43,7 @@ public class OptionMenu {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
 				if(keycode == Keys.ESCAPE){
-					game.changeMenuStatus(4);
+					gameScreen.changeMenuStatus(4);
 				}
 				
 				return true;
@@ -101,7 +102,7 @@ public class OptionMenu {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 
-				game.changeMenu(1);
+				gameScreen.changeMenu(1);
 			}
 
 		});
