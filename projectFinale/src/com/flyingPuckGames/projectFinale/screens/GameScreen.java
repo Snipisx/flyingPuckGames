@@ -8,7 +8,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.flyingPuckGames.projectFinale.MegaGame;
-import com.flyingPuckGames.projectFinale.controller.PlayerController;
+import com.flyingPuckGames.projectFinale.controller.OldPlayerController;
 import com.flyingPuckGames.projectFinale.model.Level;
 import com.flyingPuckGames.projectFinale.model.Player;
 import com.flyingPuckGames.projectFinale.utils.Constants;
@@ -30,7 +30,7 @@ public class GameScreen implements Screen, InputProcessor{
 	private Stage				stage; //TODO @Refactor Name
 	private boolean 			onMenu;
 	private Integer				contEsc;
-	private PlayerController	playerController; //TODO Über refactor
+	private OldPlayerController	oldPlayerController; //TODO Über refactor
 	/**
 	 * Constructor
 	 * @param megaGame
@@ -43,7 +43,7 @@ public class GameScreen implements Screen, InputProcessor{
 		worldRenderer = new WorldRenderer(level);
 		playerRenderer = new PlayerRenderer(player);
 		menuRenderer = new MenuRenderer(megaGame);
-		playerController	= new PlayerController(player);
+		oldPlayerController	= new OldPlayerController(player);
 		menuBuilder = new MenuBuilder();
 		menuBuilder.setStyles();
 		menuBuilder.init();
@@ -56,7 +56,7 @@ public class GameScreen implements Screen, InputProcessor{
 	public void render(float delta) {
 		
 		if(!onMenu){
-			playerController.update(delta);
+			oldPlayerController.update(delta);
 			RenderUtils.clearScreen();
 			worldRenderer.update(delta, player.getPosition());
 			playerRenderer.update(delta, worldRenderer.getTileRenderer().getSpriteBatch());
@@ -104,8 +104,8 @@ public class GameScreen implements Screen, InputProcessor{
 	}
 	
 	private void setOnMenu(){
-		playerController.rightReleased();
-		playerController.leftReleased();
+		oldPlayerController.rightReleased();
+		oldPlayerController.leftReleased();
 		stage = new Stage();
 		stage.addActor(menuBuilder.statusMenu(this));
 		menuRenderer.setStage(stage);
@@ -165,13 +165,13 @@ public class GameScreen implements Screen, InputProcessor{
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.LEFT)
-			playerController.leftPressed();
+			oldPlayerController.leftPressed();
 		if (keycode == Keys.RIGHT)
-			playerController.rightPressed();
+			oldPlayerController.rightPressed();
 		if (keycode == Keys.Z)
-			playerController.jumpPressed();
+			oldPlayerController.jumpPressed();
 		if (keycode == Keys.X)
-			playerController.firePressed();
+			oldPlayerController.firePressed();
 		return true;
 	}
 
@@ -179,13 +179,13 @@ public class GameScreen implements Screen, InputProcessor{
 	public boolean keyUp(int keycode) {
 		System.out.println("hola");
 		if (keycode == Keys.LEFT)
-			playerController.leftReleased();
+			oldPlayerController.leftReleased();
 		if (keycode == Keys.RIGHT)
-			playerController.rightReleased();
+			oldPlayerController.rightReleased();
 		if (keycode == Keys.Z)
-			playerController.jumpReleased();
+			oldPlayerController.jumpReleased();
 		if (keycode == Keys.X)
-			playerController.fireReleased();
+			oldPlayerController.fireReleased();
 		if (keycode == Keys.D){
 			System.out.println("psdfa");
 		}

@@ -8,7 +8,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.flyingPuckGames.projectFinale.MegaGame;
-import com.flyingPuckGames.projectFinale.controller.PlayerController;
+import com.flyingPuckGames.projectFinale.controller.OldPlayerController;
 import com.flyingPuckGames.projectFinale.model.World;
 import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
 import com.flyingPuckGames.projectFinale.view.MenuRenderer;
@@ -20,7 +20,7 @@ public class SecondGameScreen implements Screen,InputProcessor {
 	private WorldRenderer 		rendererGame;
 	private MegaGame			megaGame;
 	private MenuRenderer		rendererMenu;
-	private PlayerController 	controller;
+	private OldPlayerController 	controller;
 	private MenuBuilder			menuBuilder;
 	private Stage				stage;
 	public boolean 				onMenu;
@@ -37,7 +37,7 @@ public class SecondGameScreen implements Screen,InputProcessor {
 		world = new World();
 		rendererGame = new WorldRenderer(world, false, this.megaGame);
 		rendererMenu = new MenuRenderer(megaGame);
-		controller = new PlayerController(world);
+		controller = new OldPlayerController(world);
 		menuBuilder = megaGame.getMenuBuilder();
 		setInputProcessor();
 		onMenu = false;
