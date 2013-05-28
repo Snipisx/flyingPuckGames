@@ -53,7 +53,7 @@ public class OldGameScreen implements Screen {
 	}
 
 	/**
-	 * Executed 60 times by second.
+	 * Executed 60 times per second.
 	 * @param delta
 	 */
 	@Override

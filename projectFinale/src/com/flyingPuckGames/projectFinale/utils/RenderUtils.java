@@ -1,6 +1,5 @@
 package com.flyingPuckGames.projectFinale.utils;
 
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 

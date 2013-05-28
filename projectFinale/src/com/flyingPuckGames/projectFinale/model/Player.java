@@ -1,8 +1,10 @@
 package com.flyingPuckGames.projectFinale.model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.flyingPuckGames.projectFinale.utils.Constants;
 
 public class Player extends Entity {
 	
@@ -10,24 +12,24 @@ public class Player extends Entity {
 		IDLE, WALKING, JUMPING
 	}
 	
-	private final float HSIZE = 2f;
-	private final float WSIZE = 1f;
+	private final float WSIZE = Constants.PLAYER_WIDTH_IN_UNITS;
+	private final float HSIZE = Constants.PLAYER_HEIGHT_IN_UNITS;
 	
-	private Vector2		acceleration = new Vector2();
-	private Rectangle	bounds = new Rectangle();
-	private State		state = State.IDLE;
-	private boolean		facesRight = true;
-	private boolean		longJump = false;
-	private Texture 	texture;
-
+	private Vector2	acceleration 	= new Vector2();
+	private Rectangle bounds 		= new Rectangle();
+	private State	state 			= State.IDLE;
+	private boolean	facesRight 		= true;
+	private boolean	longJump 		= false;
+	private Texture texture;
 	
 	public Player(Vector2 position){
 		this.position = position;
 		this.bounds.x = position.x;
 		this.bounds.y = position.y;
-		this.bounds.height = HSIZE;
 		this.bounds.width = WSIZE;
+		this.bounds.height = HSIZE;
 		this.entityType = EntityType.PlayerEntity;
+		texture = new Texture(Gdx.files.internal(Constants.TEST_PLAYER_TEXTURE_PATH));
 	}
 	
 	public void update(float delta) {

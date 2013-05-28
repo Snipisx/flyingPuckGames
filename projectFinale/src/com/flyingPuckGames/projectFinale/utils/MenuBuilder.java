@@ -22,7 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.flyingPuckGames.projectFinale.screens.GameScreen;
+import com.flyingPuckGames.projectFinale.screens.SecondGameScreen;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 import com.flyingPuckGames.projectFinale.stage.EquipMenu;
 import com.flyingPuckGames.projectFinale.stage.MainMenu;
@@ -30,8 +30,6 @@ import com.flyingPuckGames.projectFinale.stage.OptionMenu;
 import com.flyingPuckGames.projectFinale.stage.StatusMenu;
 
 public class MenuBuilder {
-
-	
 	
 	private BitmapFont fontMenus;
 	private BitmapFont fontStatus;
@@ -82,7 +80,7 @@ public class MenuBuilder {
 		return main ;
 	}
 
-	public Group optionMenu(final GameScreen game){
+	public Group optionMenu(final SecondGameScreen game){
 		Group option = optionMenu.createGame(game);
 		return option;
 	}
@@ -92,13 +90,13 @@ public class MenuBuilder {
 		return option;
 	}
 
-	public Group statusMenu(final GameScreen game){
+	public Group statusMenu(final SecondGameScreen game){
 		Group status = statusMenu.create(game);
 		return status;
 	}
 	
 	
-	public Group equipMenu(final GameScreen game){
+	public Group equipMenu(final SecondGameScreen game){
 		Group equip = equipMenu.create(game);
 		return equip;
 	}

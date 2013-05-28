@@ -3,119 +3,106 @@ package com.flyingPuckGames.projectFinale.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.flyingPuckGames.projectFinale.MegaGame;
-import com.flyingPuckGames.projectFinale.model.World;
+import com.badlogic.gdx.math.Vector2;
+import com.flyingPuckGames.projectFinale.model.Level;
+import com.flyingPuckGames.projectFinale.utils.Constants;
 import com.flyingPuckGames.projectFinale.utils.RenderUtils;
-import com.flyingPuckGames.projectFinale.utils.Screenshots;
 
+/**
+ * World renderer.
+ * @author flyingPuck(games);
+ */
 public class WorldRenderer {
 	
-	private MegaGame megaGame;
-	private static final float CAMERA_WIDTH = 20f;
-	private static final float CAMERA_HEIGHT = 11f;
-	private float W, H;
-	
-	private ShapeRenderer debugRenderer = new ShapeRenderer();
-	private Screenshots shots;
-	
-	private World world;
+	private Level level;
+	private OrthogonalTiledMapRenderer tileRenderer;
 	private OrthographicCamera camera;
-	private Texture background;
 	private SpriteBatch spriteBatch;
-	private boolean debug = false;
-	private PlayerRenderer playerRenderer;
-	private float ppuX, ppuY; //Pixels per unit X/Y-axis
-	private OrthogonalTiledMapRenderer tiledMapRenderer;
-	
-	private BitmapFont font;
-	
-	// Debug -----/
-	private boolean debugON;
-	private String debugInfo, debugInfoFps, debugInfoPlayerVel, debugInfoPlayePos, debugInfoPlayerState, debugInfoPlayerFacing;
-	private float stateTime;
-	
-	public WorldRenderer(World world, boolean debug, MegaGame megaGame){
-		this.megaGame = megaGame;
-		this.world = world;
-		this.debug = debug;
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
-		camera.update();
-		setSize(megaGame.SCREENW, megaGame.SCREENH);
-		font = new BitmapFont();
-		prepareWorldRenderer();
+	private	Integer screenW;
+	private	Integer screenH;
+	private Texture background;
+
+	/**
+	 * Contructor.
+	 * @param level selected level to render.
+	 */
+	public WorldRenderer(Level level){
+		this.level = level;
+		
+		setWindowSize();
+		createCamera();
+		createWorld();
+		
 		spriteBatch = new SpriteBatch();
-		debug = true;
-		System.out.println("CameraX: " + camera.position.x + "\nCameraY:" + camera.position.y);
-		playerRenderer = new PlayerRenderer(world);
-	}
-	
-	public void render(float delta) {
-		RenderUtils.clearScreen();
-		drawBackground(delta);
-		drawTiledMap();
-		playerRenderer.drawPlayer();
-		camera.position.x = world.getPlayer().getPosition().x;
-		camera.update();
-	
-//		System.out.println("X:" + world.getPlayer().getPosition().x + "\nY:" + world.getPlayer().getPosition().y);
-//		System.out.println(ppuX + "-" + ppuY);
-	}
-	
-	public void setSize (float w, float h){
-		this.W = w;
-		this.H = h;
-		ppuX = W / CAMERA_WIDTH;
-		ppuY = H / CAMERA_HEIGHT;
-	}
-	
-	public void toggleDebug(){
-		debug = !debug;
-	}
-	
-	private void drawTiledMap(){
-		tiledMapRenderer.setView(camera);
-		tiledMapRenderer.render();
-	}
-	
-	public void drawBackground(float delta){
-		spriteBatch.begin();
-			spriteBatch.draw(background, delta, delta, megaGame.SCREENW, megaGame.SCREENH);
-		spriteBatch.end();
-	}
-	
-	private void prepareWorldRenderer(){
-		background = new Texture(Gdx.files.internal("maps/background.png"));
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(world.getTiledMap(), 1f/16f);
-		System.out.println("TexturesLoaded");
 	}
 	
 	/**
-	 * Method used to print on the screen debug information.
+	 * Method that updates the state of the renderer.
+	 * @param delta
+	 * @param cameraPosition (Player actual position.)
 	 */
-	public void renderDebugText() {
-		spriteBatch.begin();
-		
-			//Set
-			debugInfo = "##Debug: ";
-			debugInfoFps = "Fps: " + Gdx.graphics.getFramesPerSecond();
-			debugInfoPlayePos = "Player position: " + world.getPlayer().getPosition();
-			debugInfoPlayerVel = "Player velocity: " + world.getPlayer().getVelocity();
-			debugInfoPlayerState = "Player state: " + world.getPlayer().getState();
-			debugInfoPlayerFacing = (world.getPlayer().isFacesRight()) ? "Player facing:  >" : "Player facing:  <";
-			
-			//Draw
-			font.draw(spriteBatch, debugInfo, 10, megaGame.SCREENH - 3);
-			font.draw(spriteBatch, debugInfoFps, 10, megaGame.SCREENH - 37);// font = 15px by def.
-			font.draw(spriteBatch, debugInfoPlayePos, 10, megaGame.SCREENH - 54);// +17
-			font.draw(spriteBatch, debugInfoPlayerVel, 10, megaGame.SCREENH - 71);// +17
-			font.draw(spriteBatch, debugInfoPlayerState, 10, megaGame.SCREENH - 88);// +17
-			font.draw(spriteBatch, debugInfoPlayerFacing, 10, megaGame.SCREENH - 105);// +17
-		
-		spriteBatch.end();
+	public void update(float delta, Vector2 cameraPosition){
+		updateCamera(cameraPosition);
+		renderWorld(delta);
 	}
+	
+	/**
+	 * Actual window size.
+	 */
+	private void setWindowSize(){
+		screenW = Gdx.graphics.getWidth();
+		screenH = Gdx.graphics.getHeight();
+	}
+	
+	/**
+	 * Instances the tiledMap and the tiledRenderer.
+	 */
+	private void createWorld() {
+		tileRenderer = new OrthogonalTiledMapRenderer(level.getTiledMap(), 1 / Constants.TILE_UNIT_SIZE);
+		background = new Texture(Gdx.files.internal(Constants.TEST_BACKGROUND_PATH));
+	}
+
+	/**
+	 * Instances the orthographicCamera() and sets the principal values.
+	 */
+	private void createCamera() {
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, Constants.TOTAL_WIDTH_IN_TILES, Constants.TOTAL_HEIGHT_IN_TILES);
+		camera.update();
+	}
+	
+	/**
+	 * Renders the level.
+	 * @param delta time.
+	 */
+	private void renderWorld(float delta){
+		spriteBatch.begin();
+		spriteBatch.draw(background, delta, delta, screenW, screenH);
+		spriteBatch.end();
+		
+		tileRenderer.setView(camera);
+		tileRenderer.render();
+	}
+	
+	/**
+	 * Method that updates the camera based on the position of the player.
+	 * @param cameraPosition player position.
+	 */
+	private void updateCamera(Vector2 cameraPosition){
+		camera.position.x = cameraPosition.x;
+		camera.position.y = cameraPosition.y;
+		camera.update();
+	}
+
+	//Getters and setters -------------/
+	public OrthogonalTiledMapRenderer getTileRenderer() {
+		return tileRenderer;
+	}
+
+	public void setTileRenderer(OrthogonalTiledMapRenderer tileRenderer) {
+		this.tileRenderer = tileRenderer;
+	}
+	
 }

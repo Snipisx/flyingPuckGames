@@ -17,7 +17,6 @@ import com.badlogic.gdx.utils.Pool;
 
 public class OldPlayer extends Entity {
 	
-
 	public boolean facesRight = true;
 	private boolean grounded = false;
 	private static final float MAX_VELOCITY = 10f;

@@ -3,44 +3,54 @@ package com.flyingPuckGames.projectFinale.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.flyingPuckGames.projectFinale.model.World;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.flyingPuckGames.projectFinale.model.Player;
+import com.flyingPuckGames.projectFinale.utils.Constants;
 
+/**
+ * Player renderer.
+ * @author flyingPuck(games);
+ */
 public class PlayerRenderer {
-	private World world;
+	private Player player;
 	private SpriteBatch spriteBatch;
 	private Texture playerTexture;
-	private float ppuX;	//Pixels per unit X-axis
-	private float ppuY; //Pixels per unit Y-axis
+	private float textureWidth;
+	private float textureHeight;
 	
-	public PlayerRenderer(World world) {
+	
+	/**
+	 * Constructor
+	 * @param player
+	 */
+	public PlayerRenderer(Player player) {
 		super();
-		this.world = world;
-		playerTexture =  new Texture(Gdx.files.internal("data/plahCharacter.png"));
+		this.player = player;
+		playerTexture = player.getTexture();
 		spriteBatch = new SpriteBatch();
-
+		textureWidth = Constants.PLAYER_WIDTH_IN_UNITS * playerTexture.getWidth();
+		textureHeight = Constants.PLAYER_HEIGHT_IN_UNITS * playerTexture.getHeight();
 	}
-	public void drawPlayer(){
-
-		if (world.getPlayer().isFacesRight()) {
-			spriteBatch.begin();
-			spriteBatch.draw(
-					playerTexture,
-					world.getPlayer().getPosition().x * ppuX,
-					world.getPlayer().getPosition().y * ppuY,
-					world.getPlayer().getWsize()*ppuX,
-					world.getPlayer().getHsize()*ppuY
-			);
-			spriteBatch.end();
+	
+	/**
+	 * Metod called to update state of playerRenderer.
+	 * @param delta
+	 */
+	public void update(float delta, SpriteBatch batchContext){
+		spriteBatch = batchContext;
+		renderPlayer();
+	}
+	
+	/**
+	 * Draws actual state of player.
+	 */
+	public void renderPlayer(){
+		spriteBatch.begin();
+		if (player.isFacesRight()) {
+			spriteBatch.draw(playerTexture, player.getPosition().x, player.getPosition().y, textureWidth, textureHeight);
 		} else {
-			spriteBatch.begin();
-			spriteBatch.draw(playerTexture,
-					world.getPlayer().getPosition().x ,
-					world.getPlayer().getPosition().y ,
-					-world.getPlayer().getWsize()*ppuX,
-					world.getPlayer().getHsize()*ppuY
-			);
-			spriteBatch.end();
+			spriteBatch.draw(playerTexture, player.getPosition().x + textureWidth, player.getPosition().y, -textureWidth, textureHeight);
 		}
+		spriteBatch.end();
 	}
-
 }
