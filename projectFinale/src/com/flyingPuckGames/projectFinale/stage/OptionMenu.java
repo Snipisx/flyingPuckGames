@@ -48,12 +48,11 @@ public class OptionMenu {
 			}
 		});
 
-		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
-		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.8f);
-		backMenu.setBounds((Gdx.graphics.getWidth() * 0.40f) ,(Gdx.graphics.getHeight() * 0.34f), Gdx.graphics.getWidth()*0.2f, Gdx.graphics.getHeight()*0.3f);
+		Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/statusBack.png")))));
+		background.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		background.setColor(0.5f,0.5f, 0.5f, 0.8f);
 
-		p.addActor(backMenu);
-		
+		p.addActor(background);
 		
 		Table mainTable = new Table();
 		mainTable.defaults().width(Gdx.graphics.getWidth() * 0.2f);
@@ -62,7 +61,7 @@ public class OptionMenu {
 		mainTable.setY(Gdx.graphics.getHeight() / 2);
 
 		Button video = new Button(style);
-		video.add(new Label("VIDEO OPTIONS", lStyle));
+		video.add(new Label("VIDEO", lStyle));
 		video.center();
 		video.addListener(new ChangeListener() {
 
@@ -77,7 +76,7 @@ public class OptionMenu {
 		mainTable.row();
 
 		Button sound = new Button(style);
-		sound.add(new Label("SOUND OPTIONS", lStyle));
+		sound.add(new Label("SOUND", lStyle));
 		sound.center();
 		sound.addListener(new ChangeListener() {
 
@@ -130,14 +129,14 @@ public class OptionMenu {
 				return true;
 			}
 		});
+		
 
-		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
-		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.8f);
-		backMenu.setBounds((Gdx.graphics.getWidth() * 0.40f) ,(Gdx.graphics.getHeight() * 0.34f), Gdx.graphics.getWidth()*0.2f, Gdx.graphics.getHeight()*0.3f);
+		Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/statusBack.png")))));
+		background.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		background.setColor(0.5f,0.5f, 0.5f, 0.8f);
 
-
-		p.addActor(backMenu);
-
+		p.addActor(background);
+		
 		Table mainTable = new Table();
 		mainTable.defaults().width(Gdx.graphics.getWidth() * 0.22f);
 		mainTable.defaults().height(Gdx.graphics.getHeight()* 0.05f);
@@ -145,7 +144,7 @@ public class OptionMenu {
 		mainTable.setY(Gdx.graphics.getHeight() / 2);
 
 		Button video = new Button(style);
-		video.add(new Label("VIDEO OPTIONS", lStyle));
+		video.add(new Label("VIDEO", lStyle));
 		video.center();
 		video.addListener(new ChangeListener() {
 
@@ -160,7 +159,7 @@ public class OptionMenu {
 		mainTable.row();
 
 		Button sound = new Button(style);
-		sound.add(new Label("SOUND OPTIONS", lStyle));
+		sound.add(new Label("SOUND", lStyle));
 		sound.center();
 		sound.addListener(new ChangeListener() {
 

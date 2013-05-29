@@ -18,17 +18,13 @@ public class MenuRenderer {
 	private MegaGame megaGame;
 	private Stage stage;
 	private OrthographicCamera camera;
-	private SpriteBatch spriteBatch;
-	private Image background;
 	private Boolean onGameMenu;
 	private Boolean onMainMenu;
 	private static final float CAMERA_WIDTH = 20f;
 	private static final float CAMERA_HEIGHT = 11f;
 	private float W;
 	private float H;
-	private float ppuX;	//Pixels per unit X-axis
-	private float ppuY; //Pixels per unit Y-axis
-	
+
 	public MenuRenderer(MegaGame megaGame){
 		this.megaGame = megaGame;
 		camera = new OrthographicCamera();
@@ -36,16 +32,12 @@ public class MenuRenderer {
 		camera.update();
 		setSize(megaGame.SCREENW, megaGame.SCREENH);
 		onMainMenu(true);
-		setBackground();
 //		loadTextures();
-		spriteBatch = new SpriteBatch();
 	}
 	
 	public void setSize (float w, float h){
 		this.W = w;
 		this.H = h;
-		ppuX = W / CAMERA_WIDTH;
-		ppuY = H / CAMERA_HEIGHT;
 	}
 		
 
@@ -55,23 +47,15 @@ public class MenuRenderer {
 			RenderUtils.clearScreen();
 		}
 		
-		spriteBatch.begin();
-		background.draw(spriteBatch, 0.5f);
-		spriteBatch.end();
 		
 		camera.update();
 		stage.act(delta);
 		stage.draw();
 		
-		
-		//System.out.println(ppuX + "-" + ppuY);
 	}
 	
 
 	public void setBackground(){
-		background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/negro.png")))));
-		background.setBounds(0, 0,megaGame.SCREENW, megaGame.SCREENH);
-		background.setColor(Color.valueOf("3d3d3d"));
 	}
 	
 	public void setStage(Stage actor){

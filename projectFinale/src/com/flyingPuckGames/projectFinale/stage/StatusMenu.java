@@ -58,7 +58,6 @@ public class StatusMenu {
 		
 		Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/statusBack.png")))));
 		background.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		//background.setColor(Color.valueOf("3d3d3d"));
 		background.setColor(0.5f,0.5f, 0.5f, 0.8f);
 
 		p.addActor(background);

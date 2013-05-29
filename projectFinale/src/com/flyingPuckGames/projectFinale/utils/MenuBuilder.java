@@ -31,6 +31,7 @@ import com.flyingPuckGames.projectFinale.stage.EquipMenu;
 import com.flyingPuckGames.projectFinale.stage.MainMenu;
 import com.flyingPuckGames.projectFinale.stage.OptionMenu;
 import com.flyingPuckGames.projectFinale.stage.StatusMenu;
+import com.flyingPuckGames.projectFinale.stage.VideoMenu;
 
 public class MenuBuilder {
 	
@@ -47,6 +48,7 @@ public class MenuBuilder {
 	private StatusMenu statusMenu;
 	private EquipMenu equipMenu;
 	private SelectBoxStyle boxStyle = new SelectBoxStyle();
+	private VideoMenu videoMenu;
 	
 	public void setStyles(){
 		//labels
@@ -85,6 +87,7 @@ public class MenuBuilder {
 		optionMenu = new OptionMenu(style,lStyle);
 		statusMenu = new StatusMenu(style,lStyle,statusSt,nameStyle,statusColor);
 		equipMenu = new EquipMenu(style,lStyle);
+		videoMenu = new VideoMenu(style,lStyle,boxStyle,statusSt);
 	}
 
 	public Group mainMenu(final MenuScreen menu) {
@@ -114,55 +117,9 @@ public class MenuBuilder {
 	}
 	
 	public Group videoOptions(final GameScreen gameScreen){
-		Group p = new Group();
-		p.addListener(new InputListener() {
-			@Override
-			public boolean keyDown(InputEvent event, int keycode) {
-				if(keycode == Keys.ESCAPE){
-					gameScreen.changeMenu(1);
-				}
-				
-				return true;
-			}
-		});
-	
-		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
-		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.8f);
-		backMenu.setBounds((Gdx.graphics.getWidth() * 0.3f) ,(Gdx.graphics.getHeight() * 0.34f), Gdx.graphics.getWidth()*0.4f, Gdx.graphics.getHeight()*0.4f);
-	
-		p.addActor(backMenu);
-		
-		
-		Label title = new Label("VIDEO CONFIGURATION",statusSt);
-		title.setBounds(Gdx.graphics.getWidth() * 0.38f, Gdx.graphics.getHeight() * 0.65f, Gdx.graphics.getWidth() * 0.25f,Gdx.graphics.getHeight() * 0.1f);
-		
-		p.addActor(title);
-		
-		Label resolution = new Label("RESOLUTION",lStyle);
-		resolution.setBounds(Gdx.graphics.getWidth() * 0.38f, Gdx.graphics.getHeight() * 0.55f, Gdx.graphics.getWidth() * 0.25f,Gdx.graphics.getHeight() * 0.1f);
-		
-		p.addActor(resolution);
-		
-		String b[] = new String[5];
-		b[0] = " 960X540";
-		b[1] = " 1024X576";
-		b[2] = " 1280X720";
-		b[3] = " 1366X768";
-		b[4] = " 1600X900";
-		
-		SelectBox resolutionBox = new SelectBox(b,boxStyle);
-		
-		resolutionBox.setBounds(Gdx.graphics.getWidth() * 0.50f, Gdx.graphics.getHeight() * 0.575f, Gdx.graphics.getWidth() * 0.09f, Gdx.graphics.getHeight() * 0.05f);
-		resolutionBox.setSelection(2);
-		p.addActor(resolutionBox);
-		
-		
-		Button save = new Button(new Label("Accept",lStyle),style);
-		
-		
-		
-	
-		return p;
+		Group video = videoMenu.create(gameScreen);
+			
+		return video;
 
 
 	}
