@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.flyingPuckGames.projectFinale.model.Player;
 import com.flyingPuckGames.projectFinale.model.Player.State;
-import com.flyingPuckGames.projectFinale.model.SolidTile;
 import com.flyingPuckGames.projectFinale.model.World;
 
 public class OldPlayerController {
@@ -53,7 +52,7 @@ public class OldPlayerController {
 	};
 	
 	
-	private Array<SolidTile> collidable = new Array<SolidTile>();
+	//private Array<SolidTile> collidable = new Array<SolidTile>();
 
 	public OldPlayerController(Player player) {
 		this.world = null;
@@ -120,69 +119,69 @@ public class OldPlayerController {
 		player.update(delta);
 	}
 
-	private void checkCollisionWithBlocks(float delta) {
-		player.getVelocity().mul(delta);
-		Rectangle playerRect = rectPool.obtain();
-		playerRect.set(player.getBounds().x, player.getBounds().y, player.getBounds().width, player.getBounds().height);
-		int startX, endX;
-		int startY = (int) player.getBounds().y;
-		int endY = (int) (player.getBounds().y + player.getBounds().height);
-		if (player.getVelocity().x < 0) {
-			startX = endX = (int) Math.floor(player.getBounds().x + player.getVelocity().x);
-		} else {
-			startX = endX = (int) Math.floor(player.getBounds().x + player.getBounds().width + player.getVelocity().x);
-		}
-		populateCollidableBlocks(startX, startY, endX, endY);
-		playerRect.x += player.getVelocity().x;
-		world.getCollisionRects().clear();
-		for (SolidTile tile : collidable) {
-			if (tile == null) continue;
-			if (playerRect.overlaps(tile.getBounds())) {
-				player.getVelocity().x = 0;
-				world.getCollisionRects().add(tile.getBounds());
-				break;
-			}
-		}
-		playerRect.x = player.getPosition().x;
-		startX = (int) player.getBounds().x;
-		endX = (int) (player.getBounds().x + player.getBounds().width);
-		if (player.getVelocity().y < 0) {
-			startY = endY = (int) Math.floor(player.getBounds().y + player.getVelocity().y);
-		} else {
-			startY = endY = (int) Math.floor(player.getBounds().y + player.getBounds().height + player.getVelocity().y);
-		}
+//	private void checkCollisionWithBlocks(float delta) {
+//		player.getVelocity().mul(delta);
+//		Rectangle playerRect = rectPool.obtain();
+//		playerRect.set(player.getBounds().x, player.getBounds().y, player.getBounds().width, player.getBounds().height);
+//		int startX, endX;
+//		int startY = (int) player.getBounds().y;
+//		int endY = (int) (player.getBounds().y + player.getBounds().height);
+//		if (player.getVelocity().x < 0) {
+//			startX = endX = (int) Math.floor(player.getBounds().x + player.getVelocity().x);
+//		} else {
+//			startX = endX = (int) Math.floor(player.getBounds().x + player.getBounds().width + player.getVelocity().x);
+//		}
+//		populateCollidableBlocks(startX, startY, endX, endY);
+//		playerRect.x += player.getVelocity().x;
+//		world.getCollisionRects().clear();
+//		for (SolidTile tile : collidable) {
+//			if (tile == null) continue;
+//			if (playerRect.overlaps(tile.getBounds())) {
+//				player.getVelocity().x = 0;
+//				world.getCollisionRects().add(tile.getBounds());
+//				break;
+//			}
+//		}
+//		playerRect.x = player.getPosition().x;
+//		startX = (int) player.getBounds().x;
+//		endX = (int) (player.getBounds().x + player.getBounds().width);
+//		if (player.getVelocity().y < 0) {
+//			startY = endY = (int) Math.floor(player.getBounds().y + player.getVelocity().y);
+//		} else {
+//			startY = endY = (int) Math.floor(player.getBounds().y + player.getBounds().height + player.getVelocity().y);
+//		}
 		
-		populateCollidableBlocks(startX, startY, endX, endY);
-		playerRect.y += player.getVelocity().y;
-		for (SolidTile tile : collidable) {
-			if (tile == null) continue;
-			if (playerRect.overlaps(tile.getBounds())) {
-				if (player.getVelocity().y < 0) {
-					grounded = true;
-				}
-				player.getVelocity().y = 0;
-				world.getCollisionRects().add(tile.getBounds());
-				break;
-			}
-		}
-		playerRect.y = player.getPosition().y;
-		player.getPosition().add(player.getVelocity());
-		player.getBounds().x = player.getPosition().x;
-		player.getBounds().y = player.getPosition().y;
-		player.getVelocity().mul(1 / delta);
-	}
+//		populateCollidableBlocks(startX, startY, endX, endY);
+//		playerRect.y += player.getVelocity().y;
+//		for (SolidTile tile : collidable) {
+//			if (tile == null) continue;
+//			if (playerRect.overlaps(tile.getBounds())) {
+//				if (player.getVelocity().y < 0) {
+//					grounded = true;
+//				}
+//				player.getVelocity().y = 0;
+//				world.getCollisionRects().add(tile.getBounds());
+//				break;
+//			}
+//		}
+//		playerRect.y = player.getPosition().y;
+//		player.getPosition().add(player.getVelocity());
+//		player.getBounds().x = player.getPosition().x;
+//		player.getBounds().y = player.getPosition().y;
+//		player.getVelocity().mul(1 / delta);
+//	}
 
-	private void populateCollidableBlocks(int startX, int startY, int endX, int endY) {
-		collidable.clear();
-		for (int x = startX; x <= endX; x++) {
-			for (int y = startY; y <= endY; y++) {
-				if (x >= 0 && x < world.getLevel().getWidth() && y >=0 && y < world.getLevel().getHeight()) {
-					collidable.add(world.getLevel().get(x, y));
-					System.out.println(world.getLevel().get(x,y));
-				}
-			}
-		}
-	}
+//	private void populateCollidableBlocks(int startX, int startY, int endX, int endY) {
+//		collidable.clear();
+//		for (int x = startX; x <= endX; x++) {
+//			for (int y = startY; y <= endY; y++) {
+//				if (x >= 0 && x < world.getLevel().getWidth() && y >=0 && y < world.getLevel().getHeight()) {
+//					collidable.add(world.getLevel().get(x, y));
+//					System.out.println(world.getLevel().get(x,y));
+//				}
+//			}
+//		}
+//	}
 	
 	private boolean processInput() {
 		if (keys.get(Keys.JUMP)) {

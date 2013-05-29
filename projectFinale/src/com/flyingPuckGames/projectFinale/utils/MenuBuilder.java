@@ -152,7 +152,7 @@ public class MenuBuilder {
 		
 		SelectBox resolutionBox = new SelectBox(b,boxStyle);
 		
-		resolutionBox.setBounds(Gdx.graphics.getWidth() * 0.50f, Gdx.graphics.getHeight() * 0.575f, Gdx.graphics.getWidth() * 0.09f, Gdx.graphics.getHeight() * 0.05f);
+		resolutionBox.setBounds(Gdx.graphics.getWidth() * 0.50f, Gdx.graphics.getHeight() * 0.575f, Gdx.graphics.getWidth() * 0.10f, Gdx.graphics.getHeight() * 0.05f);
 		resolutionBox.setSelection(2);
 		p.addActor(resolutionBox);
 		
