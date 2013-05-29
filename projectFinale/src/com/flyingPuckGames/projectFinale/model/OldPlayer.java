@@ -115,6 +115,9 @@ public class OldPlayer extends Entity {
 		startY = (int) (this.position.y);
 		endY = (int) (this.position.y + HEIGHT);
 		getTiles(startX, startY, endX, endY, tiles);
+		
+		//TODO Voy por aqui.
+		
 		charRect.x += this.velocity.x;
 		for (Rectangle tile : tiles) {
 			if (Intersector.overlaps(charRect, tile)) {

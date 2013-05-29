@@ -19,8 +19,10 @@ public class Player extends Entity {
 	private Rectangle bounds 		= new Rectangle();
 	private State	state 			= State.IDLE;
 	private boolean	facesRight 		= true;
+	private boolean grounded		= false;
 	private boolean	longJump 		= false;
 	private Texture texture;
+	 
 	
 	public Player(Vector2 position){
 		this.position = position;
@@ -106,5 +108,13 @@ public class Player extends Entity {
 	}
 	public float getWsize() {
 		return WSIZE;
+	}
+
+	public boolean isGrounded() {
+		return grounded;
+	}
+
+	public void setGrounded(boolean grounded) {
+		this.grounded = grounded;
 	}
 }

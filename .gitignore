@@ -1,6 +1,7 @@
 .metadata/**/*
 .metadata
 *.class
+bin
 projectFinale-android/bin/**/*
 projectFinale-android/bin
 projectFinale-desktop/bin/**/*
