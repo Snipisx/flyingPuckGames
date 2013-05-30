@@ -66,11 +66,11 @@ public class VideoMenu {
 		p.addActor(resolution);
 		
 		String resolutions[] = new String[5];
-		resolutions[0] = " 960X540";
-		resolutions[1] = " 1024X576";
-		resolutions[2] = " 1280X720";
-		resolutions[3] = " 1366X768";
-		resolutions[4] = " 1600X900";
+		resolutions[0] = " 960*540";
+		resolutions[1] = " 1024*576";
+		resolutions[2] = " 1280*720";
+		resolutions[3] = " 1366*768";
+		resolutions[4] = " 1600*900";
 		
 		final SelectBox resolutionBox = new SelectBox(resolutions,boxStyle);
 		
@@ -114,7 +114,7 @@ public class VideoMenu {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
 				if(keycode == Keys.ESCAPE){
-					menuController.status(2);
+					menuController.mainMenu(2);
 				}
 				
 				return true;
@@ -138,11 +138,11 @@ public class VideoMenu {
 		p.addActor(resolution);
 		
 		String resolutions[] = new String[5];
-		resolutions[0] = " 960X540";
-		resolutions[1] = " 1024X576";
-		resolutions[2] = " 1280X720";
-		resolutions[3] = " 1366X768";
-		resolutions[4] = " 1600X900";
+		resolutions[0] = " 960*540";
+		resolutions[1] = " 1024@576";
+		resolutions[2] = " 1280*720";
+		resolutions[3] = " 1366*768";
+		resolutions[4] = " 1600*900";
 		
 		final SelectBox resolutionBox = new SelectBox(resolutions,boxStyle);
 		
