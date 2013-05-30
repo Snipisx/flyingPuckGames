@@ -24,6 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.flyingPuckGames.projectFinale.controller.MenuController;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.screens.SecondGameScreen;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
@@ -50,7 +51,7 @@ public class MenuBuilder {
 	private SelectBoxStyle boxStyle = new SelectBoxStyle();
 	private VideoMenu videoMenu;
 	
-	public void setStyles(){
+	private void setStyles(){
 		//labels
 		FreeTypeFontGenerator f = new FreeTypeFontGenerator(Gdx.files.internal("fonts/akiras_font.ttf"));
 		fontMenus = f.generateFont(12);
@@ -83,6 +84,7 @@ public class MenuBuilder {
 	}
 	
 	public void init(){
+		setStyles();
 		mainMenu = new MainMenu(style,lStyle);
 		optionMenu = new OptionMenu(style,lStyle);
 		statusMenu = new StatusMenu(style,lStyle,statusSt,nameStyle,statusColor);
@@ -90,39 +92,45 @@ public class MenuBuilder {
 		videoMenu = new VideoMenu(style,lStyle,boxStyle,statusSt);
 	}
 
-	public Group mainMenu(final MenuScreen menu) {
-		Group main = mainMenu.create(menu);
+	public Group mainMenu(final MenuController menuController) {
+		Group main = mainMenu.create(menuController);
 		return main ;
 	}
 
-	public Group optionMenu(final GameScreen gameScreen){
-		Group option = optionMenu.createGame(gameScreen);
+	public Group optionMenu(final MenuController menuController){
+		Group option = optionMenu.createGame(menuController);
 		return option;
 	}
 
-	public Group optionMenu(final MenuScreen game) {
-		Group option = optionMenu.createMenu(game);
+	public Group optionMainMenu(final MenuController menuController) {
+		Group option = optionMenu.createMenu(menuController);
 		return option;
 	}
 
-	public Group statusMenu(final GameScreen gameScreen){
-		Group status = statusMenu.create(gameScreen);
+	public Group statusMenu(final MenuController menuController){
+		Group status = statusMenu.create(menuController);
 		return status;
 	}
 	
 	
-	public Group equipMenu(final GameScreen gameScreen){
-		Group equip = equipMenu.create(gameScreen);
+	public Group equipMenu(final MenuController menuController){
+		Group equip = equipMenu.create(menuController);
 		return equip;
 	}
 	
-	public Group videoOptions(final GameScreen gameScreen){
-		Group video = videoMenu.create(gameScreen);
-			
+	/*
+	 * Create the menu of Video Options In-Game
+	 */
+	public Group videoOptionsGame(final MenuController menuController){
+		Group video = videoMenu.createGame(menuController);
 		return video;
-
-
 	}
-	
+	/*
+	 * Create the menu of Video options OnMainMenu
+	 */
+	public Group videoOptionsMenu(final MenuController menuController){
+		Group video = videoMenu.createMenu(menuController);
+		return video;
+	}
 	
 }

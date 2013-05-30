@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.flyingPuckGames.projectFinale.controller.MenuController;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.screens.SecondGameScreen;
 
@@ -39,17 +40,19 @@ public class StatusMenu {
 	}
 	
 	
-	public Group create(final GameScreen gameScreen){
+	public Group create(final MenuController menuController){
 		
-		
+		menuController.setOnMenu(true);
 		Group p = new Group();
 		
 		p.addListener(new InputListener() {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
 				if(keycode == Keys.ESCAPE){
-					gameScreen.changeMenu(4);
-					gameScreen.setContEsc(1);
+					menuController.status(4);
+					menuController.setContEsc(1);
+					menuController.setOnMenu(false);
+					menuController.setInputProcessor();
 				}
 				
 				return true;
@@ -247,7 +250,7 @@ public class StatusMenu {
 			
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				gameScreen.changeMenuStatus(1);
+				menuController.status(1);
 				
 			}
 		});
@@ -259,7 +262,7 @@ public class StatusMenu {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				gameScreen.changeMenuStatus(3);
+				menuController.status(3);
 			}
 
 		});
@@ -272,7 +275,7 @@ public class StatusMenu {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 
-				gameScreen.changeMenuStatus(2);
+				menuController.status(2);
 			}
 
 		});
@@ -284,9 +287,10 @@ public class StatusMenu {
 			
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				gameScreen.changeMenu(4);
-				gameScreen.setContEsc(0);
-				
+				menuController.status(4);
+				menuController.setContEsc(0);
+				menuController.setOnMenu(false);
+				menuController.setInputProcessor();
 			}
 		});
 		optionTable.add(equip);

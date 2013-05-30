@@ -1,5 +1,7 @@
 package com.flyingPuckGames.projectFinale.model;
 
+import com.badlogic.gdx.Gdx;
+import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.utils.Constants;
 import com.flyingPuckGames.projectFinale.utils.JSONParser;
 
@@ -11,6 +13,7 @@ public class Options {
 	private boolean sound;
 	private int soundVolume;
 	private JSONParser parser;
+	private MegaGame megaGame;
 	
 	public Options(){
 		parser = new JSONParser();
@@ -41,9 +44,10 @@ public class Options {
 		parser.saveOptions(this);
 	}
 	
-	public void setVideoOptions(float resolutionX,float resolutionY){
+	public void setVideoOptions(Integer resolutionX,Integer resolutionY){
 		this.setResolutionX(resolutionX);
 		this.setResolutionY(resolutionY);
+		Gdx.graphics.setDisplayMode(resolutionX, resolutionY, false);
 	}
 	
 	public void setAudioOptions(Integer volumeLvl, Boolean soundOn){

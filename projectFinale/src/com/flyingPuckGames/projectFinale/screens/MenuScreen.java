@@ -4,32 +4,27 @@ package com.flyingPuckGames.projectFinale.screens;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.flyingPuckGames.projectFinale.MegaGame;
-import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
+import com.flyingPuckGames.projectFinale.controller.MenuController;
 import com.flyingPuckGames.projectFinale.view.MenuRenderer;
 
 public class MenuScreen implements Screen,InputProcessor {
 
 	private MegaGame megaGame;
-	private MenuBuilder menuBuilder;
 	private MenuRenderer renderer;
-	private Stage stage;
-
+	private MenuController menuController;
 	
 	public MenuScreen(MegaGame megaGame) {
 		this.megaGame = megaGame;
+		menuController = megaGame.getMenuController();
+		menuController.setMenu(this);
+		renderer = new MenuRenderer(megaGame);
+		menuController.mainMenu(5);
 	}
 	
 	@Override
 	public void show() {
-		
-		menuBuilder = megaGame.getMenuBuilder();
-		renderer = new MenuRenderer(megaGame);
-		stage = new Stage();
-		setStage(menuBuilder.mainMenu(this));
-		renderer.onGameMenu(false);
 		
 	}
 	
@@ -46,9 +41,8 @@ public class MenuScreen implements Screen,InputProcessor {
 		
 	}
 	
-	public void setStage(Actor actor){
-		stage = new Stage();
-		stage.addActor(actor);
+	public void setMenu(Stage stage){
+
 		renderer.setStage(stage);
 	}
 	
@@ -72,34 +66,7 @@ public class MenuScreen implements Screen,InputProcessor {
 		
 	}
 	
-	public void changeScreen(Integer screen){
-		switch(screen){
-			case 1:
-				megaGame.setScreen(new GameScreen(megaGame));
-				break;
-			case 2:
-				
-				break;
-			case 3: 
-				System.out.println("In Construction");
-				break;
-			case 4:
-				megaGame.dispose();
-				System.exit(0);
-				break;
-		}
-		
-	}
 	
-	public void changeMenu(Integer menu){
-		switch(menu){
-		case 1: 
-			setStage(menuBuilder.mainMenu(this));
-			break;
-		case 2:
-			setStage(menuBuilder.optionMenu(this));
-		}
-	}
 	
 	@Override
 	public boolean keyDown(int keycode) {

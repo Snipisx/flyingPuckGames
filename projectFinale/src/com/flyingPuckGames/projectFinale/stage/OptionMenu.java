@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.flyingPuckGames.projectFinale.controller.MenuController;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 
@@ -33,7 +34,7 @@ public class OptionMenu {
 	/*
 	 * OptionMenu from gameScreen
 	 */
-	public Group createGame(final GameScreen gameScreen) {
+	public Group createGame(final MenuController menuController) {
 
 		Group p = new Group();
 		
@@ -41,7 +42,7 @@ public class OptionMenu {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
 				if(keycode == Keys.ESCAPE){
-					gameScreen.changeMenuStatus(4);
+					menuController.status(4);
 				}
 				
 				return true;
@@ -67,7 +68,7 @@ public class OptionMenu {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				gameScreen.changeMenuOptions(1);
+				menuController.optionsGame(1);
 			}
 
 		});
@@ -99,7 +100,7 @@ public class OptionMenu {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 
-				gameScreen.changeMenu(1);
+				menuController.status(4);
 			}
 
 		});
@@ -116,14 +117,14 @@ public class OptionMenu {
 	 * OptionMenu from menuScreen
 	 */
 	
-	public Group createMenu(final MenuScreen game) {
+	public Group createMenu(final MenuController menuController) {
 
 		Group p = new Group();
 		p.addListener(new InputListener() {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
 				if(keycode == Keys.ESCAPE){
-					game.changeMenu(1);
+					menuController.mainMenu(5);
 				}
 				
 				return true;
@@ -150,7 +151,7 @@ public class OptionMenu {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				// game.changeMenu2();
+				menuController.optionsMenu(1);
 			}
 
 		});
@@ -182,7 +183,7 @@ public class OptionMenu {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 
-				game.changeMenu(1);
+				menuController.mainMenu(5);
 			}
 
 		});

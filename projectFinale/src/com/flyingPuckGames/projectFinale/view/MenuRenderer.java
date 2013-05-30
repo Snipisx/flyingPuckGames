@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.flyingPuckGames.projectFinale.MegaGame;
+import com.flyingPuckGames.projectFinale.controller.MenuController;
 import com.flyingPuckGames.projectFinale.utils.RenderUtils;
 
 public class MenuRenderer {
@@ -19,7 +20,6 @@ public class MenuRenderer {
 	private Stage stage;
 	private OrthographicCamera camera;
 	private Boolean onGameMenu;
-	private Boolean onMainMenu;
 	private static final float CAMERA_WIDTH = 20f;
 	private static final float CAMERA_HEIGHT = 11f;
 	private float W;
@@ -31,7 +31,7 @@ public class MenuRenderer {
 		camera.setToOrtho(false, CAMERA_WIDTH, CAMERA_HEIGHT);
 		camera.update();
 		setSize(megaGame.SCREENW, megaGame.SCREENH);
-		onMainMenu(true);
+		onGameMenu(false);
 //		loadTextures();
 	}
 	
@@ -67,9 +67,6 @@ public class MenuRenderer {
 		onGameMenu = menu;
 	}
 	
-	public void onMainMenu(Boolean menu){
-		onMainMenu = menu;
-	}
 
 	
 

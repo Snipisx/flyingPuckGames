@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.flyingPuckGames.projectFinale.controller.MenuController;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 
 public class MainMenu {
@@ -26,7 +27,7 @@ public class MainMenu {
 		lStyle = label;
 	}
 	
-	public Group create(final MenuScreen menu) {
+	public Group create(final MenuController menuController) {
 
 		Group p = new Group();
 		
@@ -48,7 +49,7 @@ public class MainMenu {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				menu.changeScreen(1);
+				menuController.mainMenu(1);
 			}
 
 		});
@@ -65,7 +66,7 @@ public class MainMenu {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 
-				menu.changeMenu(2);
+				menuController.mainMenu(2);
 			}
 
 		});
@@ -80,7 +81,7 @@ public class MainMenu {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				menu.changeScreen(3);
+				menuController.mainMenu(3);
 			}
 
 		});
@@ -95,7 +96,7 @@ public class MainMenu {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				menu.changeScreen(4);
+				menuController.mainMenu(4);
 			}
 
 		});

@@ -8,11 +8,11 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.flyingPuckGames.projectFinale.MegaGame;
+import com.flyingPuckGames.projectFinale.controller.MenuController;
 import com.flyingPuckGames.projectFinale.controller.OldPlayerController;
 import com.flyingPuckGames.projectFinale.model.Level;
 import com.flyingPuckGames.projectFinale.model.Player;
 import com.flyingPuckGames.projectFinale.utils.Constants;
-import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
 import com.flyingPuckGames.projectFinale.utils.RenderUtils;
 import com.flyingPuckGames.projectFinale.view.MenuRenderer;
 import com.flyingPuckGames.projectFinale.view.PlayerRenderer;
@@ -26,11 +26,10 @@ public class GameScreen implements Screen, InputProcessor{
 	private WorldRenderer		worldRenderer;
 	private PlayerRenderer 		playerRenderer;
 	private MenuRenderer	 	menuRenderer;
-	private MenuBuilder			menuBuilder;
-	private Stage				stage; //TODO @Refactor Name
 	private boolean 			onMenu;
 	private Integer				contEsc;
 	private OldPlayerController	oldPlayerController; //TODO Über refactor
+	private MenuController		menuController;
 	/**
 	 * Constructor
 	 * @param megaGame
@@ -43,10 +42,9 @@ public class GameScreen implements Screen, InputProcessor{
 		worldRenderer = new WorldRenderer(level);
 		playerRenderer = new PlayerRenderer(player);
 		menuRenderer = new MenuRenderer(megaGame);
+		menuController = megaGame.getMenuController();
+		menuController.setGame(this);
 		oldPlayerController	= new OldPlayerController(player);
-		menuBuilder = new MenuBuilder();
-		menuBuilder.setStyles();
-		menuBuilder.init();
 		contEsc = 0;
 		setInputProcessor();
 	}
@@ -68,7 +66,6 @@ public class GameScreen implements Screen, InputProcessor{
 
 	@Override
 	public void resize(int width, int height) {
-		
 		worldRenderer.setActualWindowSize();
 		menuRenderer.setSize(width, height);
 	}
@@ -103,64 +100,13 @@ public class GameScreen implements Screen, InputProcessor{
 		Gdx.input.setInputProcessor(this);
 	}
 	
-	private void setOnMenu(){
+	public void setMenu(Stage stage){
 		oldPlayerController.rightReleased();
 		oldPlayerController.leftReleased();
-		stage = new Stage();
-		stage.addActor(menuBuilder.statusMenu(this));
 		menuRenderer.setStage(stage);
-		menuRenderer.setBackground();
-		onMenu = true;
-		menuRenderer.onGameMenu(true);
 	}
 	
-	public void changeMenuStatus(int menu){
-		switch(menu){
-			case 1:
-				stage = new Stage();
-				stage.addActor(menuBuilder.equipMenu(this));
-				menuRenderer.setStage(stage);
-				break;
-				
-			case 2:
-				stage = new Stage();
-				stage.addActor(menuBuilder.optionMenu(this));
-				menuRenderer.setStage(stage);
-				break;
-				
-			case 3:
-				break;
-				
-			case 4:
-				stage = new Stage();
-				stage.addActor(menuBuilder.statusMenu(this));
-				menuRenderer.setStage(stage);
-				break;
-		}
-	}
 	
-	public void changeMenu(int menu){
-		switch(menu){
-		case 1: 
-			setOnMenu();
-			break;
-			
-		case 2:
-			stage = new Stage();
-			stage.addActor(menuBuilder.optionMenu(this));
-			menuRenderer.setStage(stage);
-			break;
-			
-		case 3:
-			//TODO GRIMORIO
-			break;
-			
-		case 4:
-			onMenu = false;
-			setInputProcessor();
-			break;
-		}
-	}
 
 	@Override
 	public boolean keyDown(int keycode) {
@@ -194,7 +140,7 @@ public class GameScreen implements Screen, InputProcessor{
 				contEsc = 0;
 			}else{
 				contEsc = 1;
-				setOnMenu();
+				menuController.status(4);
 			}
 		}
 		return true;
@@ -218,7 +164,7 @@ public class GameScreen implements Screen, InputProcessor{
 		}
 		
 		if (screenX < Gdx.graphics.getWidth() * 0.10f && screenY > Gdx.graphics.getHeight() * 0.90f) {
-			setOnMenu();
+			menuController.status(1);
 		}
 		return true;
 	}
@@ -267,16 +213,8 @@ public class GameScreen implements Screen, InputProcessor{
 		this.contEsc = contEsc;
 	}
 
-
-	public void changeMenuOptions(int i) {
-		switch(i){
-		case 1:
-			stage = new Stage();
-			stage.addActor(menuBuilder.videoOptions(this));
-			menuRenderer.setStage(stage);
-			break;
-		}
-		
+	public void setOnMenu(boolean menu) {
+		onMenu = menu;
+		menuRenderer.onGameMenu(menu);
 	}
-	
 }
