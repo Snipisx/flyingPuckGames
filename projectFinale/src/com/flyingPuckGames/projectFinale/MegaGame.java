@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.flyingPuckGames.projectFinale.controller.MenuController;
 import com.flyingPuckGames.projectFinale.model.Options;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
+import com.flyingPuckGames.projectFinale.utils.JSONParser;
 import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
 
 
@@ -25,6 +26,7 @@ public class MegaGame extends Game {
 		System.out.println(SCREENW);
 		System.out.println(SCREENH);
 		setOptions(new Options());
+		options.loadOptions();
 		setMenuController(new MenuController(this));
 		setScreen(new MenuScreen(this));
 	}
@@ -80,5 +82,7 @@ public class MegaGame extends Game {
 	public void setMenuController(MenuController menuController) {
 		this.menuController = menuController;
 	}
+
+
 	
 }

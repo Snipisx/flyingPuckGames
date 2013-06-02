@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.flyingPuckGames.projectFinale.model.Player;
+import com.flyingPuckGames.projectFinale.model.player.Player;
 import com.flyingPuckGames.projectFinale.utils.Constants;
 
 /**

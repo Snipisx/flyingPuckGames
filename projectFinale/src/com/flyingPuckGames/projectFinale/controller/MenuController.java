@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.model.Options;
+import com.flyingPuckGames.projectFinale.model.player.PlayerStatus;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 import com.flyingPuckGames.projectFinale.utils.Constants;
@@ -132,6 +133,10 @@ public class MenuController {
 	public void setInputProcessor() {
 		game.setInputProcessor();
 		
+	}
+	
+	public PlayerStatus getPlayerStatus(){
+		return game.getPlayerStatus();
 	}
 	
 	
