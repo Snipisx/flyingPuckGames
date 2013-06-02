@@ -83,6 +83,7 @@ public class StatusMenu {
 	
 	public Group create(final MenuController menuController){
 		loadLabels(menuController.getPlayerStatus());
+		
 		menuController.setOnMenu(true);
 		Group p = new Group();
 		

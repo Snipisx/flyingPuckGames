@@ -36,6 +36,11 @@ public class MenuController {
 			stage.addActor(menuBuilder.videoOptionsGame(this));
 			game.setMenu(stage);
 			break;
+		case 2:
+			stage = new Stage();
+			stage.addActor(menuBuilder.SoundOptionsGame(this));
+			game.setMenu(stage);
+			break;
 		}
 		
 	}
@@ -113,7 +118,10 @@ public class MenuController {
 	public void setVideoSettings(int selectionIndex) {
 		option.setVideoOptions(Constants.RESOLUTIONS[selectionIndex][0], Constants.RESOLUTIONS[selectionIndex][1]);
 	}
-
+	public void setSoundSettings(int value){
+		option.setAudioOptions(value, true);
+	}
+	
 	public GameScreen getGame() {
 		return game;
 	}

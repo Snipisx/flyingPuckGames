@@ -38,8 +38,8 @@ public class JSONParser {
 	public void saveOptions(Options options){
 		JsonWriter writer;
 		
-		writer = new JsonWriter(Gdx.files.external("projectFinale/json/options.json").writer(false));
-		
+		//writer = new JsonWriter(Gdx.files.external("projectFinale/json/options.json").writer(false));
+		writer = new JsonWriter(Gdx.files.local("options.json").writer(false));
 		try {
 			writer.beginObject();
 			writer.name("volumen").value(gson.toJson(options.getSoundVolume()));
@@ -58,7 +58,7 @@ public class JSONParser {
 		JsonReader reader;
 		String name;		
 		try {
-			reader = new JsonReader(Gdx.files.external("projectFinale/json/options.json").reader());
+			reader = new JsonReader(Gdx.files.local("options.json").reader());
 			reader.beginObject();
 			while(reader.hasNext()){
 				name = reader.nextName();
@@ -87,10 +87,8 @@ public class JSONParser {
 	public void savePlayer(Player player){
 
 		try {
-			FileWriter writer1 = new FileWriter(Gdx.files.external("projectFinale/json/save.json").file());
-			
+			FileWriter writer1 = new FileWriter(Gdx.files.local("save.json").path(),false);
 			String json = gson.toJson(player);
-			
 			writer1.write(json);
 			writer1.close();
 		} catch (IOException e) {
@@ -101,7 +99,7 @@ public class JSONParser {
 	
 	public Player loadPlayer(){
 		
-		BufferedReader br = new BufferedReader(Gdx.files.external("projectFinale/json/save.json").reader());
+		BufferedReader br = new BufferedReader(Gdx.files.local("save.json").reader());
 		Player jugador = new Player();
 		jugador = gson.fromJson(br, Player.class);
 		

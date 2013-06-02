@@ -15,7 +15,7 @@ public class PlayerStatus {
 	private float coins = 999;
 	private float time = 200;
 	
-	//atributes Player
+	//Attributes Player
 	private Integer str = 1;
 	private Integer inte = 1;
 	private Integer con = 1;

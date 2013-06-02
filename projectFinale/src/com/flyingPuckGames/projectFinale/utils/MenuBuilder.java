@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox.SelectBoxStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -31,6 +32,7 @@ import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 import com.flyingPuckGames.projectFinale.stage.EquipMenu;
 import com.flyingPuckGames.projectFinale.stage.MainMenu;
 import com.flyingPuckGames.projectFinale.stage.OptionMenu;
+import com.flyingPuckGames.projectFinale.stage.SoundMenu;
 import com.flyingPuckGames.projectFinale.stage.StatusMenu;
 import com.flyingPuckGames.projectFinale.stage.VideoMenu;
 
@@ -43,6 +45,7 @@ public class MenuBuilder {
 	private LabelStyle lStyle = new LabelStyle();
 	private LabelStyle statusSt = new LabelStyle();
 	private LabelStyle nameStyle = new LabelStyle();
+	private SliderStyle slider = new SliderStyle();
 	private Color statusColor;
 	private MainMenu mainMenu;
 	private OptionMenu optionMenu;
@@ -50,6 +53,7 @@ public class MenuBuilder {
 	private EquipMenu equipMenu;
 	private SelectBoxStyle boxStyle = new SelectBoxStyle();
 	private VideoMenu videoMenu;
+	private SoundMenu soundMenu;
 	
 	private void setStyles(){
 		//labels
@@ -58,6 +62,8 @@ public class MenuBuilder {
 		fontStatus = f.generateFont(16);
 		fontName = f.generateFont(32);
 		f.dispose();
+		
+		slider.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selectBox.png"))));
 		
 		boxStyle.font = fontMenus;
 		boxStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selectBox.png"))));
@@ -90,6 +96,7 @@ public class MenuBuilder {
 		statusMenu = new StatusMenu(style,lStyle,statusSt,nameStyle,statusColor);
 		equipMenu = new EquipMenu(style,lStyle);
 		videoMenu = new VideoMenu(style,lStyle,boxStyle,statusSt);
+		soundMenu = new SoundMenu(style,lStyle,slider,statusSt);
 	}
 
 	public Group mainMenu(final MenuController menuController) {
@@ -131,6 +138,11 @@ public class MenuBuilder {
 	public Group videoOptionsMenu(final MenuController menuController){
 		Group video = videoMenu.createMenu(menuController);
 		return video;
+	}
+	
+	public Group SoundOptionsGame(final MenuController menuController){
+		Group sound = soundMenu.createGame(menuController);
+		return sound;
 	}
 	
 }
