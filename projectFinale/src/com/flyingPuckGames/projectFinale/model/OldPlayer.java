@@ -106,6 +106,7 @@ public class OldPlayer extends Entity {
 		charRect = rectPool.obtain();
 		charRect.set(this.position.x, this.position.y, WIDTH-0.1f,
 				HEIGHT-0.1f);
+		
 		int startX, startY, endX, endY;
 		if (this.velocity.x > 0) {
 			startX = endX = (int) (this.position.x + WIDTH + this.velocity.x);
@@ -118,7 +119,9 @@ public class OldPlayer extends Entity {
 		
 		//TODO Voy por aqui.
 		
+		
 		charRect.x += this.velocity.x;
+		
 		for (Rectangle tile : tiles) {
 			if (Intersector.overlaps(charRect, tile)) {
 				this.velocity.x = 0;
@@ -127,6 +130,7 @@ public class OldPlayer extends Entity {
 				break;
 			}
 		}
+		
 		charRect.x = this.position.x;
 
 		// if the character is moving upwards, check the tiles to the top of it's
@@ -139,6 +143,9 @@ public class OldPlayer extends Entity {
 		startX = (int) (this.position.x);
 		endX = (int) (this.position.x + WIDTH);
 		getTiles(startX, startY, endX, endY, tiles);
+		
+		
+		
 		charRect.y += this.velocity.y;
 		for (Rectangle tile : tiles) {
 			if (Intersector.overlaps(this.charRect, tile)) {

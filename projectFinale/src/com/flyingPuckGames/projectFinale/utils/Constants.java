@@ -31,5 +31,11 @@ public class Constants {
 	
 	//Test positions.
 	public static final Vector2 PLAYER_STARTING_POSITION = new Vector2(2,3);
-	 
+	
+	//Player constants.
+	public static final float MAX_VELOCITY		 = 10f;
+	public static final float JUMP_VELOCITY 	 = 40f;
+	public static final float GRAVITY 			 = -2.5f;
+	public static final float DAMPING 			 = 0.87f;
+
 }

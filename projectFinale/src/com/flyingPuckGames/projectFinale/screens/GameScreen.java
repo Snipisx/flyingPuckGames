@@ -5,10 +5,12 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.controller.OldPlayerController;
+import com.flyingPuckGames.projectFinale.controller.PlayerController;
 import com.flyingPuckGames.projectFinale.model.Level;
 import com.flyingPuckGames.projectFinale.model.Player;
 import com.flyingPuckGames.projectFinale.utils.Constants;
@@ -30,7 +32,7 @@ public class GameScreen implements Screen, InputProcessor{
 	private Stage				stage; //TODO @Refactor Name
 	private boolean 			onMenu;
 	private Integer				contEsc;
-	private OldPlayerController	oldPlayerController; //TODO Über refactor
+	private PlayerController	playerController; //TODO Über refactor
 	/**
 	 * Constructor
 	 * @param megaGame
@@ -40,10 +42,12 @@ public class GameScreen implements Screen, InputProcessor{
 		this.megaGame = megaGame;
 		level = new Level(new TmxMapLoader().load(Constants.TEST_TILEMAP_PATH));
 		player = new Player(Constants.PLAYER_STARTING_POSITION);
+		playerController = new PlayerController(player, (TiledMapTileLayer) level.getTiledMap().getLayers().get(0));
+
 		worldRenderer = new WorldRenderer(level);
 		playerRenderer = new PlayerRenderer(player);
 		menuRenderer = new MenuRenderer(megaGame);
-		oldPlayerController	= new OldPlayerController(player);
+		
 		menuBuilder = new MenuBuilder();
 		menuBuilder.setStyles();
 		menuBuilder.init();
@@ -56,11 +60,12 @@ public class GameScreen implements Screen, InputProcessor{
 	public void render(float delta) {
 		
 		if(!onMenu){
-			oldPlayerController.update(delta);
+			playerController.update(delta);
 			RenderUtils.clearScreen();
 			worldRenderer.update(delta, player.getPosition());
 			playerRenderer.update(delta, worldRenderer.getTileRenderer().getSpriteBatch());
-		}else{
+		}
+		else{
 			worldRenderer.update(delta, player.getPosition());
 			menuRenderer.render(delta);
 		}
@@ -104,8 +109,8 @@ public class GameScreen implements Screen, InputProcessor{
 	}
 	
 	private void setOnMenu(){
-		oldPlayerController.rightReleased();
-		oldPlayerController.leftReleased();
+//		playerController.rightReleased();
+//		playerController.leftReleased();
 		stage = new Stage();
 		stage.addActor(menuBuilder.statusMenu(this));
 		menuRenderer.setStage(stage);
@@ -164,31 +169,30 @@ public class GameScreen implements Screen, InputProcessor{
 
 	@Override
 	public boolean keyDown(int keycode) {
-		if (keycode == Keys.LEFT)
-			oldPlayerController.leftPressed();
-		if (keycode == Keys.RIGHT)
-			oldPlayerController.rightPressed();
-		if (keycode == Keys.Z)
-			oldPlayerController.jumpPressed();
-		if (keycode == Keys.X)
-			oldPlayerController.firePressed();
+//		if (keycode == Keys.LEFT || keycode == Keys.A)
+//			playerController.leftPressed();
+//		if (keycode == Keys.RIGHT || keycode == Keys.D)
+//			playerController.rightPressed();
+//		if (keycode == Keys.Z || keycode == Keys.SPACE ||  keycode == Keys.UP)
+//			playerController.jumpPressed();
+//		if (keycode == Keys.X)
+//			playerController.firePressed();
 		return true;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		System.out.println("hola");
-		if (keycode == Keys.LEFT)
-			oldPlayerController.leftReleased();
-		if (keycode == Keys.RIGHT)
-			oldPlayerController.rightReleased();
-		if (keycode == Keys.Z)
-			oldPlayerController.jumpReleased();
-		if (keycode == Keys.X)
-			oldPlayerController.fireReleased();
-		if (keycode == Keys.D){
-			System.out.println("psdfa");
-		}
+//		if (keycode == Keys.LEFT)
+//			playerController.leftReleased();
+//		if (keycode == Keys.RIGHT)
+//			playerController.rightReleased();
+//		if (keycode == Keys.Z)
+//			playerController.jumpReleased();
+//		if (keycode == Keys.X)
+//			playerController.fireReleased();
+//		if (keycode == Keys.D){
+//			System.out.println("psdfa");
+//		}
 		if (keycode == Keys.ESCAPE){
 			if(contEsc == 1){
 				contEsc = 0;

@@ -61,7 +61,7 @@ public class OldWorldRenderer {
 		playerRenderer.renderPlayer();
 		camera.position.x = world.getPlayer().getPosition().x;
 		camera.update();
-	
+		
 //		System.out.println("X:" + world.getPlayer().getPosition().x + "\nY:" + world.getPlayer().getPosition().y);
 //		System.out.println(ppuX + "-" + ppuY);
 	}

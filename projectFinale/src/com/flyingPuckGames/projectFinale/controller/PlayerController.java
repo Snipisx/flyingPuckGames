@@ -1,5 +1,7 @@
 package com.flyingPuckGames.projectFinale.controller;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Rectangle;
@@ -8,70 +10,234 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.flyingPuckGames.projectFinale.model.Player;
 import com.flyingPuckGames.projectFinale.model.Player.State;
+import com.flyingPuckGames.projectFinale.utils.Constants;
 
 public class PlayerController {
 	
-	private static final float MAX_VELOCITY = 10f;
-	private static final float JUMP_VELOCITY = 40f;
-	private static final float GRAVITY = -2.5f;
-	private static final float DAMPING = 0.87f;
 	private Player player;
 	private Pool<Rectangle> rectPool;
 	private Array<Rectangle> wallTiles;
 	private TiledMapTileLayer wallsLayer;
+
 	
+	//Disposable
+	private Rectangle rect;
+	private Cell cell;
+	int contador = 0;
 	
-	public PlayerController(Player player, Pool<Rectangle> rectPool, Array<Rectangle> tiles, TiledMapTileLayer wallsLayer) {
+	public PlayerController(Player player, TiledMapTileLayer wallsLayer) {
 		this.player = player;
-		this.rectPool = rectPool;
-		this.wallTiles = tiles;
+		rectPool = new Pool<Rectangle>() {
+			@Override
+			protected Rectangle newObject() {
+				return new Rectangle();
+			}
+		};
+		wallTiles = new Array<Rectangle>();
 		this.wallsLayer = wallsLayer;
-	
 	}
 
 	public void update(float delta) {
-		player.setStateTime(player.getStateTime() + delta);
-		player.setVelocity(player.getVelocity().add(0, GRAVITY));
 		
-		clampVelocity();
+		updateTime(delta);
 		
-		player.getVelocity().scl(delta);
-		player.setBounds(rectPool.obtain());
-		player.getBounds().set(player.getPosition().x, player.getPosition().y, player.getWsize(), player.getHsize());
 		
-		predictTilesInXAxis();
-	}
-	
-	
-	private void clampVelocity(){
-		clampVelocityToMaximum();
-		clampVelocityToMinimum();
-	}
-	
-	private void clampVelocityToMaximum(){
-		if (Math.abs(player.getVelocity().x) > MAX_VELOCITY) {
-				player.setVelocity(new Vector2(Math.signum(player.getVelocity().x) * MAX_VELOCITY, player.getVelocity().y ));
-		}
-	}
-	
-	private void clampVelocityToMinimum(){
-		if (Math.abs(player.getVelocity().x) < 1) {
-			player.setVelocity(new Vector2(0, player.getVelocity().y));
-			if (player.isGrounded()){
-				player.setState(State.IDLE);
 
+		if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)) {
+			player.setXVelocity(-Constants.MAX_VELOCITY);
+			if (player.isGrounded())
+				player.setState(State.WALKING);
+			player.setFacesRight(false);		
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.RIGHT)){
+			player.setXVelocity(Constants.MAX_VELOCITY);
+			if (player.isGrounded())
+				player.setState(State.WALKING);
+			player.setFacesRight(true);		
+		}
+
+		if ((Gdx.input.isKeyPressed(Keys.SPACE) & player.isGrounded())){
+				player.setYVelocity(player.getYVelocity() + Constants.JUMP_VELOCITY);
+				player.setState(State.JUMPING);
+				player.setGrounded(false);
+		}
+
+		makePlayerFall();
+		clampXVelocity();
+		predictHowFarPlayerGoesInThisFrame(delta);
+		
+		readyBounds();
+		
+		
+		if (playerIsMovingInXAxis()) {
+			predictTilesInXAxis();
+			movePlayerBoundsInXAxis();
+			collisionsInXAxis();
+			moveXBoundsPositionToPlayerPosition();
+		}
+		
+		if (playerIsMovingInYAxis()) {
+			predictTilesInYAxis();
+			movePlayerBoundsInYAxis();
+			collisionsInYAxis();
+			moveYBoundsPositionToPlayerPosition();
+		}
+		
+		player.getPosition().add(player.getVelocity());
+		player.setVelocity(player.getVelocity().scl(1/delta));
+		
+		
+		player.setXVelocity(player.getXVelocity() * Constants.DAMPING);
+	}
+	
+	private void updateTime(float delta) {
+		player.setStateTime(player.getStateTime() + delta);
+	}
+
+	private void readyBounds() {
+		player.setBounds(rectPool.obtain());
+		player.setBounds(player.getXPosition(), player.getYPosition(), player.getWsize(), player.getHsize());
+	}
+
+	private void collisionsInXAxis() {
+		for (Rectangle wallTile : wallTiles) {
+			if(wallTile == null) continue;
+			if (player.getBounds().overlaps(wallTile)) {
+
+				stopPlayerInXAxis();
+				
+				System.out.println("[Colision detected in the X axis: "
+						+ player.getPosition() + "]");
+				break;
+			}
+		}			
+	}
+	
+	/**
+	 * In this method we expect the collisions in the X axis.
+	 */
+	private void collisionsInYAxis(){
+		for (Rectangle wallTile : wallTiles) {
+			if(wallTile == null) continue;
+			if (player.getBounds().overlaps(wallTile)) {
+				//Upward collisions
+				if (player.getYVelocity() > 0) {
+					player.setYPosition(wallTile.y - player.getHsize());
+				} 
+				//Downward collision
+				else {
+					player.setYPosition(wallTile.y + wallTile.height);
+					player.setGrounded(true);
+				}
+				
+//				System.out.println("[Colision detected in the Y axis: "
+//						+ player.getPosition() + "]");
+				stopPlayerInYAxis();
+				break;
 			}
 		}
 	}
+	
+	private void stopPlayerInXAxis() {
+		player.setXVelocity(0);
+		
+	}
+	private void stopPlayerInYAxis() {
+		player.setYVelocity(0);
+		
+	}
+	
+	private void movePlayerBoundsInXAxis() {
+		player.setBoundsXPosition(player.getBoundsXPosition() + player.getXVelocity());
+	}
+	private void moveXBoundsPositionToPlayerPosition(){
+		player.setBoundsXPosition(player.getXPosition());
+	}
+	private void moveYBoundsPositionToPlayerPosition(){
+		player.setBoundsYPosition(player.getYPosition());
+	}
+	
+	private void movePlayerBoundsInYAxis() {
+		player.setBoundsYPosition(player.getBoundsYPosition() + player.getYVelocity());
+	}
+	
+	private Vector2 predictHowFarPlayerGoesInThisFrame(float delta) {
+		return player.getVelocity().scl(delta);
+	}
+
+	private void makePlayerFall() {
+		player.setVelocity(player.getVelocity().add(0, Constants.GRAVITY));
+	}
+	
+	private boolean playerIsMovingInXAxis(){
+		return Math.abs(player.getXVelocity()) > 0 ? true : false;
+	}
+	
+	private boolean playerIsMovingInYAxis(){
+		return Math.abs(player.getYVelocity()) > 0 ? true : false;
+	}
+	
+	private void movePlayerPositionInXAxis(){
+		player.setXPosition(player.getXPosition() + player.getXVelocity());
+	}
+	
+	private void movePlayerPositionInYAxis(){
+		player.setYPosition(player.getYPosition() + player.getYVelocity());
+	}
+	
+	private void clampXVelocity(){
+		clampXVelocityToMinimum();
+		clampXVelocityToMaximum();
+	}
+	
+	private void clampXVelocityToMaximum(){
+		if (Math.abs(player.getVelocity().x) > Constants.MAX_VELOCITY) {
+				player.setXVelocity(Math.signum(player.getXVelocity()) * Constants.MAX_VELOCITY);
+		}
+	}
+	
+	private void clampXVelocityToMinimum(){
+		if (Math.abs(player.getXVelocity()) < 1) {
+			player.setXVelocity(0);
+			if (player.isGrounded()){
+				player.setState(State.IDLE);
+			}
+		}
+	}
+	
 	private void predictTilesInXAxis(){
 		int startX, startY, endX, endY;
+		
+		//Moving right
 		if (player.getVelocity().x > 0) {
-			startX = endX = (int) (player.getPosition().x + player.getWsize() + player.getVelocity().x);
-		} else {
-			startX = endX = (int) (player.getPosition().x + player.getVelocity().x);
+			startX = endX = (int) (player.getXPosition() + player.getWsize() + player.getXVelocity());
+		} 
+		//Moving left
+		else {
+			startX = endX = (int) (player.getXPosition() + player.getXVelocity());
 		}
-		startY = (int) (player.getPosition().y);
-		endY = (int) (player.getPosition().x + player.getHsize());
+		
+		startY = (int) (player.getXPosition());
+		endY = (int) (player.getXPosition() + player.getWsize());
+		
+		getTiles(startX, startY, endX, endY, wallTiles);
+	}
+	
+	private void predictTilesInYAxis(){
+		int startX, startY, endX, endY;
+		
+		//Moving up
+		if (player.getYVelocity() > 0) {
+			startY = endY = (int) (player.getYPosition() + player.getHsize() + player.getYVelocity());
+		} 
+		//Moving down
+		else {
+			startY = endY = (int) (player.getYPosition() + player.getYVelocity());
+		}
+		
+		startX = (int) (player.getXPosition());
+		endX = (int) (player.getXPosition() + player.getHsize());
 		
 		getTiles(startX, startY, endX, endY, wallTiles);
 	}
@@ -81,20 +247,25 @@ public class PlayerController {
 		
 		rectPool.freeAll(tiles);
 		tiles.clear();
+		
 		for (int y = startY; y <= endY; y++) {
 			for (int x = startX; x <= endX; x++) {
-				Cell cell = wallsLayer.getCell(x, y);
+				cell = wallsLayer.getCell(x, y);
 
 				if (cell != null) {
-					if (cell.getTile().getProperties().containsKey("solid")) {
-						// System.out.println(cell.getTile().getProperties().get("solid").toString());
-					}
-					Rectangle rect = rectPool.obtain();
+//					if (cell.getTile().getProperties().containsKey("solid")) {
+//						// System.out.println(cell.getTile().getProperties().get("solid").toString());
+//					}
+					rect = rectPool.obtain();
 					rect.set(x, y, 1, 1);
 					tiles.add(rect);
 				}
 			}
 		}
 	}
-	
+
+	public void firePressed() {
+		// TODO Auto-generated method stub
+		
+	}
 }

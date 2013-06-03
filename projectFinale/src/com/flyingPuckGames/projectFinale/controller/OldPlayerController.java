@@ -100,11 +100,11 @@ public class OldPlayerController {
 			player.setState(State.IDLE);
 		}
 		
-		player.getAcceleration().y = GRAVITY;
+		//player.getAcceleration().y = GRAVITY;
 		
-		player.getAcceleration().mul(delta);
+		//player.getAcceleration().mul(delta);
 		
-		player.getVelocity().add(player.getAcceleration().x, player.getAcceleration().y);
+		//player.getVelocity().add(player.getAcceleration().x, player.getAcceleration().y);
 		
 //		checkCollisionWithBlocks(delta);
 		
@@ -207,19 +207,19 @@ public class OldPlayerController {
 			if (!player.getState().equals(State.JUMPING)) {
 				player.setState(State.WALKING);
 			}
-			player.getAcceleration().x = -ACCELERATION;
+			//player.getAcceleration().x = -ACCELERATION;
 		} else if (keys.get(Keys.RIGHT)) {
 			// left is pressed
 			player.setFacesRight(true);
 			if (!player.getState().equals(State.JUMPING)) {
 				player.setState(State.WALKING);
 			}
-			player.getAcceleration().x = ACCELERATION;
+			//player.getAcceleration().x = ACCELERATION;
 		} else {
 			if (!player.getState().equals(State.JUMPING)) {
 				player.setState(State.IDLE);
 			}
-			player.getAcceleration().x = 0;
+			//player.getAcceleration().x = 0;
 
 		}
 		return false;

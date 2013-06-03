@@ -2,6 +2,7 @@ package com.flyingPuckGames.projectFinale.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.flyingPuckGames.projectFinale.model.Player;
@@ -18,7 +19,7 @@ public class PlayerRenderer {
 	private float textureWidth;
 	private float textureHeight;
 	
-	
+		
 	/**
 	 * Constructor
 	 * @param player
