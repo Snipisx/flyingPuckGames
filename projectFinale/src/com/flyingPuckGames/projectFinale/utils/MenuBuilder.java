@@ -35,19 +35,19 @@ import com.flyingPuckGames.projectFinale.stage.OptionMenu;
 import com.flyingPuckGames.projectFinale.stage.SoundMenu;
 import com.flyingPuckGames.projectFinale.stage.StatusMenu;
 import com.flyingPuckGames.projectFinale.stage.VideoMenu;
+import com.flyingPuckGames.projectFinale.stage.GrimoireMenu;
 
 public class MenuBuilder {
 	
 	private BitmapFont fontMenus;
 	private BitmapFont fontStatus;
 	private BitmapFont fontName;
-	private ButtonStyle style = new ButtonStyle();
+	private ButtonStyle buttonStandard = new ButtonStyle();
 	private ButtonStyle buttonMore = new ButtonStyle();
 	private ButtonStyle buttonLess = new ButtonStyle();
-	private LabelStyle lStyle = new LabelStyle();
-	private LabelStyle statusSt = new LabelStyle();
+	private LabelStyle labelMenusStyle = new LabelStyle();
+	private LabelStyle labelStatusStyle = new LabelStyle();
 	private LabelStyle nameStyle = new LabelStyle();
-	private SliderStyle slider = new SliderStyle();
 	private Color statusColor;
 	private MainMenu mainMenu;
 	private OptionMenu optionMenu;
@@ -56,6 +56,7 @@ public class MenuBuilder {
 	private SelectBoxStyle boxStyle = new SelectBoxStyle();
 	private VideoMenu videoMenu;
 	private SoundMenu soundMenu;
+	private GrimoireMenu grimoireMenu;
 	
 	private void setStyles(){
 		//labels
@@ -65,8 +66,6 @@ public class MenuBuilder {
 		fontName = f.generateFont((int) (Gdx.graphics.getWidth() * 0.036f));
 		f.dispose();
 		
-		slider.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selectBox.png"))));
-		slider.knob = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selectBox1.png"))));
 		boxStyle.font = fontMenus;
 		boxStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selectBox.png"))));
 		boxStyle.listBackground = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/negro.png"))));
@@ -74,11 +73,11 @@ public class MenuBuilder {
 		boxStyle.itemSpacing = 1f;
 		boxStyle.fontColor = Color.valueOf("2BCEBF");
 		
-		statusSt.font = fontStatus;
-		statusSt.fontColor = Color.valueOf("ededed");
+		labelStatusStyle.font = fontStatus;
+		labelStatusStyle.fontColor = Color.valueOf("ededed");
 		
-		lStyle.font = fontMenus;
-		lStyle.fontColor = Color.valueOf("ededed");
+		labelMenusStyle.font = fontMenus;
+		labelMenusStyle.fontColor = Color.valueOf("ededed");
 		
 		statusColor = Color.valueOf("2BCEBF");
 		
@@ -87,8 +86,8 @@ public class MenuBuilder {
 		//nameStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/negro.png"))));
 		
 		//Buttons
-		style.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selected2.png"))));
-		style.over = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/hover2.png"))));
+		buttonStandard.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selected2.png"))));
+		buttonStandard.over = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/hover2.png"))));
 		buttonMore.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/more.png"))));
 		buttonMore.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/moreDown.png"))));
 		buttonMore.pressedOffsetX = Gdx.graphics.getWidth() * 0.3f;
@@ -99,12 +98,13 @@ public class MenuBuilder {
 	
 	public void init(){
 		setStyles();
-		mainMenu = new MainMenu(style,lStyle);
-		optionMenu = new OptionMenu(style,lStyle);
-		statusMenu = new StatusMenu(style,lStyle,statusSt,nameStyle,statusColor);
-		equipMenu = new EquipMenu(style,lStyle);
-		videoMenu = new VideoMenu(style,lStyle,boxStyle,statusSt);
-		soundMenu = new SoundMenu(style,lStyle,slider,statusSt,buttonMore,buttonLess);
+		mainMenu = new MainMenu(buttonStandard,labelMenusStyle);
+		optionMenu = new OptionMenu(buttonStandard,labelMenusStyle);
+		statusMenu = new StatusMenu(buttonStandard,labelMenusStyle,labelStatusStyle,nameStyle,statusColor);
+		equipMenu = new EquipMenu(buttonStandard,labelMenusStyle);
+		videoMenu = new VideoMenu(buttonStandard,labelMenusStyle,boxStyle,labelStatusStyle);
+		soundMenu = new SoundMenu(buttonStandard,labelMenusStyle,labelStatusStyle,buttonMore,buttonLess);
+		grimoireMenu = new GrimoireMenu();
 	}
 
 	public Group mainMenu(final MenuController menuController) {
@@ -112,13 +112,8 @@ public class MenuBuilder {
 		return main ;
 	}
 
-	public Group optionMenu(final MenuController menuController){
-		Group option = optionMenu.createGame(menuController);
-		return option;
-	}
-
-	public Group optionMainMenu(final MenuController menuController) {
-		Group option = optionMenu.createMenu(menuController);
+	public Group optionMenu(final MenuController menuController, boolean onMenu){
+		Group option = optionMenu.create(menuController,onMenu);
 		return option;
 	}
 
@@ -134,23 +129,25 @@ public class MenuBuilder {
 	}
 	
 	/*
-	 * Create the menu of Video Options In-Game
+	 * Create the menu of Video Options 
 	 */
-	public Group videoOptionsGame(final MenuController menuController){
-		Group video = videoMenu.createGame(menuController);
+	public Group videoOptions(final MenuController menuController, boolean onMenu){
+		Group video = videoMenu.create(menuController,onMenu);
 		return video;
 	}
 	/*
-	 * Create the menu of Video options OnMainMenu
+	 * Create the menu of Audio options 
 	 */
-	public Group videoOptionsMenu(final MenuController menuController){
-		Group video = videoMenu.createMenu(menuController);
-		return video;
+
+	
+	public Group SoundOptions(final MenuController menuController, boolean onMenu){
+		Group sound = soundMenu.create(menuController,onMenu);
+		return sound;
 	}
 	
-	public Group SoundOptionsGame(final MenuController menuController){
-		Group sound = soundMenu.createGame(menuController);
-		return sound;
+	public Group GrimoireMenu(final MenuController menuController,boolean onMenu){
+		Group grimoire = grimoireMenu.create(menuController,onMenu);
+		return grimoire;
 	}
 	
 }

@@ -40,18 +40,21 @@ public class Options {
 		setSound(Constants.SOUND);
 		setSoundVolume(Constants.SOUND_VOLUME);
 		
-		parser.saveOptions(this);
+		saveOptions();
 	}
 	
 	public void setVideoOptions(Integer resolutionX,Integer resolutionY){
 		this.setResolutionX(resolutionX);
 		this.setResolutionY(resolutionY);
-		Gdx.graphics.setDisplayMode(resolutionX, resolutionY, false);
+		Gdx.graphics.setDisplayMode(resolutionX, resolutionY, true);
+		saveOptions();
 	}
 	
 	public void setAudioOptions(Integer volumeLvl, Boolean soundOn){
+		System.out.println(soundOn);
 		setSound(soundOn);
 		setSoundVolume(volumeLvl);
+		saveOptions();
 	}
 
 

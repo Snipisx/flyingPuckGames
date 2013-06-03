@@ -33,12 +33,12 @@ public class MenuController {
 		switch(i){
 		case 1:
 			stage = new Stage();
-			stage.addActor(menuBuilder.videoOptionsGame(this));
+			stage.addActor(menuBuilder.videoOptions(this,false));
 			game.setMenu(stage);
 			break;
 		case 2:
 			stage = new Stage();
-			stage.addActor(menuBuilder.SoundOptionsGame(this));
+			stage.addActor(menuBuilder.SoundOptions(this,false));
 			game.setMenu(stage);
 			break;
 		}
@@ -49,9 +49,15 @@ public class MenuController {
 		switch(i){
 		case 1:
 			stage = new Stage();
-			stage.addActor(menuBuilder.videoOptionsMenu(this));
+			
+			stage.addActor(menuBuilder.videoOptions(this,true));
+			
 			menu.setMenu(stage);
 			break;
+		case 2:
+			stage = new Stage();
+			stage.addActor(menuBuilder.SoundOptions(this, true));
+			menu.setMenu(stage);
 		}
 	}
 	
@@ -65,7 +71,7 @@ public class MenuController {
 				
 			case 2:
 				stage = new Stage();
-				stage.addActor(menuBuilder.optionMenu(this));
+				stage.addActor(menuBuilder.optionMenu(this,false));
 				game.setMenu(stage);
 				break;
 				
@@ -88,11 +94,13 @@ public class MenuController {
 				break;
 			case 2:
 				stage = new Stage();
-				stage.addActor(menuBuilder.optionMainMenu(this));
+				stage.addActor(menuBuilder.optionMenu(this,true));
 				menu.setMenu(stage);
 				break;
 			case 3: 
-				System.out.println("In Construction");
+				stage = new Stage();
+				stage.addActor(menuBuilder.GrimoireMenu(this,true));
+				menu.setMenu(stage);
 				break;
 			case 4:
 				Gdx.app.exit();
@@ -118,8 +126,8 @@ public class MenuController {
 	public void setVideoSettings(int selectionIndex) {
 		option.setVideoOptions(Constants.RESOLUTIONS[selectionIndex][0], Constants.RESOLUTIONS[selectionIndex][1]);
 	}
-	public void setSoundSettings(int value){
-		option.setAudioOptions(value, true);
+	public void setSoundSettings(int value, boolean on){
+		option.setAudioOptions(value, on);
 	}
 	
 	public GameScreen getGame() {

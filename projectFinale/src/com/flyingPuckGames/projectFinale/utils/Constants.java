@@ -28,7 +28,7 @@ public class Constants {
 	public static final float RESOLUTION_Y 	= 720f;
 	public static final boolean SOUND 		= true;
 	public static final Short SOUND_VOLUME 	= 10;
-	public static final Integer[][] RESOLUTIONS = { {960,540},{1024,576},{1280,720},{1366,768},{1600,900}};
+	public static final Integer[][] RESOLUTIONS = { {800,600},{1024,768},{1280,1024},{1366,768},{1600,1024}};
 
 	//Test positions.
 	public static final Vector2 PLAYER_STARTING_POSITION = new Vector2(2,3);

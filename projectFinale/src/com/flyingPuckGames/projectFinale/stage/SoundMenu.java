@@ -30,29 +30,31 @@ public class SoundMenu {
 
 	
 	
-	private LabelStyle statusSt;
-	private SliderStyle slider;
-	private ButtonStyle style;
-	private LabelStyle lStyle;
+	private LabelStyle labelStatusStyle;
+	private ButtonStyle buttonStandard;
+	private LabelStyle labelMenusStyle;
 	private ButtonStyle buttonMore;
 	private ButtonStyle buttonLess;
 	
-	public SoundMenu(ButtonStyle button, LabelStyle label, SliderStyle slider,LabelStyle statusLabel,ButtonStyle buttonMore,ButtonStyle buttonLess){
-		statusSt = statusLabel;
-		this.slider = slider;
-		style = button;
-		lStyle = label;
+	public SoundMenu(ButtonStyle button, LabelStyle label,LabelStyle statusLabel,ButtonStyle buttonMore,ButtonStyle buttonLess){
+		labelStatusStyle = statusLabel;
+		buttonStandard = button;
+		labelMenusStyle = label;
 		this.buttonLess = buttonLess;
 		this.buttonMore = buttonMore;
 	}
 	
-	public Group createGame(final MenuController menuController){
+	public Group create(final MenuController menuController,final Boolean onMenu){
 		Group p = new Group();
 		p.addListener(new InputListener() {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
 				if(keycode == Keys.ESCAPE){
-					menuController.status(2);
+					if(onMenu){
+						menuController.mainMenu(2);
+					}else{
+						menuController.status(2);	
+					}
 				}
 				return true;
 			}
@@ -64,19 +66,19 @@ public class SoundMenu {
 		
 		p.addActor(background);		
 		
-		Label title = new Label("SOUND CONFIGURATION",statusSt);
+		Label title = new Label("SOUND CONFIGURATION",labelStatusStyle);
 		title.setBounds(Gdx.graphics.getWidth() * 0.38f, Gdx.graphics.getHeight() * 0.65f, Gdx.graphics.getWidth() * 0.25f,Gdx.graphics.getHeight() * 0.1f);
 		
 		p.addActor(title);
 		
-		Label resolution = new Label("LEVEL",lStyle);
+		Label resolution = new Label("LEVEL",labelMenusStyle);
 		resolution.setBounds(Gdx.graphics.getWidth() * 0.38f, Gdx.graphics.getHeight() * 0.55f, Gdx.graphics.getWidth() * 0.25f,Gdx.graphics.getHeight() * 0.1f);
 		
 		p.addActor(resolution);
 		
-		final Label volumeText = new Label("ON",lStyle);
+		final Label volumeText = new Label("ON",labelMenusStyle);
 		
-		Button volumeOn = new Button(volumeText,style);
+		Button volumeOn = new Button(volumeText,buttonStandard);
 		
 		volumeOn.setBounds(Gdx.graphics.getWidth() * 0.50f, Gdx.graphics.getHeight() * 0.575f, Gdx.graphics.getWidth() * 0.09f, Gdx.graphics.getHeight() * 0.05f);
 		
@@ -95,14 +97,14 @@ public class SoundMenu {
 		p.addActor(volumeOn);
 		
 		
-		Label setVolumeLevel = new Label("SET VOLUME",lStyle);
+		Label setVolumeLevel = new Label("SET VOLUME",labelMenusStyle);
 		setVolumeLevel.setBounds(Gdx.graphics.getWidth() * 0.35f, Gdx.graphics.getHeight() * 0.5f,Gdx.graphics.getWidth() * 0.2f, Gdx.graphics.getHeight() * 0.1f);
 		p.addActor(setVolumeLevel);
 		
 		
 		Table setVolume = new Table();
 		setVolume.setBounds(Gdx.graphics.getWidth() * 0.5f, Gdx.graphics.getHeight()*0.5f, Gdx.graphics.getWidth() * 0.1f, Gdx.graphics.getHeight() * 0.1f);
-		final Label volume = new Label("0",lStyle);
+		final Label volume = new Label("0",labelMenusStyle);
 		Button less = new Button(buttonLess);
 		less.setWidth(Gdx.graphics.getWidth() * 0.3f);
 		less.addListener(new ChangeListener() {
@@ -121,7 +123,6 @@ public class SoundMenu {
 		});
 		setVolume.row();
 		setVolume.add(less).expand();
-		volume.setWidth(Gdx.graphics.getWidth() * 0.1f);
 		setVolume.add(volume).fill().padLeft(1f).padRight(1f);
 		Button more = new Button(buttonMore);
 		more.setWidth(Gdx.graphics.getWidth() * 0.3f);
@@ -144,99 +145,35 @@ public class SoundMenu {
 		
 		p.addActor(setVolume);
 		
-		Button save = new Button(new Label("APPLY",lStyle),style);
+		Button save = new Button(new Label("APPLY",labelMenusStyle),buttonStandard);
 		
-		save.setBounds(Gdx.graphics.getWidth() * 0.40f, Gdx.graphics.getHeight() * 0.45f, Gdx.graphics.getWidth() * 0.1f, Gdx.graphics.getHeight() * 0.05f);
+		save.setBounds(Gdx.graphics.getWidth() * 0.35f, Gdx.graphics.getHeight() * 0.45f, Gdx.graphics.getWidth() * 0.1f, Gdx.graphics.getHeight() * 0.05f);
 		save.addListener(new ChangeListener() {
 			
 			@Override
 			public void changed(ChangeEvent event,Actor actor) {
-				menuController.status(2);
-				//menuController.setSoundSettings((int) volume.getValue());
-			}
-		});
-		p.addActor(save);
-		
-		Button back = new Button(new Label("BACK",lStyle),style);
-		
-		back.setBounds(Gdx.graphics.getWidth() * 0.50f, Gdx.graphics.getHeight() * 0.45f, Gdx.graphics.getWidth() * 0.1f, Gdx.graphics.getHeight() * 0.05f);
-		back.addListener(new ChangeListener() {
-			
-			@Override
-			public void changed(ChangeEvent event,Actor actor) {
-				menuController.status(2);
-			}
-		});
-		
-		p.addActor(back);
-	
-		return p;
-	}
-	
-	public Group createMenu(final MenuController menuController){
-		Group p = new Group();
-		p.addListener(new InputListener() {
-			@Override
-			public boolean keyDown(InputEvent event, int keycode) {
-				if(keycode == Keys.ESCAPE){
+				if(onMenu){
 					menuController.mainMenu(2);
+				}else{
+					menuController.status(2);	
 				}
-				
-				return true;
-			}
-		});
-	
-		Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/statusBack.png")))));
-		background.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		background.setColor(0.5f,0.5f, 0.5f, 0.8f);
-		
-		p.addActor(background);		
-		
-		Label title = new Label("VIDEO CONFIGURATION",statusSt);
-		title.setBounds(Gdx.graphics.getWidth() * 0.38f, Gdx.graphics.getHeight() * 0.65f, Gdx.graphics.getWidth() * 0.25f,Gdx.graphics.getHeight() * 0.1f);
-		
-		p.addActor(title);
-		
-		Label resolution = new Label("RESOLUTION",lStyle);
-		resolution.setBounds(Gdx.graphics.getWidth() * 0.38f, Gdx.graphics.getHeight() * 0.55f, Gdx.graphics.getWidth() * 0.25f,Gdx.graphics.getHeight() * 0.1f);
-		
-		p.addActor(resolution);
-		
-		String resolutions[] = new String[5];
-		resolutions[0] = " 960*540";
-		resolutions[1] = " 1024@576";
-		resolutions[2] = " 1280*720";
-		resolutions[3] = " 1366*768";
-		resolutions[4] = " 1600*900";
-		
-//		final SelectBox resolutionBox = new SelectBox(resolutions,boxStyle);
-//		
-//		resolutionBox.setBounds(Gdx.graphics.getWidth() * 0.50f, Gdx.graphics.getHeight() * 0.575f, Gdx.graphics.getWidth() * 0.09f, Gdx.graphics.getHeight() * 0.05f);
-//		resolutionBox.setSelection(2);
-//		p.addActor(resolutionBox);
-		
-		
-		Button save = new Button(new Label("APPLY",lStyle),style);
-		
-		save.setBounds(Gdx.graphics.getWidth() * 0.40f, Gdx.graphics.getHeight() * 0.45f, Gdx.graphics.getWidth() * 0.1f, Gdx.graphics.getHeight() * 0.05f);
-		save.addListener(new ChangeListener() {
-			
-			@Override
-			public void changed(ChangeEvent event,Actor actor) {
-				menuController.mainMenu(2);
-//				menuController.setVideoSettings(resolutionBox.getSelectionIndex());
+				menuController.setSoundSettings(Integer.parseInt(volume.getText().toString()),volumeText.getText().toString().equals("ON"));
 			}
 		});
 		p.addActor(save);
 		
-		Button back = new Button(new Label("BACK",lStyle),style);
+		Button back = new Button(new Label("BACK",labelMenusStyle),buttonStandard);
 		
 		back.setBounds(Gdx.graphics.getWidth() * 0.50f, Gdx.graphics.getHeight() * 0.45f, Gdx.graphics.getWidth() * 0.1f, Gdx.graphics.getHeight() * 0.05f);
 		back.addListener(new ChangeListener() {
 			
 			@Override
 			public void changed(ChangeEvent event,Actor actor) {
-				menuController.mainMenu(2);
+				if(onMenu){
+					menuController.mainMenu(2);
+				}else{
+					menuController.status(2);	
+				}
 			}
 		});
 		
