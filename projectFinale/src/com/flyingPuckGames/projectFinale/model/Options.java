@@ -13,7 +13,6 @@ public class Options {
 	private boolean sound;
 	private int soundVolume;
 	private JSONParser parser;
-	private MegaGame megaGame;
 	
 	public Options(){
 		parser = new JSONParser();

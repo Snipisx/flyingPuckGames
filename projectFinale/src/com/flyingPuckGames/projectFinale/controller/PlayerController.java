@@ -6,8 +6,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
-import com.flyingPuckGames.projectFinale.model.Player;
-import com.flyingPuckGames.projectFinale.model.Player.State;
+import com.flyingPuckGames.projectFinale.model.player.Player;
+import com.flyingPuckGames.projectFinale.model.player.Player.State;
 
 public class PlayerController {
 	

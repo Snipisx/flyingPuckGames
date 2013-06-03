@@ -11,8 +11,10 @@ import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.controller.MenuController;
 import com.flyingPuckGames.projectFinale.controller.OldPlayerController;
 import com.flyingPuckGames.projectFinale.model.Level;
-import com.flyingPuckGames.projectFinale.model.Player;
+import com.flyingPuckGames.projectFinale.model.player.Player;
+import com.flyingPuckGames.projectFinale.model.player.PlayerStatus;
 import com.flyingPuckGames.projectFinale.utils.Constants;
+import com.flyingPuckGames.projectFinale.utils.JSONParser;
 import com.flyingPuckGames.projectFinale.utils.RenderUtils;
 import com.flyingPuckGames.projectFinale.view.MenuRenderer;
 import com.flyingPuckGames.projectFinale.view.PlayerRenderer;
@@ -39,6 +41,8 @@ public class GameScreen implements Screen, InputProcessor{
 		this.megaGame = megaGame;
 		level = new Level(new TmxMapLoader().load(Constants.TEST_TILEMAP_PATH));
 		player = new Player(Constants.PLAYER_STARTING_POSITION);
+		JSONParser a = new JSONParser();
+		//player = a.loadPlayer();
 		worldRenderer = new WorldRenderer(level);
 		playerRenderer = new PlayerRenderer(player);
 		menuRenderer = new MenuRenderer(megaGame);
@@ -116,8 +120,12 @@ public class GameScreen implements Screen, InputProcessor{
 			oldPlayerController.rightPressed();
 		if (keycode == Keys.Z)
 			oldPlayerController.jumpPressed();
-		if (keycode == Keys.X)
+		if (keycode == Keys.X){
 			oldPlayerController.firePressed();
+			JSONParser parser1 = new JSONParser();
+			parser1.savePlayer(player);
+			System.out.println("save player");
+		}
 		return true;
 	}
 
@@ -133,7 +141,7 @@ public class GameScreen implements Screen, InputProcessor{
 		if (keycode == Keys.X)
 			oldPlayerController.fireReleased();
 		if (keycode == Keys.D){
-			System.out.println("psdfa");
+			
 		}
 		if (keycode == Keys.ESCAPE){
 			if(contEsc == 1){
@@ -217,4 +225,9 @@ public class GameScreen implements Screen, InputProcessor{
 		onMenu = menu;
 		menuRenderer.onGameMenu(menu);
 	}
+	
+	public PlayerStatus getPlayerStatus(){
+		return player.getStatus();
+	}
+	
 }

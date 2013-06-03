@@ -1,9 +1,10 @@
-package com.flyingPuckGames.projectFinale.model;
+package com.flyingPuckGames.projectFinale.model.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.flyingPuckGames.projectFinale.model.Entity;
 import com.flyingPuckGames.projectFinale.utils.Constants;
 
 public class Player extends Entity {
@@ -21,7 +22,10 @@ public class Player extends Entity {
 	private boolean	facesRight 		= true;
 	private boolean grounded		= false;
 	private boolean	longJump 		= false;
+	
 	private Texture texture;
+	private PlayerStatus status;
+
 	 
 	
 	public Player(Vector2 position){
@@ -31,6 +35,11 @@ public class Player extends Entity {
 		this.bounds.width = WSIZE;
 		this.bounds.height = HSIZE;
 		this.entityType = EntityType.PlayerEntity;
+		texture = new Texture(Gdx.files.internal(Constants.TEST_PLAYER_TEXTURE_PATH));
+		this.status = new PlayerStatus();
+	}
+	
+	public Player(){
 		texture = new Texture(Gdx.files.internal(Constants.TEST_PLAYER_TEXTURE_PATH));
 	}
 	
@@ -117,4 +126,14 @@ public class Player extends Entity {
 	public void setGrounded(boolean grounded) {
 		this.grounded = grounded;
 	}
+
+	public PlayerStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(PlayerStatus status) {
+		this.status = status;
+	}
+	
+	
 }

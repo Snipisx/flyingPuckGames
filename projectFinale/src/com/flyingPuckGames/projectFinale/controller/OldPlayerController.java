@@ -9,8 +9,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
-import com.flyingPuckGames.projectFinale.model.Player;
-import com.flyingPuckGames.projectFinale.model.Player.State;
+import com.flyingPuckGames.projectFinale.model.player.Player;
+import com.flyingPuckGames.projectFinale.model.player.Player.State;
 import com.flyingPuckGames.projectFinale.model.SolidTile;
 import com.flyingPuckGames.projectFinale.model.World;
 

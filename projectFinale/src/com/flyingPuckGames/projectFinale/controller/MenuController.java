@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.model.Options;
+import com.flyingPuckGames.projectFinale.model.player.PlayerStatus;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 import com.flyingPuckGames.projectFinale.utils.Constants;
@@ -33,6 +34,11 @@ public class MenuController {
 		case 1:
 			stage = new Stage();
 			stage.addActor(menuBuilder.videoOptionsGame(this));
+			game.setMenu(stage);
+			break;
+		case 2:
+			stage = new Stage();
+			stage.addActor(menuBuilder.SoundOptionsGame(this));
 			game.setMenu(stage);
 			break;
 		}
@@ -112,7 +118,10 @@ public class MenuController {
 	public void setVideoSettings(int selectionIndex) {
 		option.setVideoOptions(Constants.RESOLUTIONS[selectionIndex][0], Constants.RESOLUTIONS[selectionIndex][1]);
 	}
-
+	public void setSoundSettings(int value){
+		option.setAudioOptions(value, true);
+	}
+	
 	public GameScreen getGame() {
 		return game;
 	}
@@ -132,6 +141,10 @@ public class MenuController {
 	public void setInputProcessor() {
 		game.setInputProcessor();
 		
+	}
+	
+	public PlayerStatus getPlayerStatus(){
+		return game.getPlayerStatus();
 	}
 	
 	

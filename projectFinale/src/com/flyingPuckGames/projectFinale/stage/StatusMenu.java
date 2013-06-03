@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.flyingPuckGames.projectFinale.controller.MenuController;
+import com.flyingPuckGames.projectFinale.model.player.PlayerStatus;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.screens.SecondGameScreen;
 
@@ -31,16 +32,57 @@ public class StatusMenu {
 	private LabelStyle nameStyle;
 	private Color statusColor;
 	
+	//labels info Status
+	private Label levelInfo;
+	private Label expInfo;
+	private Label nextInfo;
+	private Label statusInfo;
+	private Label hpInfo;
+	private Label mpInfo;
+	private Label timeInfo;
+	private Label coinsInfo;
+	
+	
+	//labels info stats
+	private Label strInfo;
+	private Label conInfo;
+	private Label inteInfo;
+	private Label lckInfo;
+	private Label dmgInfo;
+	private Label defInfo;
+	
 	public StatusMenu(ButtonStyle button,LabelStyle label,LabelStyle status,LabelStyle name,Color stColor){
 		style = button;
 		lStyle = label;
 		statusSt = status;
 		nameStyle = name;
 		statusColor = stColor;
+	}	
+	
+	
+	
+	
+	private void loadLabels(PlayerStatus playerStatus){
+		
+		levelInfo = new Label(playerStatus.getLevel().toString(),statusSt);
+		expInfo = new Label(Float.toString(playerStatus.getExpActual()),statusSt);
+		nextInfo = new Label(Float.toString(playerStatus.getExpNextLvl()),statusSt);
+		statusInfo = new Label(playerStatus.getStatus(),statusSt);
+		hpInfo = new Label((playerStatus.getHP().toString() + "/" + playerStatus.getMaxHp().toString()),statusSt);
+		mpInfo = new Label((playerStatus.getMP().toString() + "/" + playerStatus.getMaxMp().toString()),statusSt);
+		timeInfo = new Label((Float.toString(playerStatus.getTime())),statusSt);
+		coinsInfo = new Label(Float.toString(playerStatus.getCoins()),statusSt);
+		
+		strInfo = new Label(playerStatus.getStr().toString(),statusSt);
+		conInfo = new Label(playerStatus.getCon().toString(),statusSt);
+		inteInfo = new Label(playerStatus.getInte().toString(),statusSt);
+		lckInfo = new Label(playerStatus.getLck().toString(),statusSt);
+		dmgInfo = new Label(playerStatus.getDmg().toString(),statusSt);
+		defInfo = new Label(playerStatus.getDef().toString(),statusSt);
 	}
 	
-	
 	public Group create(final MenuController menuController){
+		loadLabels(menuController.getPlayerStatus());
 		
 		menuController.setOnMenu(true);
 		Group p = new Group();
@@ -86,7 +128,6 @@ public class StatusMenu {
 		level.setColor(statusColor);
 		level.setAlignment(Align.right);
 		infoTableLeft.add(level);
-		Label levelInfo = new Label("0",statusSt);
 		levelInfo.setAlignment(Align.center);
 		infoTableLeft.add(levelInfo);
 		infoTableLeft.row();
@@ -95,7 +136,6 @@ public class StatusMenu {
 		exp.setColor(statusColor);
 		exp.setAlignment(Align.right);
 		infoTableLeft.add(exp);
-		Label expInfo = new Label("4000000",statusSt);
 		expInfo.setAlignment(Align.center);
 		infoTableLeft.add(expInfo);
 		infoTableLeft.row();
@@ -104,7 +144,6 @@ public class StatusMenu {
 		next.setColor(statusColor);
 		next.setAlignment(Align.right);
 		infoTableLeft.add(next);
-		Label nextInfo = new Label("0",statusSt);
 		nextInfo.setAlignment(Align.center);
 		infoTableLeft.add(nextInfo);
 		infoTableLeft.row();
@@ -117,7 +156,6 @@ public class StatusMenu {
 		status.setColor(statusColor);
 		status.setAlignment(Align.right);
 		infoTableLeft.add(status);
-		Label statusInfo = new Label("NORMAL",statusSt);
 		statusInfo.setAlignment(Align.center);
 		infoTableLeft.add(statusInfo);
 		infoTableLeft.row();
@@ -126,7 +164,6 @@ public class StatusMenu {
 		hp.setColor(statusColor);
 		hp.setAlignment(Align.right);
 		infoTableLeft.add(hp);
-		Label hpInfo = new Label("10/10",statusSt);
 		hpInfo.setAlignment(Align.center);
 		infoTableLeft.add(hpInfo);
 		infoTableLeft.row();
@@ -135,7 +172,6 @@ public class StatusMenu {
 		mp.setColor(statusColor);
 		mp.setAlignment(Align.right);
 		infoTableLeft.add(mp);
-		Label mpInfo = new Label("5/5",statusSt);
 		mpInfo.setAlignment(Align.center);
 		infoTableLeft.add(mpInfo);
 		infoTableLeft.row();
@@ -148,7 +184,6 @@ public class StatusMenu {
 		time.setColor(statusColor);
 		time.setAlignment(Align.right);
 		infoTableLeft.add(time);
-		Label timeInfo = new Label("00:00",statusSt);
 		timeInfo.setAlignment(Align.center);
 		infoTableLeft.add(timeInfo);
 		infoTableLeft.row();
@@ -157,7 +192,6 @@ public class StatusMenu {
 		coins.setColor(statusColor);
 		coins.setAlignment(Align.right);
 		infoTableLeft.add(coins);
-		Label coinsInfo = new Label("99999",statusSt);
 		coinsInfo.setAlignment(Align.center);
 		infoTableLeft.add(coinsInfo);
 		infoTableLeft.row();
@@ -178,7 +212,6 @@ public class StatusMenu {
 		str.setColor(statusColor);
 		str.setAlignment(Align.right);
 		infoTableRight.add(str);
-		Label strInfo = new Label("99999",statusSt);
 		strInfo.setAlignment(Align.center);
 		infoTableRight.add(strInfo);
 		infoTableRight.row();
@@ -187,7 +220,6 @@ public class StatusMenu {
 		inte.setColor(statusColor);
 		inte.setAlignment(Align.right);
 		infoTableRight.add(inte);
-		Label inteInfo = new Label("99999",statusSt);
 		inteInfo.setAlignment(Align.center);
 		infoTableRight.add(inteInfo);
 		infoTableRight.row();
@@ -196,7 +228,6 @@ public class StatusMenu {
 		con.setColor(statusColor);
 		con.setAlignment(Align.right);
 		infoTableRight.add(con);
-		Label conInfo = new Label("99999",statusSt);
 		conInfo.setAlignment(Align.center);
 		infoTableRight.add(conInfo);
 		infoTableRight.row();
@@ -205,7 +236,6 @@ public class StatusMenu {
 		lck.setColor(statusColor);
 		lck.setAlignment(Align.right);
 		infoTableRight.add(lck);
-		Label lckInfo = new Label("99999",statusSt);
 		lckInfo.setAlignment(Align.center);
 		infoTableRight.add(lckInfo);
 		infoTableRight.row();
@@ -218,7 +248,6 @@ public class StatusMenu {
 		dmg.setColor(statusColor);
 		dmg.setAlignment(Align.right);
 		infoTableRight.add(dmg);
-		Label dmgInfo = new Label("99999",statusSt);
 		dmgInfo.setAlignment(Align.center);
 		infoTableRight.add(dmgInfo);
 		infoTableRight.row();
@@ -227,7 +256,6 @@ public class StatusMenu {
 		def.setColor(statusColor);
 		def.setAlignment(Align.right);
 		infoTableRight.add(def);
-		Label defInfo = new Label("99999",statusSt);
 		defInfo.setAlignment(Align.center);
 		infoTableRight.add(defInfo);
 		infoTableRight.row();
