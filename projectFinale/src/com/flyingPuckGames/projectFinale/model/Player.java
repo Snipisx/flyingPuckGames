@@ -12,8 +12,8 @@ public class Player extends Entity {
 		IDLE, WALKING, JUMPING
 	}
 	
-	private final float WSIZE = Constants.PLAYER_WIDTH_IN_UNITS;
-	private final float HSIZE = Constants.PLAYER_HEIGHT_IN_UNITS;
+	private float height;
+	private float width;
 	
 	private Rectangle bounds 		= new Rectangle();
 	private State	state 			= State.IDLE;
@@ -24,20 +24,20 @@ public class Player extends Entity {
 	 
 	
 	public Player(Vector2 position){
+		texture = new Texture(Gdx.files.internal(Constants.TEST_PLAYER_TEXTURE_PATH));
 		this.position = position;
 		this.bounds.x = position.x;
 		this.bounds.y = position.y;
-		this.bounds.width = WSIZE;
-		this.bounds.height = HSIZE;
+		height = Constants.PLAYER_WIDTH_IN_UNITS * texture.getWidth();
+		width = Constants.PLAYER_HEIGHT_IN_UNITS * texture.getHeight();
+		this.bounds.width = height;
+		this.bounds.height = width;
 		this.entityType = EntityType.PlayerEntity;
-		texture = new Texture(Gdx.files.internal(Constants.TEST_PLAYER_TEXTURE_PATH));
 	}
 	
 	public void update(float delta) {
 		stateTime += delta;
 	}
-
-	
 	//Positions related getters & setters ---------------/
 	
 	//Position
@@ -161,17 +161,24 @@ public class Player extends Entity {
 		this.longJump = longJump;
 	}
 	public float getHsize() {
-		return HSIZE;
+		return width;
 	}
 	public float getWsize() {
-		return WSIZE;
+		return height;
 	}
-
 	public boolean isGrounded() {
 		return grounded;
 	}
-
 	public void setGrounded(boolean grounded) {
 		this.grounded = grounded;
+	}
+
+	@Override
+	public String toString() {
+		return "Player [WSIZE=" + height + ", HSIZE=" + width + ", bounds="
+				+ bounds + ", state=" + state + ", facesRight=" + facesRight
+				+ ", grounded=" + grounded + ", longJump=" + longJump
+				+ ", position=" + position + ", velocity=" + velocity
+				+ ", stateTime=" + stateTime + "]";
 	}
 }

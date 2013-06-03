@@ -15,7 +15,7 @@ public class Constants {
 	public static final float TILE_UNIT_SIZE 			= 16f;
 	
 	//Player sizes
-	public static final float PLAYER_WIDTH_IN_UNITS 	= .999f / TILE_UNIT_SIZE;
+	public static final float PLAYER_WIDTH_IN_UNITS 	= .960f / TILE_UNIT_SIZE;
 	public static final float PLAYER_HEIGHT_IN_UNITS 	= PLAYER_WIDTH_IN_UNITS * 2;
 
 	//Resources paths

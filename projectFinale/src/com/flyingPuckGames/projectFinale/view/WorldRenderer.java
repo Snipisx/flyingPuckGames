@@ -84,7 +84,7 @@ public class WorldRenderer {
 	 */
 	private void updateCamera(Vector2 cameraPosition){
 		camera.position.x = cameraPosition.x;
-		camera.position.y = cameraPosition.y;
+//		camera.position.y = cameraPosition.y;
 		camera.update();
 	}
 

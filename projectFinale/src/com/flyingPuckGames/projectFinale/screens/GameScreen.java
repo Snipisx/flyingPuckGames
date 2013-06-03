@@ -22,17 +22,18 @@ import com.flyingPuckGames.projectFinale.view.WorldRenderer;
 
 public class GameScreen implements Screen, InputProcessor{
 	
-	private MegaGame 			megaGame; //TODO @Refactor Name
-	private Level 				level;	//TODO @Refactor Name
+	private MegaGame 			megaGame;
+	private Level 				level;
 	private Player 				player;
 	private WorldRenderer		worldRenderer;
 	private PlayerRenderer 		playerRenderer;
 	private MenuRenderer	 	menuRenderer;
 	private MenuBuilder			menuBuilder;
-	private Stage				stage; //TODO @Refactor Name
+	private Stage				stage; 
 	private boolean 			onMenu;
 	private Integer				contEsc;
-	private PlayerController	playerController; //TODO Über refactor
+	private PlayerController	playerController;
+	
 	/**
 	 * Constructor
 	 * @param megaGame
@@ -59,7 +60,7 @@ public class GameScreen implements Screen, InputProcessor{
 	@Override
 	public void render(float delta) {
 		
-		if(!onMenu){
+		if (!onMenu) {
 			playerController.update(delta);
 			RenderUtils.clearScreen();
 			worldRenderer.update(delta, player.getPosition());
@@ -212,8 +213,9 @@ public class GameScreen implements Screen, InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if (!Gdx.app.getType().equals(ApplicationType.Android))
+		if (!Gdx.app.getType().equals(ApplicationType.Android)) {
 			return false;
+		}
 		if (screenX < Gdx.graphics.getWidth() / 2 && screenY > Gdx.graphics.getHeight() / 2) {
 //			controller.leftPressed();
 		}
@@ -261,7 +263,6 @@ public class GameScreen implements Screen, InputProcessor{
 	}
 	
 	//Getters & setters ---------
-	
 	public Integer getContEsc() {
 		return contEsc;
 	}
@@ -271,7 +272,6 @@ public class GameScreen implements Screen, InputProcessor{
 		this.contEsc = contEsc;
 	}
 
-
 	public void changeMenuOptions(int i) {
 		switch(i){
 		case 1:
@@ -280,7 +280,6 @@ public class GameScreen implements Screen, InputProcessor{
 			menuRenderer.setStage(stage);
 			break;
 		}
-		
 	}
 	
 }

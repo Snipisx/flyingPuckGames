@@ -54,7 +54,7 @@ public class OldPlayer extends Entity {
 	}
 
 	public void updatePlayer(float delta) {
-
+		System.out.println(toString());
 		this.stateTime += delta;
 
 		if ((Gdx.input.isKeyPressed(Keys.DOWN))) {
@@ -226,5 +226,12 @@ public class OldPlayer extends Entity {
 	}
 	public State getState() {
 		return state;
+	}
+
+	@Override
+	public String toString() {
+		return "OldPlayer [facesRight=" + facesRight + ", grounded=" + grounded
+				+ ", WIDTH=" + WIDTH + ", HEIGHT=" + HEIGHT
+				+ ", charRect=" + charRect + ", state=" + state + "]";
 	}
 }

@@ -29,8 +29,8 @@ public class PlayerRenderer {
 		this.player = player;
 		playerTexture = player.getTexture();
 		spriteBatch = new SpriteBatch();
-		textureWidth = Constants.PLAYER_WIDTH_IN_UNITS * playerTexture.getWidth();
-		textureHeight = Constants.PLAYER_HEIGHT_IN_UNITS * playerTexture.getHeight();
+		textureWidth = player.getBoundsWidth();
+		textureHeight = player.getBoundsHeight();
 	}
 	
 	/**

@@ -2,7 +2,9 @@ package com.flyingPuckGames.projectFinale;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
+import com.flyingPuckGames.projectFinale.screens.OldGameScreen;
 import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
 
 
@@ -23,10 +25,9 @@ public class MegaGame extends Game {
 		menuBuilder = new MenuBuilder();
 		menuBuilder.setStyles();
 		menuBuilder.init();
-		setScreen(new MenuScreen(this));
+		setScreen(new GameScreen(this));
 	}
 
-	
 	public MenuBuilder getMenuBuilder(){
 		return menuBuilder;
 	}
