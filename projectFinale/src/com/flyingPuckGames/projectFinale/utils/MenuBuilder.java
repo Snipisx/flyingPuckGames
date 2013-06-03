@@ -42,6 +42,8 @@ public class MenuBuilder {
 	private BitmapFont fontStatus;
 	private BitmapFont fontName;
 	private ButtonStyle style = new ButtonStyle();
+	private ButtonStyle buttonMore = new ButtonStyle();
+	private ButtonStyle buttonLess = new ButtonStyle();
 	private LabelStyle lStyle = new LabelStyle();
 	private LabelStyle statusSt = new LabelStyle();
 	private LabelStyle nameStyle = new LabelStyle();
@@ -58,13 +60,13 @@ public class MenuBuilder {
 	private void setStyles(){
 		//labels
 		FreeTypeFontGenerator f = new FreeTypeFontGenerator(Gdx.files.internal("fonts/akiras_font.ttf"));
-		fontMenus = f.generateFont(12);
-		fontStatus = f.generateFont(16);
-		fontName = f.generateFont(32);
+		fontMenus = f.generateFont((int) (Gdx.graphics.getWidth() * 0.012f));
+		fontStatus = f.generateFont((int) (Gdx.graphics.getWidth() * 0.016f));
+		fontName = f.generateFont((int) (Gdx.graphics.getWidth() * 0.036f));
 		f.dispose();
 		
 		slider.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selectBox.png"))));
-		
+		slider.knob = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selectBox1.png"))));
 		boxStyle.font = fontMenus;
 		boxStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selectBox.png"))));
 		boxStyle.listBackground = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/negro.png"))));
@@ -87,6 +89,12 @@ public class MenuBuilder {
 		//Buttons
 		style.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selected2.png"))));
 		style.over = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/hover2.png"))));
+		buttonMore.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/more.png"))));
+		buttonMore.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/moreDown.png"))));
+		buttonMore.pressedOffsetX = Gdx.graphics.getWidth() * 0.3f;
+		buttonLess.up = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/less.png"))));
+		buttonLess.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/lessDown.png"))));
+		buttonLess.pressedOffsetX = Gdx.graphics.getWidth() * -0.3f;
 	}
 	
 	public void init(){
@@ -96,7 +104,7 @@ public class MenuBuilder {
 		statusMenu = new StatusMenu(style,lStyle,statusSt,nameStyle,statusColor);
 		equipMenu = new EquipMenu(style,lStyle);
 		videoMenu = new VideoMenu(style,lStyle,boxStyle,statusSt);
-		soundMenu = new SoundMenu(style,lStyle,slider,statusSt);
+		soundMenu = new SoundMenu(style,lStyle,slider,statusSt,buttonMore,buttonLess);
 	}
 
 	public Group mainMenu(final MenuController menuController) {

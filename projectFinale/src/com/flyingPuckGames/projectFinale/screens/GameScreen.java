@@ -164,6 +164,8 @@ public class GameScreen implements Screen, InputProcessor{
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if (!Gdx.app.getType().equals(ApplicationType.Android))
 			return false;
+		
+		System.out.println("hola");
 		if (screenX < Gdx.graphics.getWidth() / 2 && screenY > Gdx.graphics.getHeight() / 2) {
 //			controller.leftPressed();
 		}
@@ -172,7 +174,8 @@ public class GameScreen implements Screen, InputProcessor{
 		}
 		
 		if (screenX < Gdx.graphics.getWidth() * 0.10f && screenY > Gdx.graphics.getHeight() * 0.90f) {
-			menuController.status(1);
+			System.out.println("hola2");
+			menuController.status(4);
 		}
 		return true;
 	}

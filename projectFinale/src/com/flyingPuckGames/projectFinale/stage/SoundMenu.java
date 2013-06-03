@@ -18,8 +18,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox.SelectBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.flyingPuckGames.projectFinale.controller.MenuController;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
 
@@ -31,12 +34,16 @@ public class SoundMenu {
 	private SliderStyle slider;
 	private ButtonStyle style;
 	private LabelStyle lStyle;
+	private ButtonStyle buttonMore;
+	private ButtonStyle buttonLess;
 	
-	public SoundMenu(ButtonStyle button, LabelStyle label, SliderStyle slider,LabelStyle statusLabel){
+	public SoundMenu(ButtonStyle button, LabelStyle label, SliderStyle slider,LabelStyle statusLabel,ButtonStyle buttonMore,ButtonStyle buttonLess){
 		statusSt = statusLabel;
 		this.slider = slider;
 		style = button;
 		lStyle = label;
+		this.buttonLess = buttonLess;
+		this.buttonMore = buttonMore;
 	}
 	
 	public Group createGame(final MenuController menuController){
@@ -67,14 +74,75 @@ public class SoundMenu {
 		
 		p.addActor(resolution);
 		
+		final Label volumeText = new Label("ON",lStyle);
 		
-		final Slider volume = new Slider(0, 10, 1, false, slider);
+		Button volumeOn = new Button(volumeText,style);
+		
+		volumeOn.setBounds(Gdx.graphics.getWidth() * 0.50f, Gdx.graphics.getHeight() * 0.575f, Gdx.graphics.getWidth() * 0.09f, Gdx.graphics.getHeight() * 0.05f);
+		
+		volumeOn.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				if(volumeText.getText().toString().equals("ON")){
+					volumeText.setText("OFF");
+				}else{
+					volumeText.setText("ON");
+				}
+			}
+		});
 		
 		
-		volume.setBounds(Gdx.graphics.getWidth() * 0.50f, Gdx.graphics.getHeight() * 0.575f, Gdx.graphics.getWidth() * 0.09f, Gdx.graphics.getHeight() * 0.05f);
-		volume.setValue(10);
-		p.addActor(volume);
+		p.addActor(volumeOn);
 		
+		
+		Label setVolumeLevel = new Label("SET VOLUME",lStyle);
+		setVolumeLevel.setBounds(Gdx.graphics.getWidth() * 0.35f, Gdx.graphics.getHeight() * 0.5f,Gdx.graphics.getWidth() * 0.2f, Gdx.graphics.getHeight() * 0.1f);
+		p.addActor(setVolumeLevel);
+		
+		
+		Table setVolume = new Table();
+		setVolume.setBounds(Gdx.graphics.getWidth() * 0.5f, Gdx.graphics.getHeight()*0.5f, Gdx.graphics.getWidth() * 0.1f, Gdx.graphics.getHeight() * 0.1f);
+		final Label volume = new Label("0",lStyle);
+		Button less = new Button(buttonLess);
+		less.setWidth(Gdx.graphics.getWidth() * 0.3f);
+		less.addListener(new ChangeListener() {
+			
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				int a = Integer.parseInt(volume.getText().toString());
+				if(a == 0){
+					return;
+				}else{
+					a--;
+					volume.setText(Integer.toString(a));
+				}
+				
+			}
+		});
+		setVolume.row();
+		setVolume.add(less).expand();
+		volume.setWidth(Gdx.graphics.getWidth() * 0.1f);
+		setVolume.add(volume).fill().padLeft(1f).padRight(1f);
+		Button more = new Button(buttonMore);
+		more.setWidth(Gdx.graphics.getWidth() * 0.3f);
+		more.addListener(new ChangeListener() {
+			
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				int a = Integer.parseInt(volume.getText().toString());
+				if(a == 10){
+					return;
+				}else{
+					a++;
+					volume.setText(Integer.toString(a));
+				}
+				
+			}
+		});
+		
+		setVolume.add(more).expand();
+		
+		p.addActor(setVolume);
 		
 		Button save = new Button(new Label("APPLY",lStyle),style);
 		
@@ -84,7 +152,7 @@ public class SoundMenu {
 			@Override
 			public void changed(ChangeEvent event,Actor actor) {
 				menuController.status(2);
-				menuController.setSoundSettings((int) volume.getValue());
+				//menuController.setSoundSettings((int) volume.getValue());
 			}
 		});
 		p.addActor(save);
