@@ -25,10 +25,14 @@ public class OptionMenu {
 
 	private ButtonStyle buttonStandard;
 	private LabelStyle labelMenusStyle;
+	private float WIDTH;
+	private float HEIGHT;
 	
 	public OptionMenu(ButtonStyle button,LabelStyle label){
 		buttonStandard = button;
 		labelMenusStyle = label;
+		WIDTH = Gdx.graphics.getWidth();
+		HEIGHT = Gdx.graphics.getHeight();
 	}
 	/*
 	 * OptionMenu from gameScreen
@@ -54,16 +58,16 @@ public class OptionMenu {
 		});
 
 		Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/statusBack.png")))));
-		background.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		background.setBounds(0, 0, WIDTH, HEIGHT);
 		background.setColor(0.5f,0.5f, 0.5f, 0.8f);
 
 		p.addActor(background);
 		
 		Table mainTable = new Table();
-		mainTable.defaults().width(Gdx.graphics.getWidth() * 0.2f);
-		mainTable.defaults().height(Gdx.graphics.getHeight()* 0.05f);
-		mainTable.setX(Gdx.graphics.getWidth() / 2);
-		mainTable.setY(Gdx.graphics.getHeight() / 2);
+		mainTable.defaults().width(WIDTH * 0.2f);
+		mainTable.defaults().height(HEIGHT* 0.05f);
+		mainTable.setX(WIDTH / 2);
+		mainTable.setY(HEIGHT / 2);
 		if(!(Gdx.app.getType() == ApplicationType.Android)){
 			
 			Button video = new Button(buttonStandard);
@@ -124,5 +128,10 @@ public class OptionMenu {
 		p.addActor(mainTable);
 
 		return p;
+	}
+	
+	public void setResolution(float width, float height) {
+		WIDTH = width;
+		HEIGHT = height;
 	}
 }

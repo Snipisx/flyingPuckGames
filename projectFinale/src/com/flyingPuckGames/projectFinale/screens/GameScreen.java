@@ -72,6 +72,7 @@ public class GameScreen implements Screen, InputProcessor{
 	public void resize(int width, int height) {
 		worldRenderer.setActualWindowSize();
 		menuRenderer.setSize(width, height);
+		menuController.onResize(width, height);
 	}
 
 	@Override

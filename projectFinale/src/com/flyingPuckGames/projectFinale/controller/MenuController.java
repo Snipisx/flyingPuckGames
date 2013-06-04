@@ -29,6 +29,12 @@ public class MenuController {
 		option = megaGame.getOptions();
 	}
 	
+	
+	public void onResize(float width, float height){
+		menuBuilder.onResize(width, height);
+		
+	}
+	
 	public void optionsGame(int i) {
 		switch(i){
 		case 1:

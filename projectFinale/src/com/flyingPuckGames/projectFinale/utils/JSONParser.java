@@ -9,11 +9,16 @@ import com.google.gson.stream.JsonWriter;
 import com.google.gson.stream.JsonReader;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.flyingPuckGames.projectFinale.model.Options;
+import com.flyingPuckGames.projectFinale.model.enemy.Enemy;
+import com.flyingPuckGames.projectFinale.model.enemy.Grimoire;
 import com.flyingPuckGames.projectFinale.model.player.Player;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 
 public class JSONParser {
@@ -82,6 +87,112 @@ public class JSONParser {
 			return false;
 		}
 		return true;
+	}
+	
+	public void saveGrimoire(Grimoire grimoire){
+		try {
+			FileWriter writer1 = new FileWriter(Gdx.files.local("grimoire.json").path(),false);
+			String json = gson.toJson(grimoire);
+			writer1.write(json);
+			writer1.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Grimoire loadGrimoire(){
+		
+		BufferedReader br = new BufferedReader(Gdx.files.local("grimoire.json").reader());
+		Grimoire grimoire = new Grimoire();
+		grimoire = gson.fromJson(br, Grimoire.class);
+		
+		return grimoire;
+		
+	}
+	
+	public void saveEnemy(){
+		JsonWriter writer;		
+		writer = new JsonWriter(Gdx.files.local("enemys.json").writer(false));
+		writer.setIndent(" ");
+		try {
+			writer.beginObject();
+			for(int id = 0; id < 10; id++){	
+				writer.name("enemy" + id).beginObject();
+					writer.name("name").value("enemy" + id);
+					writer.name("level").value(id);
+					writer.name("hp").value(id);
+					writer.name("id").value(id);
+					writer.name("strongAgainst").value("strong" + id);
+					writer.name("inmuneAgainst").value("inmune" + id);
+					writer.name("weakAgainst").value("weak" + id);
+					writer.name("absorb").value("absorb" + id);
+					writer.name("drop").value("item" + id);
+					writer.name("exp").value(id);
+					writer.name("desc").value("enemyDesc" + id);
+					writer.endObject();
+			}
+			writer.endObject();
+			writer.close();	
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+	}
+
+	public Enemy getEnemy(int id){
+		JsonReader reader;
+		String name;	
+		Enemy enemy = new Enemy();
+		try {
+			reader = new JsonReader(Gdx.files.local("enemys.json").reader());
+			reader.beginObject();
+			while(reader.hasNext()){
+				name = reader.nextName();
+				System.out.println(name);
+				if(name.equals("enemy" + id)){
+					reader.beginObject();
+						while(reader.hasNext()){
+							System.out.println(name);
+							name = reader.nextName();
+							if(name.equals("name")){
+								enemy.setName(reader.nextString());
+							}else if(name.equals("level")){
+								enemy.setLevel(reader.nextInt());
+							}else if(name.equals("hp")){
+								enemy.setHp(reader.nextInt());
+							}else if(name.equals("id")){
+								enemy.setId(reader.nextInt());
+							}else if(name.equals("strong")){
+								enemy.setStrongAgainst(reader.nextString());
+							}else if(name.equals("inmune")){
+								enemy.setInmuneAgainst(reader.nextString());
+							}else if(name.equals("weak")){
+								enemy.setWeakAgainst(reader.nextString());
+							}else if(name.equals("absorb")){
+								enemy.setAbsorb(reader.nextString());
+							}else if(name.equals("drop")){
+								enemy.setDrop(reader.nextString());
+							}else if (name.equals("exp")){
+								enemy.setExp(reader.nextLong());
+							}else if(name.equals("desc")){
+								enemy.setDesc(reader.nextString());
+							}
+						}
+						reader.endObject();
+				}else{
+					reader.skipValue();
+				}
+			}
+			reader.endObject();
+			reader.close();
+		} catch (GdxRuntimeException e) {
+		} catch (IOException e1){
+		}
+		
+		System.out.println(enemy.toString());
+		return enemy;
+		
+		
 	}
 	
 	public void savePlayer(Player player){

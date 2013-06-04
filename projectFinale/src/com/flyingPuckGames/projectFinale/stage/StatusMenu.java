@@ -32,6 +32,9 @@ public class StatusMenu {
 	private LabelStyle nameStyle;
 	private Color statusColor;
 	
+	private float WIDTH;
+	private float HEIGHT;
+	
 	//labels info Status
 	private Label levelInfo;
 	private Label expInfo;
@@ -57,6 +60,8 @@ public class StatusMenu {
 		labelStatusStyle = status;
 		nameStyle = name;
 		statusColor = stColor;
+		WIDTH = Gdx.graphics.getWidth();
+		HEIGHT = Gdx.graphics.getHeight();
 	}	
 	
 	
@@ -102,7 +107,7 @@ public class StatusMenu {
 		});
 		
 		Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/statusBack.png")))));
-		background.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		background.setBounds(0, 0, WIDTH, HEIGHT);
 		background.setColor(0.5f,0.5f, 0.5f, 0.8f);
 
 		p.addActor(background);
@@ -117,12 +122,12 @@ public class StatusMenu {
 		p.addActor(nameChar);
 		
 		Table infoTableLeft = new Table();
-		infoTableLeft.defaults().width(Gdx.graphics.getWidth() * 0.12f);
-		infoTableLeft.defaults().height( Gdx.graphics.getHeight() * 0.02f );
-		infoTableLeft.defaults().padLeft(Gdx.graphics.getWidth() * 0.03f);
-		infoTableLeft.defaults().padBottom(Gdx.graphics.getHeight() * 0.02f);
-		infoTableLeft.setX(Gdx.graphics.getWidth() * 0.15f);
-		infoTableLeft.setY(Gdx.graphics.getHeight() * 0.45f);
+		infoTableLeft.defaults().width(WIDTH * 0.12f);
+		infoTableLeft.defaults().height( HEIGHT * 0.02f );
+		infoTableLeft.defaults().padLeft(WIDTH * 0.03f);
+		infoTableLeft.defaults().padBottom(HEIGHT * 0.02f);
+		infoTableLeft.setX(WIDTH * 0.15f);
+		infoTableLeft.setY(HEIGHT * 0.45f);
 		
 		Label level = new Label("LEVEL",labelStatusStyle);
 		level.setColor(statusColor);
@@ -200,12 +205,12 @@ public class StatusMenu {
 		
 		
 		Table infoTableRight = new Table();
-		infoTableRight.defaults().width(Gdx.graphics.getWidth() * 0.12f);
-		infoTableRight.defaults().height( Gdx.graphics.getHeight() * 0.02f );
-		infoTableRight.defaults().padLeft(Gdx.graphics.getWidth() * 0.03f);
-		infoTableRight.defaults().padBottom(Gdx.graphics.getHeight() * 0.02f);
-		infoTableRight.setX(Gdx.graphics.getWidth() * 0.8f);
-		infoTableRight.setY(Gdx.graphics.getHeight() * 0.45f);
+		infoTableRight.defaults().width(WIDTH * 0.12f);
+		infoTableRight.defaults().height( HEIGHT * 0.02f );
+		infoTableRight.defaults().padLeft(WIDTH * 0.03f);
+		infoTableRight.defaults().padBottom(HEIGHT * 0.02f);
+		infoTableRight.setX(WIDTH * 0.8f);
+		infoTableRight.setY(HEIGHT * 0.45f);
 		
 		
 		Label str = new Label("STR",labelStatusStyle);
@@ -265,10 +270,10 @@ public class StatusMenu {
 		
 		
 		Table optionTable = new Table();
-		optionTable.defaults().width( Gdx.graphics.getWidth() * 0.2f );
-		optionTable.defaults().height( Gdx.graphics.getHeight() * 0.05f );
-		optionTable.setX( Gdx.graphics.getWidth() / 2 );
-		optionTable.setY( Gdx.graphics.getHeight() / 2 );
+		optionTable.defaults().width( WIDTH * 0.2f );
+		optionTable.defaults().height( HEIGHT * 0.05f );
+		optionTable.setX( WIDTH / 2 );
+		optionTable.setY( HEIGHT / 2 );
 		
 		
 		Button equip = new Button(buttonStandard);
@@ -332,6 +337,15 @@ public class StatusMenu {
 		p.addActor(optionTable);
 		
 		return p;
+		
+	}
+
+
+
+
+	public void setResolution(float width, float height) {
+		WIDTH = width;
+		HEIGHT = height;
 		
 	}
 }

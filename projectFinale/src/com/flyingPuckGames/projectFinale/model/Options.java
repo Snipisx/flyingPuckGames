@@ -46,7 +46,7 @@ public class Options {
 	public void setVideoOptions(Integer resolutionX,Integer resolutionY){
 		this.setResolutionX(resolutionX);
 		this.setResolutionY(resolutionY);
-		Gdx.graphics.setDisplayMode(resolutionX, resolutionY, true);
+		Gdx.graphics.setDisplayMode(resolutionX, resolutionY, false);
 		saveOptions();
 	}
 	

@@ -31,10 +31,11 @@ public class MainMenu {
 		labelMenusStyle = label;
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
+		
 	}
 	
 	public Group create(final MenuController menuController) {
-
+		
 		Group p = new Group();
 		
 		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
@@ -112,5 +113,11 @@ public class MainMenu {
 		p.addActor(mainTable);
 		return p;
 
+	}
+
+	public void setResolution(float width, float height) {
+		WIDTH = width;
+		HEIGHT = height;
+		
 	}
 }

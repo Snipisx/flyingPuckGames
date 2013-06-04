@@ -60,11 +60,8 @@ public class MenuBuilder {
 	
 	private void setStyles(){
 		//labels
-		FreeTypeFontGenerator f = new FreeTypeFontGenerator(Gdx.files.internal("fonts/akiras_font.ttf"));
-		fontMenus = f.generateFont((int) (Gdx.graphics.getWidth() * 0.012f));
-		fontStatus = f.generateFont((int) (Gdx.graphics.getWidth() * 0.016f));
-		fontName = f.generateFont((int) (Gdx.graphics.getWidth() * 0.036f));
-		f.dispose();
+		
+		setFonts(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		
 		boxStyle.font = fontMenus;
 		boxStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selectBox.png"))));
@@ -96,6 +93,29 @@ public class MenuBuilder {
 		buttonLess.pressedOffsetX = Gdx.graphics.getWidth() * -0.3f;
 	}
 	
+	public void onResize(float width,float height){
+		setFonts(width,height);
+		setResolutions(width,height);
+	}
+	
+	public void setResolutions(float width,float height){
+		mainMenu.setResolution(width,height);
+		optionMenu.setResolution(width,height);
+		statusMenu.setResolution(width,height);
+		equipMenu.setResolution(width,height);
+		videoMenu.setResolution(width,height);
+		soundMenu.setResolution(width,height);
+		grimoireMenu.setResolution(width,height);
+	}
+	
+	public void setFonts(float width,float height){
+		FreeTypeFontGenerator f = new FreeTypeFontGenerator(Gdx.files.internal("fonts/akiras_font.ttf"));
+		fontMenus = f.generateFont((int) (width* 0.012f));
+		fontStatus = f.generateFont((int) (width * 0.016f));
+		fontName = f.generateFont((int) (width * 0.036f));
+		f.dispose();
+	}
+	
 	public void init(){
 		setStyles();
 		mainMenu = new MainMenu(buttonStandard,labelMenusStyle);
@@ -104,7 +124,7 @@ public class MenuBuilder {
 		equipMenu = new EquipMenu(buttonStandard,labelMenusStyle);
 		videoMenu = new VideoMenu(buttonStandard,labelMenusStyle,boxStyle,labelStatusStyle);
 		soundMenu = new SoundMenu(buttonStandard,labelMenusStyle,labelStatusStyle,buttonMore,buttonLess);
-		grimoireMenu = new GrimoireMenu();
+		grimoireMenu = new GrimoireMenu(labelMenusStyle, buttonStandard);
 	}
 
 	public Group mainMenu(final MenuController menuController) {

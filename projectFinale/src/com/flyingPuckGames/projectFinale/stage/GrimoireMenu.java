@@ -9,8 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Json;
 import com.flyingPuckGames.projectFinale.controller.MenuController;
+import com.flyingPuckGames.projectFinale.model.enemy.Enemy;
 import com.flyingPuckGames.projectFinale.utils.JSONParser;
+import com.google.gson.Gson;
 
 public class GrimoireMenu{
 
@@ -20,7 +23,7 @@ public class GrimoireMenu{
 	private float HEIGHT;
 	
 	private LabelStyle labelMenusStyle;
-	private ButtonStyle standarButton;
+	private ButtonStyle standardButon;
 	
 	private Label monsterName;
 	private Label monsterLevel;
@@ -35,15 +38,19 @@ public class GrimoireMenu{
 	private Label monsterDesc;
 	
 	private JSONParser parser;
-	public GrimoireMenu(){
+	
+	
+	public GrimoireMenu(LabelStyle menuStyle,ButtonStyle buton){
+		labelMenusStyle = menuStyle;
+		standardButon = buton;
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
 		parser = new JSONParser();
 	}
 	
 	
-	private void setLabels(){
-		
+	private void setNextEnemy(int index){
+		Enemy enemy = parser.loadGrimoire().getEnemyList().get(index);
 		
 		
 	}
@@ -64,5 +71,11 @@ public class GrimoireMenu{
 		
 		return stage;
 		
+	}
+
+
+	public void setResolution(float width, float height) {
+		WIDTH = width;
+		HEIGHT = height;
 	}
 }
