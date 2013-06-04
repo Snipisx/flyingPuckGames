@@ -27,7 +27,7 @@ public class MegaGame extends Game {
 		SCREENH = Gdx.graphics.getHeight();
 		System.out.println(SCREENW);
 		System.out.println(SCREENH);
-		setOptions(new Options());
+		setOptions(new Options(this));
 		options.loadOptions();
 		setMenuController(new MenuController(this));
 		setScreen(new MenuScreen(this));
@@ -69,26 +69,28 @@ public class MegaGame extends Game {
 		SCREENH = Gdx.graphics.getHeight();
 	}
 
-
 	public Options getOptions() {
 		return options;
 	}
-
 
 	public void setOptions(Options options) {
 		this.options = options;
 	}
 
-
 	public MenuController getMenuController() {
 		return menuController;
 	}
 
-
 	public void setMenuController(MenuController menuController) {
 		this.menuController = menuController;
 	}
+	
+	public MusicController getMusicController() {
+		return musicController;
+	}
 
-
+	public void setMusicController(MusicController musicController) {
+		this.musicController = musicController;
+	}
 	
 }

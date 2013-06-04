@@ -14,8 +14,8 @@ public class MusicController implements Disposable {
      * The available music files.
      */
     public enum Tracks{
-        MENU( "music/music.mp3" ),
-        LEVEL( "music/level.ogg" );
+        MENU( "music/music.mp3" );
+//        LEVEL( "music/level.ogg" );
 
         private final String fileName;
 

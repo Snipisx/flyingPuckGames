@@ -7,15 +7,16 @@ import com.flyingPuckGames.projectFinale.utils.JSONParser;
 
 public class Options {
 	
-	
+	private MegaGame megaGame;
 	private float resolutionX;
 	private float resolutionY;
 	private boolean sound;
 	private int soundVolume;
 	private JSONParser parser;
 	
-	public Options(){
+	public Options(MegaGame megaGame){
 		parser = new JSONParser();
+		this.megaGame = megaGame;
 	}
 	
 	
@@ -60,43 +61,38 @@ public class Options {
 		setSound(soundOn);
 		setSoundVolume(volumeLvl);
 		saveOptions();
+		
+		megaGame.getMusicController().setEnabled(soundOn);
+		megaGame.getMusicController().setVolume(volumeLvl*0.10f);
 	}
-
 
 	public int getSoundVolume() {
 		return soundVolume;
 	}
 
-
 	public void setSoundVolume(int soundVolume) {
 		this.soundVolume = soundVolume;
 	}
-
 
 	public boolean isSound() {
 		return sound;
 	}
 
-
 	public void setSound(boolean sound) {
 		this.sound = sound;
 	}
-
 
 	public float getResolutionX() {
 		return resolutionX;
 	}
 
-
 	public void setResolutionX(float resolutionX) {
 		this.resolutionX = resolutionX;
 	}
 
-
 	public float getResolutionY() {
 		return resolutionY;
 	}
-
 
 	public void setResolutionY(float resolutionY) {
 		this.resolutionY = resolutionY;
