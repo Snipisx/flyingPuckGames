@@ -108,7 +108,8 @@ public class GameScreen implements Screen, InputProcessor{
 	public void dispose() {
 		Gdx.input.setInputProcessor(null);
 	}
-
+	
+	// Inputs -------------
 	public void setInputProcessor(){
 		Gdx.input.setInputProcessor(this);
 	}
@@ -118,7 +119,6 @@ public class GameScreen implements Screen, InputProcessor{
 //		playerController.leftReleased();
 		menuRenderer.setStage(stage);
 	}
-	
 	
 	@Override
 	public boolean keyDown(int keycode) {

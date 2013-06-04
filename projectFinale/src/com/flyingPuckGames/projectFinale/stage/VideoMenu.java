@@ -39,8 +39,6 @@ public class VideoMenu {
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
 	}
-	
-	
 
 	public Group create(final MenuController menuController, final boolean onMenu){
 		Group p = new Group();
@@ -137,8 +135,6 @@ public class VideoMenu {
 	
 		return p;
 	}
-
-
 
 	public void setResolution(float width, float height) {
 		WIDTH = width;

@@ -27,7 +27,6 @@ public class MenuController {
 		option = megaGame.getOptions();
 	}
 	
-	
 	public void onResize(float width, float height){
 		menuBuilder.onResize(width, height);
 		
@@ -90,7 +89,6 @@ public class MenuController {
 		}
 	}
 	
-	
 	public void mainMenu(Integer screen){
 		switch(screen){
 			case 1:
@@ -130,6 +128,7 @@ public class MenuController {
 	public void setVideoSettings(int selectionIndex) {
 		option.setVideoOptions(Constants.RESOLUTIONS[selectionIndex][0], Constants.RESOLUTIONS[selectionIndex][1]);
 	}
+	
 	public void setSoundSettings(int value, boolean on){
 		option.setAudioOptions(value, on);
 	}
@@ -158,7 +157,5 @@ public class MenuController {
 	public PlayerStatus getPlayerStatus(){
 		return game.getPlayerStatus();
 	}
-	
-	
 	
 }

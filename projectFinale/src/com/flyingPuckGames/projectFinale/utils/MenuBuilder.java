@@ -125,7 +125,6 @@ public class MenuBuilder {
 		return status;
 	}
 	
-	
 	public Group equipMenu(final MenuController menuController){
 		Group equip = equipMenu.create(menuController);
 		return equip;
@@ -142,7 +141,6 @@ public class MenuBuilder {
 	 * Create the menu of Audio options 
 	 */
 
-	
 	public Group SoundOptions(final MenuController menuController, boolean onMenu){
 		Group sound = soundMenu.create(menuController,onMenu);
 		return sound;

@@ -42,7 +42,6 @@ public class StatusMenu {
 	private Label timeInfo;
 	private Label coinsInfo;
 	
-	
 	//labels info stats
 	private Label strInfo;
 	private Label conInfo;
@@ -60,9 +59,6 @@ public class StatusMenu {
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
 	}	
-	
-	
-	
 	
 	private void loadLabels(PlayerStatus playerStatus){
 		
@@ -109,7 +105,6 @@ public class StatusMenu {
 
 		p.addActor(background);
 
-		
 		
 		Label nameChar = new Label("KYRIEL", nameStyle);
 		nameChar.setAlignment(0, Align.center);
@@ -336,9 +331,6 @@ public class StatusMenu {
 		return p;
 		
 	}
-
-
-
 
 	public void setResolution(float width, float height) {
 		WIDTH = width;

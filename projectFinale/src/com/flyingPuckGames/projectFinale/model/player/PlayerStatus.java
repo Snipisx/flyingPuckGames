@@ -23,203 +23,136 @@ public class PlayerStatus {
 	private Integer dmg = 2;
 	private Integer def = 2;
 
-	
-	
 	public PlayerStatus(){
 		
 	}
-
-
 
 	public Integer getMaxHp() {
 		return maxHp;
 	}
 
-
-
 	public void setMaxHp(Integer maxHp) {
 		this.maxHp = maxHp;
 	}
-
-
 
 	public Integer getMaxMp() {
 		return maxMp;
 	}
 
-
-
 	public void setMaxMp(Integer maxMp) {
 		this.maxMp = maxMp;
 	}
-
-
 
 	public Integer getHP() {
 		return HP;
 	}
 
-
-
 	public void setHP(Integer hP) {
 		HP = hP;
 	}
-
-
 
 	public Integer getMP() {
 		return MP;
 	}
 
-
-
 	public void setMP(Integer mP) {
 		MP = mP;
 	}
-
-
 
 	public float getExpActual() {
 		return expActual;
 	}
 
-
-
 	public void setExpActual(float expActual) {
 		this.expActual = expActual;
 	}
-
-
 
 	public float getExpNextLvl() {
 		return expNextLvl;
 	}
 
-
-
 	public void setExpNextLvl(float expNextLvl) {
 		this.expNextLvl = expNextLvl;
 	}
-
-
 
 	public Integer getLevel() {
 		return level;
 	}
 
-
-
 	public void setLevel(Integer level) {
 		this.level = level;
 	}
-
-
 
 	public String getStatus() {
 		return status;
 	}
 
-
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-
 
 	public float getCoins() {
 		return coins;
 	}
 
-
-
 	public void setCoins(float coins) {
 		this.coins = coins;
 	}
-
-
 
 	public float getTime() {
 		return time;
 	}
 
-
-
 	public void setTime(float time) {
 		this.time = time;
 	}
-
-
 
 	public Integer getStr() {
 		return str;
 	}
 
-
-
 	public void setStr(Integer str) {
 		this.str = str;
 	}
-
-
 
 	public Integer getInte() {
 		return inte;
 	}
 
-
-
 	public void setInte(Integer inte) {
 		this.inte = inte;
 	}
-
-
 
 	public Integer getCon() {
 		return con;
 	}
 
-
-
 	public void setCon(Integer con) {
 		this.con = con;
 	}
-
-
 
 	public Integer getLck() {
 		return lck;
 	}
 
-
-
 	public void setLck(Integer lck) {
 		this.lck = lck;
 	}
-
-
 
 	public Integer getDmg() {
 		return dmg;
 	}
 
-
-
 	public void setDmg(Integer dmg) {
 		this.dmg = dmg;
 	}
-
-
 
 	public Integer getDef() {
 		return def;
 	}
 
-
-
 	public void setDef(Integer def) {
 		this.def = def;
 	}
-	
 
 }

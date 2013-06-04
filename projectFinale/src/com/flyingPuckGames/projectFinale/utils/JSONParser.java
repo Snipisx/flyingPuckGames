@@ -184,7 +184,6 @@ public class JSONParser {
 		}
 	}
 	
-	
 	public Player loadPlayer(){
 		
 		BufferedReader br = new BufferedReader(Gdx.files.local("save.json").reader());
