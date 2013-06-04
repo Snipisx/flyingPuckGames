@@ -23,16 +23,21 @@ public class Options {
 		parser.saveOptions(this);
 	}
 	
+	/*
+	 * Load options.json if exist or load defaulOptions.
+	 */
 	public void loadOptions(){
 		if(parser.getOptions(this)){
 			System.out.println("Options loaded \n" + "Sound = " + isSound());
 			return;
 		}else{
-			
 			defaultOptions();
 		}
 	}
 	
+	/*
+	 * Set default options if no options.json exist
+	 */
 	private void defaultOptions(){
 		System.out.println("Options default");
 		setResolutionX(Constants.RESOLUTION_X);
