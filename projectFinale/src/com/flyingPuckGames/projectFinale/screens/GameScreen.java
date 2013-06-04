@@ -45,9 +45,9 @@ public class GameScreen implements Screen, InputProcessor{
 		
 		this.megaGame = megaGame;
 		level = new Level(new TmxMapLoader().load(Constants.TEST_TILEMAP_PATH));
-		//player = new Player(Constants.PLAYER_STARTING_POSITION);
+		player = new Player(Constants.PLAYER_STARTING_POSITION);
 		JSONParser a = new JSONParser();
-		player = a.loadPlayer();
+		//player = a.loadPlayer();
 		playerController = new PlayerController(player, (TiledMapTileLayer) level.getTiledMap().getLayers().get(0));
 
 		worldRenderer = new WorldRenderer(level);

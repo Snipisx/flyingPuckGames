@@ -60,7 +60,7 @@ public class GrimoireMenu{
 		monsterAbsorb = new Label("",labelMenusStyle);
 		monsterExp = new Label("",labelMenusStyle);
 		monsterDesc = new Label("",labelMenusStyle);
-		setNextEnemy(0);
+	//	setNextEnemy(0);
 		
 	}
 	
@@ -105,10 +105,17 @@ public class GrimoireMenu{
 		stage.addActor(monsterHp);
 		stage.addActor(monsterNum);
 		
-		Label strong = new Label("Strong VS.",labelMenusStyle);
+		Label strong = new Label("STRONG VS.",labelMenusStyle);
+		strong.setBounds(WIDTH * 0.5f, HEIGHT * 0.6f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		monsterStrong.setBounds(WIDTH * 0.53f, HEIGHT * 0.55f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		stage.addActor(monsterStrong);
+		stage.addActor(strong);
 		
-		
-		
+		Label immune = new Label("IMMUNE",labelMenusStyle);
+		immune.setBounds(WIDTH * 0.5f, HEIGHT * 0.50f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		monsterInmune.setBounds(WIDTH * 0.5f, HEIGHT * 0.45f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		stage.addActor(monsterInmune);
+		stage.addActor(immune);
 		
 		
 		
