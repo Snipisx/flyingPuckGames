@@ -3,6 +3,8 @@ package com.flyingPuckGames.projectFinale;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.flyingPuckGames.projectFinale.controller.MenuController;
+import com.flyingPuckGames.projectFinale.controller.MusicController;
+import com.flyingPuckGames.projectFinale.controller.MusicController.Tracks;
 import com.flyingPuckGames.projectFinale.model.Options;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
@@ -17,6 +19,7 @@ public class MegaGame extends Game {
 	private MenuBuilder menuBuilder;
 	private Options options;
 	private MenuController menuController;
+	private MusicController musicController;
 	
 	@Override
 	public void create() {
@@ -28,6 +31,11 @@ public class MegaGame extends Game {
 		options.loadOptions();
 		setMenuController(new MenuController(this));
 		setScreen(new MenuScreen(this));
+		musicController = new MusicController();
+		
+		musicController.setEnabled(true);
+		musicController.setVolume(0.5f);
+		musicController.play(Tracks.MENU);
 	}
 
 	public MenuBuilder getMenuBuilder(){
