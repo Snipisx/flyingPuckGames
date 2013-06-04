@@ -2,15 +2,12 @@ package com.flyingPuckGames.projectFinale.model;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.math.Vector2;
 
 public class Level {
 
 	private int WIDTH;
 	private int HEIGHT;
 	private TiledMap tiledMap;
-	//private SolidTile[][] blocks;
 	private TiledMapTileLayer layer;
 
 

@@ -18,9 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
-import com.flyingPuckGames.projectFinale.screens.SecondGameScreen;
 
 public class StatusMenu {
 

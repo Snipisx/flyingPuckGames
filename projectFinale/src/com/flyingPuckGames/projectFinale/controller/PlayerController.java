@@ -42,39 +42,15 @@ public class PlayerController {
 		
 		updateTime(delta);
 		
-		if (player.getStateTime() > 0.1f) {
-			System.out.println(player.toString());
-			player.setStateTime(0f);
-		}
-		
-		if ((Gdx.input.isKeyPressed(Keys.SPACE) & player.isGrounded())) {
-			player.setYVelocity(player.getYVelocity() + Constants.JUMP_VELOCITY);
-			player.setState(State.JUMPING);
-			player.setGrounded(false);
-		} 
-
-		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-			player.setXVelocity(-Constants.MAX_VELOCITY);
-			if (player.isGrounded())
-				player.setState(State.WALKING);
-			player.setFacesRight(false);		
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-			player.setXVelocity(Constants.MAX_VELOCITY);
-			if (player.isGrounded())
-				player.setState(State.WALKING);
-			player.setFacesRight(true);		
-		}	
+		processInputs();
 		
 		makePlayerFall();
 		clampXVelocity();
-		predictHowFarPlayerGoesInThisFrame(delta);
 
 		readyBounds();
 		
-		
-		
+		predictHowFarPlayerGoesInThisFrame(delta);
+
 		if (playerIsMovingInXAxis()) {
 			predictTilesInXAxis(delta);
 			movePlayerBoundsInXAxis();
@@ -98,7 +74,7 @@ public class PlayerController {
 	}
 	
 	private void processInputs() {
-		if (player.getStateTime() > 0.1f) {
+		if (player.getStateTime() > 1f) {
 			System.out.println(player.toString());
 			player.setStateTime(0f);
 		}

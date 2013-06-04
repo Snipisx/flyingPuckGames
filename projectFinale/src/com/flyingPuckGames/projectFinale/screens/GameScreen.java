@@ -9,7 +9,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.flyingPuckGames.projectFinale.MegaGame;
-import com.flyingPuckGames.projectFinale.controller.OldPlayerController;
 import com.flyingPuckGames.projectFinale.controller.PlayerController;
 import com.flyingPuckGames.projectFinale.model.Level;
 import com.flyingPuckGames.projectFinale.model.Player;
