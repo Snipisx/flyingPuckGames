@@ -45,14 +45,15 @@ public class GameScreen implements Screen, InputProcessor{
 		
 		this.megaGame = megaGame;
 		level = new Level(new TmxMapLoader().load(Constants.TEST_TILEMAP_PATH));
-		player = new Player(Constants.PLAYER_STARTING_POSITION);
+		//player = new Player(Constants.PLAYER_STARTING_POSITION);
+		JSONParser a = new JSONParser();
+		player = a.loadPlayer();
 		playerController = new PlayerController(player, (TiledMapTileLayer) level.getTiledMap().getLayers().get(0));
 
 		worldRenderer = new WorldRenderer(level);
 		playerRenderer = new PlayerRenderer(player);
 		menuRenderer = new MenuRenderer(megaGame);
-		JSONParser a = new JSONParser();
-		//player = a.loadPlayer();
+		
 		worldRenderer = new WorldRenderer(level);
 		playerRenderer = new PlayerRenderer(player);
 		menuRenderer = new MenuRenderer(megaGame);
@@ -128,10 +129,11 @@ public class GameScreen implements Screen, InputProcessor{
 //			playerController.rightPressed();
 //		if (keycode == Keys.Z || keycode == Keys.SPACE ||  keycode == Keys.UP)
 //			playerController.jumpPressed();
-//		if (keycode == Keys.X)
+		if (keycode == Keys.X){
 //			playerController.firePressed();
-//			JSONParser parser1 = new JSONParser();
-//			parser1.savePlayer(player);
+			JSONParser parser1 = new JSONParser();
+			parser1.savePlayer(player);
+		}
 		return true;
 	}
 

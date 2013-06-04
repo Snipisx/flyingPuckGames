@@ -41,9 +41,9 @@ public class MenuBuilder {
 	private SoundMenu soundMenu;
 	private GrimoireMenu grimoireMenu;
 	
-	private void setStyles(){
+	private void setStyles(boolean resize){
 		//labels
-		
+		if(!resize)
 		setFonts(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 		
 		boxStyle.font = fontMenus;
@@ -97,10 +97,11 @@ public class MenuBuilder {
 		fontStatus = f.generateFont((int) (width * 0.016f));
 		fontName = f.generateFont((int) (width * 0.036f));
 		f.dispose();
+		setStyles(true);
 	}
 	
 	public void init(){
-		setStyles();
+		setStyles(false);
 		mainMenu = new MainMenu(buttonStandard,labelMenusStyle);
 		optionMenu = new OptionMenu(buttonStandard,labelMenusStyle);
 		statusMenu = new StatusMenu(buttonStandard,labelMenusStyle,labelStatusStyle,nameStyle,statusColor);

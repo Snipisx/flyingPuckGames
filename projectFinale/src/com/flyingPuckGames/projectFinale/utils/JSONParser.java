@@ -126,11 +126,11 @@ public class JSONParser {
 				name = reader.nextName();
 				
 				if(name.equals("enemy" + id)){
+					System.out.println(name);
 					reader.beginObject();
 						while(reader.hasNext()){
-							
 							name = reader.nextName();
-							
+							System.out.println(name);
 							if(name.equals("name")){
 								enemy.setName(reader.nextString());
 							}else if(name.equals("level")){
@@ -139,11 +139,11 @@ public class JSONParser {
 								enemy.setHp(reader.nextInt());
 							}else if(name.equals("id")){
 								enemy.setId(reader.nextInt());
-							}else if(name.equals("strong")){
+							}else if(name.equals("strongAgainst")){
 								enemy.setStrongAgainst(reader.nextString());
-							}else if(name.equals("inmune")){
+							}else if(name.equals("inmuneAgainst")){
 								enemy.setInmuneAgainst(reader.nextString());
-							}else if(name.equals("weak")){
+							}else if(name.equals("weakAgainst")){
 								enemy.setWeakAgainst(reader.nextString());
 							}else if(name.equals("absorb")){
 								enemy.setAbsorb(reader.nextString());

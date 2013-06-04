@@ -2,14 +2,14 @@
   "height": 0.96,
   "width": 1.92,
   "bounds": {
-    "x": 13.761902,
-    "y": 1.0,
+    "x": 3.1625087,
+    "y": 7.75053,
     "width": 0.95,
     "height": 1.91
   },
-  "state": "WALKING",
-  "facesRight": true,
-  "grounded": true,
+  "state": "JUMPING",
+  "facesRight": false,
+  "grounded": false,
   "longJump": false,
   "status": {
     "HP": 5,
@@ -31,12 +31,12 @@
   },
   "entityType": "PlayerEntity",
   "position": {
-    "x": 13.875801,
-    "y": 1.0
+    "x": 3.1625087,
+    "y": 7.5858684
   },
   "velocity": {
-    "x": 8.7,
-    "y": 0.0
+    "x": 0.0,
+    "y": -10.000002
   },
-  "stateTime": 0.09771147
+  "stateTime": 0.06660913
 }

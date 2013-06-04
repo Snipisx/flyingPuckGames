@@ -46,13 +46,38 @@ public class GrimoireMenu{
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT = Gdx.graphics.getHeight();
 		parser = new JSONParser();
+		init();
+	}
+	
+	private void init(){
+		monsterName = new Label("",labelMenusStyle);
+		monsterLevel = new Label("",labelMenusStyle);
+		monsterHp = new Label("",labelMenusStyle);
+		monsterNum = new Label("",labelMenusStyle);
+		monsterStrong = new Label("",labelMenusStyle);
+		monsterInmune = new Label("",labelMenusStyle);
+		monsterWeak = new Label("",labelMenusStyle);
+		monsterAbsorb = new Label("",labelMenusStyle);
+		monsterExp = new Label("",labelMenusStyle);
+		monsterDesc = new Label("",labelMenusStyle);
+		setNextEnemy(0);
+		
 	}
 	
 	
 	private void setNextEnemy(int index){
 		Enemy enemy = parser.getEnemy(index);
 		
-		
+		monsterName.setText(enemy.getName().toUpperCase());
+		monsterLevel.setText("LVL" + Integer.toString(enemy.getLevel()));
+		monsterHp.setText("HP" + Integer.toString(enemy.getHp()));
+		monsterNum.setText(Integer.toString(enemy.getId()));
+		monsterStrong.setText((enemy.getStrongAgainst().toUpperCase()));
+		monsterInmune.setText(enemy.getInmuneAgainst().toUpperCase());
+		monsterWeak.setText(enemy.getWeakAgainst().toUpperCase());
+		monsterAbsorb.setText(enemy.getAbsorb().toUpperCase());
+		monsterExp.setText(Float.toString(enemy.getExp()));
+		monsterDesc.setText(enemy.getDesc().toUpperCase());
 	}
 	
 	
@@ -65,6 +90,14 @@ public class GrimoireMenu{
 		backgroundGrimoire.setColor(0.4f, 0.4f, 0.4f, 0.8f);
 		
 		stage.addActor(backgroundGrimoire);
+		
+		monsterName.setBounds( WIDTH	* 0.34f, HEIGHT * 0.65f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		monsterLevel.setBounds(WIDTH* 0.3f, HEIGHT * 0.6f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		monsterHp.setBounds(WIDTH* 0.4f, HEIGHT * 0.6f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		stage.addActor(monsterName);
+		stage.addActor(monsterLevel);
+		stage.addActor(monsterHp);
+		
 		
 		
 		
