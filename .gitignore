@@ -2,3 +2,9 @@
 .metadata
 *.class
 bin
+projectFinale-android/bin/**/*
+projectFinale-android/bin
+projectFinale-desktop/bin/**/*
+projectFinale-desktop/bin
+projectFinale-desktop/.project
+.classpath

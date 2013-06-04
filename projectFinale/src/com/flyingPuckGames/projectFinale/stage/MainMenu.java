@@ -14,40 +14,49 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.flyingPuckGames.projectFinale.controller.MenuController;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 
 public class MainMenu {
 
-	private ButtonStyle style;
-	private LabelStyle lStyle;
+	private ButtonStyle buttonStandard;
+	private LabelStyle labelMenusStyle;
+	
+	private float WIDTH;
+	private float HEIGHT;
+	
 	public MainMenu(ButtonStyle button,LabelStyle label){
-		style = button;
-		lStyle = label;
+		buttonStandard = button;
+		labelMenusStyle = label;
+		WIDTH = Gdx.graphics.getWidth();
+		HEIGHT = Gdx.graphics.getHeight();
+		
 	}
 	
-	public Group create(final MenuScreen menu) {
-
+	public Group create(final MenuController menuController) {
+		System.out.println(WIDTH + "      " + HEIGHT);
 		Group p = new Group();
 		
 		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
 		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.5f);
-		backMenu.setBounds((Gdx.graphics.getWidth() * 0.395f) ,(Gdx.graphics.getHeight() * 0.34f), Gdx.graphics.getWidth()*0.21f, Gdx.graphics.getHeight()*0.3f);
+		backMenu.setBounds((WIDTH * 0.395f) ,(HEIGHT * 0.34f), WIDTH*0.21f, HEIGHT*0.3f);
 		
 		p.addActor(backMenu);
 		final Table mainTable = new Table();
-		mainTable.defaults().width(Gdx.graphics.getWidth() * 0.2f);
-		mainTable.defaults().height(Gdx.graphics.getHeight()* 0.05f);
-		mainTable.setX(Gdx.graphics.getWidth() / 2);
-		mainTable.setY(Gdx.graphics.getHeight() / 2);
+		mainTable.defaults().width(WIDTH * 0.2f);
+		mainTable.defaults().height(HEIGHT* 0.05f);
+		mainTable.setX(WIDTH / 2);
+		mainTable.setY(HEIGHT / 2);
 
-		Button play = new Button(style);
-		play.add(new Label("PLAY", lStyle));
+		Button play = new Button(buttonStandard);
+		play.add(new Label("PLAY", labelMenusStyle));
 		play.center();
 		play.addListener(new ChangeListener() {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				menu.changeScreen(1);
+				menuController.mainMenu(1);
 			}
 
 		});
@@ -55,8 +64,8 @@ public class MainMenu {
 		mainTable.add(play);
 		mainTable.row();
 
-		Button options = new Button(style);
-		options.add(new Label("OPTIONS", lStyle));
+		Button options = new Button(buttonStandard);
+		options.add(new Label("OPTIONS", labelMenusStyle));
 		options.setColor(new Color(100, 100, 100, 100));
 		options.center();
 		options.addListener(new ChangeListener() {
@@ -64,7 +73,7 @@ public class MainMenu {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 
-				menu.changeMenu(2);
+				menuController.mainMenu(2);
 			}
 
 		});
@@ -72,14 +81,14 @@ public class MainMenu {
 		mainTable.add(options);
 		mainTable.row();
 
-		Button grimoire = new Button(style);
-		grimoire.add(new Label("GRIMOIRE", lStyle));
+		Button grimoire = new Button(buttonStandard);
+		grimoire.add(new Label("GRIMOIRE", labelMenusStyle));
 		grimoire.center();
 		grimoire.addListener(new ChangeListener() {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				menu.changeScreen(3);
+				menuController.mainMenu(3);
 			}
 
 		});
@@ -87,14 +96,14 @@ public class MainMenu {
 		mainTable.add(grimoire);
 		mainTable.row();
 
-		Button exit = new Button(style);
-		exit.add(new Label("CLOSE GAME", lStyle));
+		Button exit = new Button(buttonStandard);
+		exit.add(new Label("CLOSE GAME", labelMenusStyle));
 		exit.center();
 		exit.addListener(new ChangeListener() {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				menu.changeScreen(4);
+				menuController.mainMenu(4);
 			}
 
 		});
@@ -104,5 +113,12 @@ public class MainMenu {
 		p.addActor(mainTable);
 		return p;
 
+	}
+
+	public void setResolution(float width, float height) {
+		System.out.println("changed res = " + width +  "          " + height);
+		WIDTH = width;
+		HEIGHT = height;
+		
 	}
 }

@@ -1,6 +1,7 @@
 package com.flyingPuckGames.projectFinale.stage;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,158 +17,91 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.flyingPuckGames.projectFinale.controller.MenuController;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 
 public class OptionMenu {
 
-	private ButtonStyle style;
-	private LabelStyle lStyle;
+	private ButtonStyle buttonStandard;
+	private LabelStyle labelMenusStyle;
+	private float WIDTH;
+	private float HEIGHT;
 	
 	public OptionMenu(ButtonStyle button,LabelStyle label){
-		style = button;
-		lStyle = label;
+		buttonStandard = button;
+		labelMenusStyle = label;
+		WIDTH = Gdx.graphics.getWidth();
+		HEIGHT = Gdx.graphics.getHeight();
 	}
-	
-	
 	/*
 	 * OptionMenu from gameScreen
 	 */
-	public Group createGame(final GameScreen gameScreen) {
-
+	public Group create(final MenuController menuController,final boolean onMenu) {
+		System.out.println(WIDTH + "      " + HEIGHT);
 		Group p = new Group();
 		
 		p.addListener(new InputListener() {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
 				if(keycode == Keys.ESCAPE){
-					gameScreen.changeMenuStatus(4);
+					if(onMenu){
+						menuController.mainMenu(5);
+					}else{
+						menuController.status(4);
+					}
+					
 				}
 				
 				return true;
 			}
 		});
 
-		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
-		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.8f);
-		backMenu.setBounds((Gdx.graphics.getWidth() * 0.40f) ,(Gdx.graphics.getHeight() * 0.34f), Gdx.graphics.getWidth()*0.2f, Gdx.graphics.getHeight()*0.3f);
+		Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/statusBack.png")))));
+		background.setBounds(0, 0, WIDTH, HEIGHT);
+		background.setColor(0.5f,0.5f, 0.5f, 0.8f);
 
-		p.addActor(backMenu);
-		
+		p.addActor(background);
 		
 		Table mainTable = new Table();
-		mainTable.defaults().width(Gdx.graphics.getWidth() * 0.2f);
-		mainTable.defaults().height(Gdx.graphics.getHeight()* 0.05f);
-		mainTable.setX(Gdx.graphics.getWidth() / 2);
-		mainTable.setY(Gdx.graphics.getHeight() / 2);
-
-		Button video = new Button(style);
-		video.add(new Label("VIDEO OPTIONS", lStyle));
-		video.center();
-		video.addListener(new ChangeListener() {
-
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				gameScreen.changeMenuOptions(1);
-			}
-
-		});
-
-		mainTable.add(video);
-		mainTable.row();
-
-		Button sound = new Button(style);
-		sound.add(new Label("SOUND OPTIONS", lStyle));
-		sound.center();
-		sound.addListener(new ChangeListener() {
-
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-
-				// game.changeMenu2();
-			}
-
-		});
-
-		mainTable.add(sound);
-		mainTable.row();
-
-		Button back = new Button(style);
-		back.add(new Label("BACK", lStyle));
-		back.center();
-		back.addListener(new ChangeListener() {
-
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-
-				gameScreen.changeMenu(1);
-			}
-
-		});
-		mainTable.add(back);
-		mainTable.row();
-
-		p.addActor(mainTable);
-
-		return p;
-
-	}
-
-	/*
-	 * OptionMenu from menuScreen
-	 */
+		mainTable.defaults().width(WIDTH * 0.2f);
+		mainTable.defaults().height(HEIGHT* 0.05f);
+		mainTable.setX(WIDTH / 2);
+		mainTable.setY(HEIGHT / 2);
+		if(!(Gdx.app.getType() == ApplicationType.Android)){
+			
+			Button video = new Button(buttonStandard);
+			video.add(new Label("VIDEO", labelMenusStyle));
+			video.center();
+			video.addListener(new ChangeListener() {
 	
-	public Group createMenu(final MenuScreen game) {
-
-		Group p = new Group();
-		p.addListener(new InputListener() {
-			@Override
-			public boolean keyDown(InputEvent event, int keycode) {
-				if(keycode == Keys.ESCAPE){
-					game.changeMenu(1);
+				@Override
+				public void changed(ChangeEvent event, Actor actor) {
+					if(onMenu){
+						menuController.optionsMenu(1);
+					}else{
+						menuController.optionsGame(1);
+					}
 				}
-				
-				return true;
-			}
-		});
-
-		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
-		backMenu.setColor(0.2f, 0.2f, 0.2f, 0.8f);
-		backMenu.setBounds((Gdx.graphics.getWidth() * 0.40f) ,(Gdx.graphics.getHeight() * 0.34f), Gdx.graphics.getWidth()*0.2f, Gdx.graphics.getHeight()*0.3f);
-
-
-		p.addActor(backMenu);
-
-		Table mainTable = new Table();
-		mainTable.defaults().width(Gdx.graphics.getWidth() * 0.22f);
-		mainTable.defaults().height(Gdx.graphics.getHeight()* 0.05f);
-		mainTable.setX(Gdx.graphics.getWidth() / 2);
-		mainTable.setY(Gdx.graphics.getHeight() / 2);
-
-		Button video = new Button(style);
-		video.add(new Label("VIDEO OPTIONS", lStyle));
-		video.center();
-		video.addListener(new ChangeListener() {
-
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				// game.changeMenu2();
-			}
-
-		});
-
-		mainTable.add(video);
-		mainTable.row();
-
-		Button sound = new Button(style);
-		sound.add(new Label("SOUND OPTIONS", lStyle));
+	
+			});
+	
+			mainTable.add(video);
+			mainTable.row();
+		}
+		Button sound = new Button(buttonStandard);
+		sound.add(new Label("SOUND", labelMenusStyle));
 		sound.center();
 		sound.addListener(new ChangeListener() {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-
-				// game.changeMenu2();
+				if(onMenu){
+					menuController.optionsMenu(2);
+				}else{
+					menuController.optionsGame(2);
+				}
+				
 			}
 
 		});
@@ -175,17 +109,18 @@ public class OptionMenu {
 		mainTable.add(sound);
 		mainTable.row();
 
-		Button back = new Button(style);
-		back.add(new Label("BACK", lStyle));
+		Button back = new Button(buttonStandard);
+		back.add(new Label("BACK", labelMenusStyle));
 		back.center();
 		back.addListener(new ChangeListener() {
-
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-
-				game.changeMenu(1);
+				if(onMenu){
+					menuController.mainMenu(5);
+				}else{
+					menuController.status(4);
+				}
 			}
-
 		});
 		mainTable.add(back);
 		mainTable.row();
@@ -193,6 +128,10 @@ public class OptionMenu {
 		p.addActor(mainTable);
 
 		return p;
-
+	}
+	
+	public void setResolution(float width, float height) {
+		WIDTH = width;
+		HEIGHT = height;
 	}
 }

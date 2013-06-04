@@ -2,7 +2,8 @@ package com.flyingPuckGames.projectFinale;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.flyingPuckGames.projectFinale.screens.GameScreen;
+import com.flyingPuckGames.projectFinale.controller.MenuController;
+import com.flyingPuckGames.projectFinale.model.Options;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
 
@@ -13,7 +14,9 @@ public class MegaGame extends Game {
 	public static final String LOG = "projectFinale - ";
 	public float SCREENW;
 	public float SCREENH;
-	public MenuBuilder menuBuilder;
+	private MenuBuilder menuBuilder;
+	private Options options;
+	private MenuController menuController;
 	
 	@Override
 	public void create() {
@@ -21,15 +24,16 @@ public class MegaGame extends Game {
 		SCREENH = Gdx.graphics.getHeight();
 		System.out.println(SCREENW);
 		System.out.println(SCREENH);
-		menuBuilder = new MenuBuilder();
-		menuBuilder.setStyles();
-		menuBuilder.init();
-		setScreen(new GameScreen(this));
+		setOptions(new Options());
+		options.loadOptions();
+		setMenuController(new MenuController(this));
+		setScreen(new MenuScreen(this));
 	}
 
 	public MenuBuilder getMenuBuilder(){
 		return menuBuilder;
 	}
+	
 	@Override
 	public void render() {
 		super.render();
@@ -56,5 +60,27 @@ public class MegaGame extends Game {
 		SCREENW = Gdx.graphics.getWidth();
 		SCREENH = Gdx.graphics.getHeight();
 	}
+
+
+	public Options getOptions() {
+		return options;
+	}
+
+
+	public void setOptions(Options options) {
+		this.options = options;
+	}
+
+
+	public MenuController getMenuController() {
+		return menuController;
+	}
+
+
+	public void setMenuController(MenuController menuController) {
+		this.menuController = menuController;
+	}
+
+
 	
 }

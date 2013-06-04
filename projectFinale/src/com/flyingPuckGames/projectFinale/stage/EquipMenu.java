@@ -18,19 +18,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.flyingPuckGames.projectFinale.screens.GameScreen;
+import com.flyingPuckGames.projectFinale.controller.MenuController;
 
 public class EquipMenu {
 
 	private ButtonStyle style;
 	private LabelStyle lStyle;
+	private float WIDTH;
+	private float HEIGHT;
 	
 	public EquipMenu(ButtonStyle button, LabelStyle label){
 		style = button;
 		lStyle = label;
+		WIDTH = Gdx.graphics.getWidth();
+		HEIGHT = Gdx.graphics.getHeight();
 	}
 	
-	public Group create(final GameScreen gameScreen){
+	public Group create(final MenuController menuController){
 		
 		Group p = new Group();
 		
@@ -39,7 +43,7 @@ public class EquipMenu {
 			public boolean keyDown(InputEvent event, int keycode) {
 				System.out.println("holatio");
 				if(keycode == Keys.ESCAPE){
-					gameScreen.changeMenuStatus(4);
+					menuController.status(4);
 				}
 				
 				return true;
@@ -50,7 +54,7 @@ public class EquipMenu {
 		
 		Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/equip.png")))));
 		background.setColor(0.8f,0.8f,0.8f,0.8f);
-		background.setBounds(0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		background.setBounds(0, 0, WIDTH,HEIGHT);
 
 		
 		
@@ -58,9 +62,9 @@ public class EquipMenu {
 		
 		Table equipedTab = new Table();
 		equipedTab.setName("equip");
-		equipedTab.defaults().width( Gdx.graphics.getWidth() * 0.12f );
-		equipedTab.defaults().height( Gdx.graphics.getHeight() * 0.08f );
-		equipedTab.setBounds(Gdx.graphics.getWidth() * 0.45f, Gdx.graphics.getHeight() * 0.55f, Gdx.graphics.getWidth() * 0.2f,Gdx.graphics.getHeight() * 0.5f );
+		equipedTab.defaults().width( WIDTH * 0.12f );
+		equipedTab.defaults().height( HEIGHT * 0.08f );
+		equipedTab.setBounds(WIDTH * 0.45f, HEIGHT * 0.55f, WIDTH * 0.2f,HEIGHT * 0.5f );
 		
 		
 		Label weapon = new Label("WEAPON", lStyle);
@@ -88,12 +92,12 @@ public class EquipMenu {
 		
 		
 		Button back = new Button((new Label("BACK",lStyle)),style);
-		back.setBounds(Gdx.graphics.getWidth() * 0.90f, Gdx.graphics.getHeight() * 0.90f,  Gdx.graphics.getWidth() * 0.1f,Gdx.graphics.getHeight() * 0.05f);
+		back.setBounds(WIDTH * 0.90f, HEIGHT * 0.90f,  WIDTH * 0.1f,HEIGHT * 0.05f);
 		back.addListener(new ChangeListener() {
 			
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				gameScreen.changeMenuStatus(4);
+				menuController.status(4);
 				
 			}
 		});
@@ -103,9 +107,9 @@ public class EquipMenu {
 		Table inventoryTab = new Table();
 		inventoryTab.defaults().height(50);
 		if(Gdx.app.getType().equals(ApplicationType.Android)){
-			inventoryTab.defaults().width(Gdx.graphics.getWidth() * 0.17f);
+			inventoryTab.defaults().width(WIDTH * 0.17f);
 		}else{
-			inventoryTab.defaults().width(Gdx.graphics.getWidth() * 0.17f);
+			inventoryTab.defaults().width(WIDTH * 0.17f);
 		}
 		
 		
@@ -225,12 +229,17 @@ public class EquipMenu {
 		inventoryTab.row();
 		
 		ScrollPane inventory = new ScrollPane(inventoryTab);
-		inventory.setBounds(Gdx.graphics.getWidth() * 0.02f, Gdx.graphics.getHeight() * 0.25f, Gdx.graphics.getWidth()*1.1f, Gdx.graphics.getHeight()*0.22f);
+		inventory.setBounds(WIDTH * 0.02f, HEIGHT * 0.25f, WIDTH*1.1f, HEIGHT*0.22f);
 		inventory.setScrollingDisabled(true, false);
 		p.addActor(inventory);
 
 		
 		
 		return p;
+	}
+
+	public void setResolution(float width, float height) {
+		WIDTH = width;
+		HEIGHT = height;
 	}
 }

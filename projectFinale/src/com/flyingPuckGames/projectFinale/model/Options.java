@@ -1,5 +1,7 @@
 package com.flyingPuckGames.projectFinale.model;
 
+import com.badlogic.gdx.Gdx;
+import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.utils.Constants;
 import com.flyingPuckGames.projectFinale.utils.JSONParser;
 
@@ -38,17 +40,21 @@ public class Options {
 		setSound(Constants.SOUND);
 		setSoundVolume(Constants.SOUND_VOLUME);
 		
-		parser.saveOptions(this);
+		saveOptions();
 	}
 	
-	public void setVideoOptions(float resolutionX,float resolutionY){
+	public void setVideoOptions(Integer resolutionX,Integer resolutionY){
 		this.setResolutionX(resolutionX);
 		this.setResolutionY(resolutionY);
+		Gdx.graphics.setDisplayMode(resolutionX, resolutionY, false);
+		saveOptions();
 	}
 	
 	public void setAudioOptions(Integer volumeLvl, Boolean soundOn){
+		System.out.println(soundOn);
 		setSound(soundOn);
 		setSoundVolume(volumeLvl);
+		saveOptions();
 	}
 
 

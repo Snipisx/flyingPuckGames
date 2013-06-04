@@ -18,36 +18,85 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.flyingPuckGames.projectFinale.screens.GameScreen;
+import com.flyingPuckGames.projectFinale.controller.MenuController;
+import com.flyingPuckGames.projectFinale.model.player.PlayerStatus;
 
 public class StatusMenu {
 
-	private ButtonStyle style;
-	private LabelStyle lStyle;
-	private LabelStyle statusSt;
+	private ButtonStyle buttonStandard;
+	private LabelStyle labelMenusStyle;
+	private LabelStyle labelStatusStyle;
 	private LabelStyle nameStyle;
 	private Color statusColor;
 	
+	private float WIDTH;
+	private float HEIGHT;
+	
+	//labels info Status
+	private Label levelInfo;
+	private Label expInfo;
+	private Label nextInfo;
+	private Label statusInfo;
+	private Label hpInfo;
+	private Label mpInfo;
+	private Label timeInfo;
+	private Label coinsInfo;
+	
+	
+	//labels info stats
+	private Label strInfo;
+	private Label conInfo;
+	private Label inteInfo;
+	private Label lckInfo;
+	private Label dmgInfo;
+	private Label defInfo;
+	
 	public StatusMenu(ButtonStyle button,LabelStyle label,LabelStyle status,LabelStyle name,Color stColor){
-		style = button;
-		lStyle = label;
-		statusSt = status;
+		buttonStandard = button;
+		labelMenusStyle = label;
+		labelStatusStyle = status;
 		nameStyle = name;
 		statusColor = stColor;
+		WIDTH = Gdx.graphics.getWidth();
+		HEIGHT = Gdx.graphics.getHeight();
+	}	
+	
+	
+	
+	
+	private void loadLabels(PlayerStatus playerStatus){
+		
+		levelInfo = new Label(playerStatus.getLevel().toString(),labelStatusStyle);
+		expInfo = new Label(Float.toString(playerStatus.getExpActual()),labelStatusStyle);
+		nextInfo = new Label(Float.toString(playerStatus.getExpNextLvl()),labelStatusStyle);
+		statusInfo = new Label(playerStatus.getStatus(),labelStatusStyle);
+		hpInfo = new Label((playerStatus.getHP().toString() + "/" + playerStatus.getMaxHp().toString()),labelStatusStyle);
+		mpInfo = new Label((playerStatus.getMP().toString() + "/" + playerStatus.getMaxMp().toString()),labelStatusStyle);
+		timeInfo = new Label((Float.toString(playerStatus.getTime())),labelStatusStyle);
+		coinsInfo = new Label(Float.toString(playerStatus.getCoins()),labelStatusStyle);
+		
+		strInfo = new Label(playerStatus.getStr().toString(),labelStatusStyle);
+		conInfo = new Label(playerStatus.getCon().toString(),labelStatusStyle);
+		inteInfo = new Label(playerStatus.getInte().toString(),labelStatusStyle);
+		lckInfo = new Label(playerStatus.getLck().toString(),labelStatusStyle);
+		dmgInfo = new Label(playerStatus.getDmg().toString(),labelStatusStyle);
+		defInfo = new Label(playerStatus.getDef().toString(),labelStatusStyle);
 	}
 	
-	
-	public Group create(final GameScreen gameScreen){
+	public Group create(final MenuController menuController){
+		loadLabels(menuController.getPlayerStatus());
 		
-		
+		menuController.setOnMenu(true);
 		Group p = new Group();
 		
 		p.addListener(new InputListener() {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
 				if(keycode == Keys.ESCAPE){
-					gameScreen.changeMenu(4);
-					gameScreen.setContEsc(1);
+					menuController.status(4);
+					menuController.setContEsc(1);
+					menuController.setOnMenu(false);
+					menuController.setInputProcessor();
 				}
 				
 				return true;
@@ -55,8 +104,7 @@ public class StatusMenu {
 		});
 		
 		Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/statusBack.png")))));
-		background.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		//background.setColor(Color.valueOf("3d3d3d"));
+		background.setBounds(0, 0, WIDTH, HEIGHT);
 		background.setColor(0.5f,0.5f, 0.5f, 0.8f);
 
 		p.addActor(background);
@@ -71,89 +119,81 @@ public class StatusMenu {
 		p.addActor(nameChar);
 		
 		Table infoTableLeft = new Table();
-		infoTableLeft.defaults().width(Gdx.graphics.getWidth() * 0.12f);
-		infoTableLeft.defaults().height( Gdx.graphics.getHeight() * 0.02f );
-		infoTableLeft.defaults().padLeft(Gdx.graphics.getWidth() * 0.03f);
-		infoTableLeft.defaults().padBottom(Gdx.graphics.getHeight() * 0.02f);
-		infoTableLeft.setX(Gdx.graphics.getWidth() * 0.15f);
-		infoTableLeft.setY(Gdx.graphics.getHeight() * 0.45f);
+		infoTableLeft.defaults().width(WIDTH * 0.12f);
+		infoTableLeft.defaults().height( HEIGHT * 0.02f );
+		infoTableLeft.defaults().padLeft(WIDTH * 0.03f);
+		infoTableLeft.defaults().padBottom(HEIGHT * 0.02f);
+		infoTableLeft.setX(WIDTH * 0.15f);
+		infoTableLeft.setY(HEIGHT * 0.45f);
 		
-		Label level = new Label("LEVEL",statusSt);
+		Label level = new Label("LEVEL",labelStatusStyle);
 		level.setColor(statusColor);
 		level.setAlignment(Align.right);
 		infoTableLeft.add(level);
-		Label levelInfo = new Label("0",statusSt);
 		levelInfo.setAlignment(Align.center);
 		infoTableLeft.add(levelInfo);
 		infoTableLeft.row();
 		
-		Label exp = new Label("EXP",statusSt);
+		Label exp = new Label("EXP",labelStatusStyle);
 		exp.setColor(statusColor);
 		exp.setAlignment(Align.right);
 		infoTableLeft.add(exp);
-		Label expInfo = new Label("4000000",statusSt);
 		expInfo.setAlignment(Align.center);
 		infoTableLeft.add(expInfo);
 		infoTableLeft.row();
 		
-		Label next = new Label("NEXT",statusSt);
+		Label next = new Label("NEXT",labelStatusStyle);
 		next.setColor(statusColor);
 		next.setAlignment(Align.right);
 		infoTableLeft.add(next);
-		Label nextInfo = new Label("0",statusSt);
 		nextInfo.setAlignment(Align.center);
 		infoTableLeft.add(nextInfo);
 		infoTableLeft.row();
 		
-		Label vod = new Label("",lStyle);
+		Label vod = new Label("",labelMenusStyle);
 		infoTableLeft.add(vod);
 		infoTableLeft.row();
 		
-		Label status = new Label("STATUS",statusSt);
+		Label status = new Label("STATUS",labelStatusStyle);
 		status.setColor(statusColor);
 		status.setAlignment(Align.right);
 		infoTableLeft.add(status);
-		Label statusInfo = new Label("NORMAL",statusSt);
 		statusInfo.setAlignment(Align.center);
 		infoTableLeft.add(statusInfo);
 		infoTableLeft.row();
 		
-		Label hp = new Label("HP",statusSt);
+		Label hp = new Label("HP",labelStatusStyle);
 		hp.setColor(statusColor);
 		hp.setAlignment(Align.right);
 		infoTableLeft.add(hp);
-		Label hpInfo = new Label("10/10",statusSt);
 		hpInfo.setAlignment(Align.center);
 		infoTableLeft.add(hpInfo);
 		infoTableLeft.row();
 		
-		Label mp = new Label("MP",statusSt);
+		Label mp = new Label("MP",labelStatusStyle);
 		mp.setColor(statusColor);
 		mp.setAlignment(Align.right);
 		infoTableLeft.add(mp);
-		Label mpInfo = new Label("5/5",statusSt);
 		mpInfo.setAlignment(Align.center);
 		infoTableLeft.add(mpInfo);
 		infoTableLeft.row();
 		
-		Label vod2 = new Label("",lStyle);
+		Label vod2 = new Label("",labelMenusStyle);
 		infoTableLeft.add(vod2);
 		infoTableLeft.row();
 		
-		Label time = new Label("TIME",statusSt);
+		Label time = new Label("TIME",labelStatusStyle);
 		time.setColor(statusColor);
 		time.setAlignment(Align.right);
 		infoTableLeft.add(time);
-		Label timeInfo = new Label("00:00",statusSt);
 		timeInfo.setAlignment(Align.center);
 		infoTableLeft.add(timeInfo);
 		infoTableLeft.row();
 		
-		Label coins = new Label("COINS",statusSt);
+		Label coins = new Label("COINS",labelStatusStyle);
 		coins.setColor(statusColor);
 		coins.setAlignment(Align.right);
 		infoTableLeft.add(coins);
-		Label coinsInfo = new Label("99999",statusSt);
 		coinsInfo.setAlignment(Align.center);
 		infoTableLeft.add(coinsInfo);
 		infoTableLeft.row();
@@ -162,68 +202,62 @@ public class StatusMenu {
 		
 		
 		Table infoTableRight = new Table();
-		infoTableRight.defaults().width(Gdx.graphics.getWidth() * 0.12f);
-		infoTableRight.defaults().height( Gdx.graphics.getHeight() * 0.02f );
-		infoTableRight.defaults().padLeft(Gdx.graphics.getWidth() * 0.03f);
-		infoTableRight.defaults().padBottom(Gdx.graphics.getHeight() * 0.02f);
-		infoTableRight.setX(Gdx.graphics.getWidth() * 0.8f);
-		infoTableRight.setY(Gdx.graphics.getHeight() * 0.45f);
+		infoTableRight.defaults().width(WIDTH * 0.12f);
+		infoTableRight.defaults().height( HEIGHT * 0.02f );
+		infoTableRight.defaults().padLeft(WIDTH * 0.03f);
+		infoTableRight.defaults().padBottom(HEIGHT * 0.02f);
+		infoTableRight.setX(WIDTH * 0.8f);
+		infoTableRight.setY(HEIGHT * 0.45f);
 		
 		
-		Label str = new Label("STR",statusSt);
+		Label str = new Label("STR",labelStatusStyle);
 		str.setColor(statusColor);
 		str.setAlignment(Align.right);
 		infoTableRight.add(str);
-		Label strInfo = new Label("99999",statusSt);
 		strInfo.setAlignment(Align.center);
 		infoTableRight.add(strInfo);
 		infoTableRight.row();
 		
-		Label inte = new Label("INT",statusSt);
+		Label inte = new Label("INT",labelStatusStyle);
 		inte.setColor(statusColor);
 		inte.setAlignment(Align.right);
 		infoTableRight.add(inte);
-		Label inteInfo = new Label("99999",statusSt);
 		inteInfo.setAlignment(Align.center);
 		infoTableRight.add(inteInfo);
 		infoTableRight.row();
 		
-		Label con = new Label("CON",statusSt);
+		Label con = new Label("CON",labelStatusStyle);
 		con.setColor(statusColor);
 		con.setAlignment(Align.right);
 		infoTableRight.add(con);
-		Label conInfo = new Label("99999",statusSt);
 		conInfo.setAlignment(Align.center);
 		infoTableRight.add(conInfo);
 		infoTableRight.row();
 		
-		Label lck = new Label("LCK",statusSt);
+		Label lck = new Label("LCK",labelStatusStyle);
 		lck.setColor(statusColor);
 		lck.setAlignment(Align.right);
 		infoTableRight.add(lck);
-		Label lckInfo = new Label("99999",statusSt);
 		lckInfo.setAlignment(Align.center);
 		infoTableRight.add(lckInfo);
 		infoTableRight.row();
 		
-		Label vod3 = new Label("",lStyle);
+		Label vod3 = new Label("",labelMenusStyle);
 		infoTableRight.add(vod3);
 		infoTableRight.row();
 		
-		Label dmg = new Label("DMG",statusSt);
+		Label dmg = new Label("DMG",labelStatusStyle);
 		dmg.setColor(statusColor);
 		dmg.setAlignment(Align.right);
 		infoTableRight.add(dmg);
-		Label dmgInfo = new Label("99999",statusSt);
 		dmgInfo.setAlignment(Align.center);
 		infoTableRight.add(dmgInfo);
 		infoTableRight.row();
 		
-		Label def = new Label("DEF",statusSt);
+		Label def = new Label("DEF",labelStatusStyle);
 		def.setColor(statusColor);
 		def.setAlignment(Align.right);
 		infoTableRight.add(def);
-		Label defInfo = new Label("99999",statusSt);
 		defInfo.setAlignment(Align.center);
 		infoTableRight.add(defInfo);
 		infoTableRight.row();
@@ -233,59 +267,60 @@ public class StatusMenu {
 		
 		
 		Table optionTable = new Table();
-		optionTable.defaults().width( Gdx.graphics.getWidth() * 0.2f );
-		optionTable.defaults().height( Gdx.graphics.getHeight() * 0.05f );
-		optionTable.setX( Gdx.graphics.getWidth() / 2 );
-		optionTable.setY( Gdx.graphics.getHeight() / 2 );
+		optionTable.defaults().width( WIDTH * 0.2f );
+		optionTable.defaults().height( HEIGHT * 0.05f );
+		optionTable.setX( WIDTH / 2 );
+		optionTable.setY( HEIGHT / 2 );
 		
 		
-		Button equip = new Button(style);
-		equip.add(new Label("EQUIP",lStyle));
+		Button equip = new Button(buttonStandard);
+		equip.add(new Label("EQUIP",labelMenusStyle));
 		equip.center();
 		equip.addListener(new ChangeListener() {
 			
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				gameScreen.changeMenuStatus(1);
+				menuController.status(1);
 				
 			}
 		});
 		
-		Button grimoire = new Button(style);
-		grimoire.add(new Label("GRIMOIRE", lStyle));
+		Button grimoire = new Button(buttonStandard);
+		grimoire.add(new Label("GRIMOIRE", labelMenusStyle));
 		grimoire.center();
 		grimoire.addListener(new ChangeListener() {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				gameScreen.changeMenuStatus(3);
+				menuController.status(3);
 			}
 
 		});
 		
-		Button options = new Button(style);
-		options.add(new Label("OPTIONS", lStyle));
+		Button options = new Button(buttonStandard);
+		options.add(new Label("OPTIONS", labelMenusStyle));
 		options.center();
 		options.addListener(new ChangeListener() {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 
-				gameScreen.changeMenuStatus(2);
+				menuController.status(2);
 			}
 
 		});
 
-		Button back = new Button(style);
-		back.add(new Label("BACK",lStyle));
+		Button back = new Button(buttonStandard);
+		back.add(new Label("BACK",labelMenusStyle));
 		back.center();
 		back.addListener(new ChangeListener() {
 			
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				gameScreen.changeMenu(4);
-				gameScreen.setContEsc(0);
-				
+				menuController.status(4);
+				menuController.setContEsc(0);
+				menuController.setOnMenu(false);
+				menuController.setInputProcessor();
 			}
 		});
 		optionTable.add(equip);
@@ -299,6 +334,15 @@ public class StatusMenu {
 		p.addActor(optionTable);
 		
 		return p;
+		
+	}
+
+
+
+
+	public void setResolution(float width, float height) {
+		WIDTH = width;
+		HEIGHT = height;
 		
 	}
 }
