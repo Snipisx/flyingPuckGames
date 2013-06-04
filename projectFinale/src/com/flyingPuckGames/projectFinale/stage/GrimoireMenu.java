@@ -71,7 +71,7 @@ public class GrimoireMenu{
 		monsterName.setText(enemy.getName().toUpperCase());
 		monsterLevel.setText("LVL" + Integer.toString(enemy.getLevel()));
 		monsterHp.setText("HP" + Integer.toString(enemy.getHp()));
-		monsterNum.setText(Integer.toString(enemy.getId()));
+		monsterNum.setText("NO. " + Integer.toString(enemy.getId()));
 		monsterStrong.setText((enemy.getStrongAgainst().toUpperCase()));
 		monsterInmune.setText(enemy.getInmuneAgainst().toUpperCase());
 		monsterWeak.setText(enemy.getWeakAgainst().toUpperCase());
@@ -91,12 +91,25 @@ public class GrimoireMenu{
 		
 		stage.addActor(backgroundGrimoire);
 		
-		monsterName.setBounds( WIDTH	* 0.34f, HEIGHT * 0.65f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		Image monsterImage = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/monster.png")))));
+		monsterImage.setBounds(WIDTH * 0.27f, HEIGHT * 0.37f, WIDTH * 0.2f, HEIGHT * 0.25f);
+		stage.addActor(monsterImage);
+		
+		
+		monsterName.setBounds( WIDTH * 0.29f, HEIGHT * 0.65f, WIDTH * 0.1f, HEIGHT * 0.1f);
 		monsterLevel.setBounds(WIDTH* 0.3f, HEIGHT * 0.6f, WIDTH * 0.1f, HEIGHT * 0.1f);
 		monsterHp.setBounds(WIDTH* 0.4f, HEIGHT * 0.6f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		monsterNum.setBounds(WIDTH *0.65f, HEIGHT * 0.65f, WIDTH * 0.1f, HEIGHT * 0.1f);
 		stage.addActor(monsterName);
 		stage.addActor(monsterLevel);
 		stage.addActor(monsterHp);
+		stage.addActor(monsterNum);
+		
+		Label strong = new Label("Strong VS.",labelMenusStyle);
+		
+		
+		
+		
 		
 		
 		
