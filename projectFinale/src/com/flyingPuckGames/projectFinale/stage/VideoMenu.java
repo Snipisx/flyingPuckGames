@@ -84,20 +84,20 @@ public class VideoMenu {
 //			
 //			arrayOfDisplays[i][0] = a.width;
 //			arrayOfDisplays[i][1] = a.height;
-//			System.out.println("Width = " + a.width + " Height = " + a.height);
+//			System.out.println( a.toString());
 //			i++;
 //		}
-		
+//		
 		String resolutions[] = new String[5];
-		resolutions[0] = " 800*600";
-		resolutions[1] = " 1024*768";
-		resolutions[2] = " 1280*1024";
-		resolutions[3] = " 1366*768";
-		resolutions[4] = " 1600*1024";
+		resolutions[0] = " 1024*768";
+		resolutions[1] = " 1280*720";
+		resolutions[2] = " 1366*768";
+		resolutions[3] = " 1600*900";
+		resolutions[4] = " 1920*1080";
 		
 		final SelectBox resolutionBox = new SelectBox(resolutions,boxStyle);
 		
-		resolutionBox.setBounds(WIDTH * 0.50f, HEIGHT * 0.575f, WIDTH * 0.09f, HEIGHT * 0.05f);
+		resolutionBox.setBounds(WIDTH * 0.55f, HEIGHT * 0.575f, WIDTH * 0.13f, HEIGHT * 0.05f);
 		resolutionBox.setSelection(2);
 		p.addActor(resolutionBox);
 		
@@ -121,7 +121,7 @@ public class VideoMenu {
 		
 		Button back = new Button(new Label("BACK",labelMenusStyle),buttonStandard);
 		
-		back.setBounds(WIDTH * 0.50f, HEIGHT * 0.45f, WIDTH * 0.1f, HEIGHT * 0.05f);
+		back.setBounds(WIDTH * 0.55f, HEIGHT * 0.45f, WIDTH * 0.1f, HEIGHT * 0.05f);
 		back.addListener(new ChangeListener() {
 			
 			@Override

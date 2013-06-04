@@ -35,7 +35,7 @@ public class MainMenu {
 	}
 	
 	public Group create(final MenuController menuController) {
-		
+		System.out.println(WIDTH + "      " + HEIGHT);
 		Group p = new Group();
 		
 		Image backMenu = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png")))));
@@ -116,6 +116,7 @@ public class MainMenu {
 	}
 
 	public void setResolution(float width, float height) {
+		System.out.println("changed res = " + width +  "          " + height);
 		WIDTH = width;
 		HEIGHT = height;
 		

@@ -37,7 +37,8 @@ public class MenuScreen implements Screen,InputProcessor {
 
 	@Override
 	public void resize(int width, int height) {
-		
+		menuController.onResize(width, height);
+		renderer.setSize(width, height);
 		
 	}
 	

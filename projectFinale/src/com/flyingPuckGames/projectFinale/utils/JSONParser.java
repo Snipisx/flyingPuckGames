@@ -5,20 +5,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
-import com.google.gson.stream.JsonWriter;
-import com.google.gson.stream.JsonReader;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.flyingPuckGames.projectFinale.model.Options;
 import com.flyingPuckGames.projectFinale.model.enemy.Enemy;
-import com.flyingPuckGames.projectFinale.model.enemy.Grimoire;
 import com.flyingPuckGames.projectFinale.model.player.Player;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 
 public class JSONParser {
@@ -89,27 +85,6 @@ public class JSONParser {
 		return true;
 	}
 	
-	public void saveGrimoire(Grimoire grimoire){
-		try {
-			FileWriter writer1 = new FileWriter(Gdx.files.local("grimoire.json").path(),false);
-			String json = gson.toJson(grimoire);
-			writer1.write(json);
-			writer1.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public Grimoire loadGrimoire(){
-		
-		BufferedReader br = new BufferedReader(Gdx.files.local("grimoire.json").reader());
-		Grimoire grimoire = new Grimoire();
-		grimoire = gson.fromJson(br, Grimoire.class);
-		
-		return grimoire;
-		
-	}
-	
 	public void saveEnemy(){
 		JsonWriter writer;		
 		writer = new JsonWriter(Gdx.files.local("enemys.json").writer(false));
@@ -147,13 +122,15 @@ public class JSONParser {
 			reader = new JsonReader(Gdx.files.local("enemys.json").reader());
 			reader.beginObject();
 			while(reader.hasNext()){
+				
 				name = reader.nextName();
-				System.out.println(name);
+				
 				if(name.equals("enemy" + id)){
 					reader.beginObject();
 						while(reader.hasNext()){
-							System.out.println(name);
+							
 							name = reader.nextName();
+							
 							if(name.equals("name")){
 								enemy.setName(reader.nextString());
 							}else if(name.equals("level")){

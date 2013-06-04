@@ -38,7 +38,7 @@ public class OptionMenu {
 	 * OptionMenu from gameScreen
 	 */
 	public Group create(final MenuController menuController,final boolean onMenu) {
-
+		System.out.println(WIDTH + "      " + HEIGHT);
 		Group p = new Group();
 		
 		p.addListener(new InputListener() {

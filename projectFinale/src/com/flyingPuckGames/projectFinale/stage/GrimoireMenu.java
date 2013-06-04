@@ -50,7 +50,7 @@ public class GrimoireMenu{
 	
 	
 	private void setNextEnemy(int index){
-		Enemy enemy = parser.loadGrimoire().getEnemyList().get(index);
+		Enemy enemy = parser.getEnemy(index);
 		
 		
 	}

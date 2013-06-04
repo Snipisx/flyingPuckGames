@@ -32,12 +32,15 @@ public class MenuRenderer {
 		camera.update();
 		setSize(megaGame.SCREENW, megaGame.SCREENH);
 		onGameMenu(false);
+		
 //		loadTextures();
 	}
 	
 	public void setSize (float w, float h){
 		this.W = w;
 		this.H = h;
+		
+	
 	}
 		
 
