@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.controller.PlayerController;
@@ -54,7 +53,7 @@ public class GameScreen implements Screen, InputProcessor{
 		this.megaGame = megaGame;
 		level = new Level(new TmxMapLoader().load(Constants.TEST_TILEMAP_PATH));
 		player = new Player(Constants.PLAYER_STARTING_POSITION);
-		JSONParser a = new JSONParser();
+		JSONParser jsonParser = new JSONParser();
 		//player = a.loadPlayer();
 		playerController = new PlayerController(player, (TiledMapTileLayer) level.getTiledMap().getLayers().get(0));
 		stage = new Stage();
@@ -85,6 +84,7 @@ public class GameScreen implements Screen, InputProcessor{
 		}
 		else{
 			worldRenderer.update(delta, player.getPosition());
+			playerRenderer.update(delta, worldRenderer.getTileRenderer().getSpriteBatch());
 			menuRenderer.render(delta);
 		}
 	}
@@ -140,24 +140,31 @@ public class GameScreen implements Screen, InputProcessor{
 	
 	
 	private void initJoystick(){
-		final TouchpadStyle a = new TouchpadStyle();
+		final TouchpadStyle touchPadStyle = new TouchpadStyle();
 		
-		a.knob = new TextureRegionDrawable(new TextureRegion(new Texture((Gdx.files.internal("textures/joystic.png")))));
-		final Touchpad n = new Touchpad(4,a);
-		n.addCaptureListener(new ChangeListener() {
+		touchPadStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture((Gdx.files.internal("textures/joystic.png")))));
+		final Touchpad touchPad = new Touchpad(4,touchPadStyle);
+		touchPad.addCaptureListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				System.out.println(n.getKnobPercentX());
-					if(n.getKnobPercentX() > 0){
-						System.out.println("derecha");
-					}else{
-						System.out.println("izqueirda");
-					}
+				if(touchPad.getKnobPercentX() < 0){
+					playerController.rightReleased();
+					playerController.leftPressed();
+				}
+				else if (touchPad.getKnobPercentX() > 0) {
+					playerController.leftReleased();
+					playerController.rightPressed();
+				}
+				
+				if (!touchPad.isTouched()) {
+					playerController.leftReleased();
+					playerController.rightReleased();
+				}
+				
 			}
 		});
-		
-		n.setBounds(200, 200, 200, 200);
-		stage.addActor(n);
+		touchPad.setBounds(200, 200, 200, 200);
+		stage.addActor(touchPad);
 	}
 	
 	@Override
@@ -209,12 +216,12 @@ public class GameScreen implements Screen, InputProcessor{
 		if (!Gdx.app.getType().equals(ApplicationType.Android)) {
 			return false;
 		}
-		if (screenX < Gdx.graphics.getWidth() / 2 && screenY > Gdx.graphics.getHeight() / 2) {
-			playerController.leftPressed();
-		}
-		if (screenX > Gdx.graphics.getWidth() / 2 && screenY > Gdx.graphics.getHeight() / 2) {
-			playerController.rightPressed();
-		}
+//		if (screenX < Gdx.graphics.getWidth() / 2 && screenY > Gdx.graphics.getHeight() / 2) {
+//			playerController.leftPressed();
+//		}
+//		if (screenX > Gdx.graphics.getWidth() / 2 && screenY > Gdx.graphics.getHeight() / 2) {
+//			playerController.rightPressed();
+//		}
 		if ((screenX > ((Gdx.graphics.getWidth() / 2) - 50)) && (screenX  < ((Gdx.graphics.getWidth() / 2) + 50))  &&  (screenY > Gdx.graphics.getHeight() / 2)) {
 			playerController.jumpPressed();
 		}
