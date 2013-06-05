@@ -5,9 +5,17 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.controller.PlayerController;
 import com.flyingPuckGames.projectFinale.controller.MenuController;
@@ -49,7 +57,8 @@ public class GameScreen implements Screen, InputProcessor{
 		JSONParser a = new JSONParser();
 		//player = a.loadPlayer();
 		playerController = new PlayerController(player, (TiledMapTileLayer) level.getTiledMap().getLayers().get(0));
-
+		stage = new Stage();
+		initJoystick();
 		worldRenderer = new WorldRenderer(level);
 		playerRenderer = new PlayerRenderer(player);
 		menuRenderer = new MenuRenderer(megaGame);
@@ -71,6 +80,7 @@ public class GameScreen implements Screen, InputProcessor{
 			RenderUtils.clearScreen();
 			worldRenderer.update(delta, player.getPosition());
 			playerRenderer.update(delta, worldRenderer.getTileRenderer().getSpriteBatch());
+			drawJoystick();
 		}
 		else{
 			worldRenderer.update(delta, player.getPosition());
@@ -112,13 +122,41 @@ public class GameScreen implements Screen, InputProcessor{
 	
 	// Inputs -------------
 	public void setInputProcessor(){
-		Gdx.input.setInputProcessor(this);
+		playerController.setInputSystems(this,stage);
+		
 	}
 	
 	public void setMenu(Stage stage){
 //		playerController.rightReleased();
 //		playerController.leftReleased();
 		menuRenderer.setStage(stage);
+	}
+	
+	public void drawJoystick(){
+		stage.act();
+		stage.draw();
+	}
+	
+	
+	private void initJoystick(){
+		final TouchpadStyle a = new TouchpadStyle();
+		
+		a.knob = new TextureRegionDrawable(new TextureRegion(new Texture((Gdx.files.internal("textures/joystic.png")))));
+		final Touchpad n = new Touchpad(4,a);
+		n.addCaptureListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				System.out.println(n.getKnobPercentX());
+					if(n.getKnobPercentX() > 0){
+						System.out.println("derecha");
+					}else{
+						System.out.println("izqueirda");
+					}
+			}
+		});
+		
+		n.setBounds(200, 200, 200, 200);
+		stage.addActor(n);
 	}
 	
 	@Override
