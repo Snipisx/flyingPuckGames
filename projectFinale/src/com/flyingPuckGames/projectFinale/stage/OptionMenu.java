@@ -130,26 +130,6 @@ public class OptionMenu {
 
 		p.addActor(mainTable);
 		
-		TouchpadStyle a = new TouchpadStyle();
-		a.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png"))));
-		
-		final Touchpad n = new Touchpad(4,a);
-		n.addCaptureListener(new ChangeListener() {
-			
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-					if(n.getKnobX() > 4f){
-						System.out.println("derecha");
-					}else{
-						System.out.println("izqueirda");
-					}
-				
-			}
-		});
-		
-		
-		n.setBounds(200, 200, 50, 50);
-		p.addActor(n);
 		return p;
 	}
 	
