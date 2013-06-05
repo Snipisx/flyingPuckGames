@@ -255,6 +255,27 @@ public class PlayerController {
 	}
 	private void stopPlayerInYAxis() {
 		player.setYVelocity(0);
-		
+	}
+	
+	public void leftPressed() {
+		player.setXVelocity(-Constants.MAX_VELOCITY);
+		if (player.isGrounded())
+			player.setState(State.WALKING);
+		player.setFacesRight(false);		
+	}
+
+	public void rightPressed() {
+		player.setXVelocity(Constants.MAX_VELOCITY);
+		if (player.isGrounded())
+			player.setState(State.WALKING);
+		player.setFacesRight(true);		
+	}	
+	
+	public void jumpPressed() { 
+		if (player.isGrounded()) {
+			player.setYVelocity(player.getYVelocity() + Constants.JUMP_VELOCITY);
+			player.setState(State.JUMPING);
+			player.setGrounded(false);
+		} 
 	}
 }

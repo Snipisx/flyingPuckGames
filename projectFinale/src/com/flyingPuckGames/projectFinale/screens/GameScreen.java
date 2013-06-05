@@ -173,14 +173,15 @@ public class GameScreen implements Screen, InputProcessor{
 			return false;
 		}
 		if (screenX < Gdx.graphics.getWidth() / 2 && screenY > Gdx.graphics.getHeight() / 2) {
-//			controller.leftPressed();
+			playerController.leftPressed();
 		}
 		if (screenX > Gdx.graphics.getWidth() / 2 && screenY > Gdx.graphics.getHeight() / 2) {
-//			controller.rightPressed();
+			playerController.rightPressed();
 		}
-		
-		if (screenX < Gdx.graphics.getWidth() * 0.10f && screenY > Gdx.graphics.getHeight() * 0.90f) {
-			System.out.println("hola2");
+		if ((screenX > ((Gdx.graphics.getWidth() / 2) - 50)) && (screenX  < ((Gdx.graphics.getWidth() / 2) + 50))  &&  (screenY < Gdx.graphics.getHeight() / 2)) {
+			playerController.jumpPressed();
+		}
+		if (screenX < Gdx.graphics.getWidth() * -0.10f && screenY > Gdx.graphics.getHeight() * 0.90f) {
 			menuController.status(4);
 		}
 		return true;
@@ -188,12 +189,12 @@ public class GameScreen implements Screen, InputProcessor{
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		if (!Gdx.app.getType().equals(ApplicationType.Android))
+		if (!Gdx.app.getType().equals(ApplicationType.Android)) {
 			return false;
+		}
 		if (screenX < Gdx.graphics.getWidth() / 2 && screenY > Gdx.graphics.getHeight() / 2) {
 //			controller.leftReleased();
 		}
-		
 		if (screenX > Gdx.graphics.getWidth() / 2 && screenY > Gdx.graphics.getHeight() / 2) {
 //			controller.rightReleased();
 		}

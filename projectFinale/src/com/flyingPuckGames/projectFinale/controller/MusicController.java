@@ -14,7 +14,7 @@ public class MusicController implements Disposable {
      * The available music files.
      */
     public enum Tracks{
-        MENU( "music/music.mp3" );
+        MENU("music/music.mp3");
 //        LEVEL( "music/level.ogg" );
 
         private final String fileName;
@@ -54,19 +54,19 @@ public class MusicController implements Disposable {
      * <p>
      * If there is already a music being played it is stopped automatically.
      */
-    public void play( Tracks music ) {
+    public void play(Tracks music) {
         // check if the music is enabled
-        if( ! enabled ) return;
+        if (!enabled) return;
 
         // stop any music being played
-        Gdx.app.log( "MusicLog", "Playing music: " + music.name() );
+        Gdx.app.log("MusicLog", "Playing music: " + music.name());
         stop();
 
         // start streaming the new music
-        FileHandle musicFile = Gdx.files.internal( music.getFileName() );
-        musicBeingPlayed = Gdx.audio.newMusic( musicFile );
-        musicBeingPlayed.setVolume( volume );
-        musicBeingPlayed.setLooping( true );
+        FileHandle musicFile = Gdx.files.internal(music.getFileName());
+        musicBeingPlayed = Gdx.audio.newMusic(musicFile);
+        musicBeingPlayed.setVolume(volume);
+        musicBeingPlayed.setLooping(true);
         musicBeingPlayed.play();
     }
 
@@ -74,7 +74,7 @@ public class MusicController implements Disposable {
      * Stops and disposes the current music being played, if any.
      */
     public void stop(){
-        if( musicBeingPlayed != null ) {
+        if (musicBeingPlayed != null) {
             Gdx.app.log( "MusicLog", "Stopping current music" );
             musicBeingPlayed.stop();
             musicBeingPlayed.dispose();
@@ -85,28 +85,28 @@ public class MusicController implements Disposable {
      * Sets the music volume which must be inside the range [0,1].
      */
     public void setVolume(float volume){
-        Gdx.app.log( "MusicLog", "Adjusting music volume to: " + volume );
+        Gdx.app.log("MusicLog", "Adjusting music volume to: " + volume);
 
         // check and set the new volume
-        if( volume < 0 || volume > 1f ) {
+        if (volume < 0 || volume > 1f) {
             throw new IllegalArgumentException( "The volume must be inside the range: [0,1]" );
         }
         this.volume = volume;
 
         // if there is a music being played, change its volume
-        if( musicBeingPlayed != null ) {
-            musicBeingPlayed.setVolume( volume );
+        if (musicBeingPlayed != null) {
+            musicBeingPlayed.setVolume(volume);
         }
     }
 
     /**
      * Enables or disabled the music.
      */
-    public void setEnabled(boolean enabled ){
+    public void setEnabled(boolean enabled){
         this.enabled = enabled;
 
         // if the music is being deactivated, stop any music being played
-        if( ! enabled ) {
+        if (!enabled) {
             stop();
         }
     }
@@ -115,7 +115,7 @@ public class MusicController implements Disposable {
      * Disposes the music manager.
      */
     public void dispose(){
-        Gdx.app.log( "MusicLog", "Disposing music manager" );
+        Gdx.app.log("MusicLog", "Disposing music manager");
         stop();
     }
 }
