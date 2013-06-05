@@ -60,6 +60,7 @@ public class GameScreen implements Screen, InputProcessor{
 		menuController = megaGame.getMenuController();
 		menuController.setGame(this);
 		contEsc = 0;
+		
 		setInputProcessor();
 	}
 

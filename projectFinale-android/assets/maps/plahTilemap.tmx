@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="20" height="11" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" width="40" height="22" tilewidth="16" tileheight="16">
  <tileset firstgid="1" name="pickleTile" tilewidth="16" tileheight="16">
   <image source="pickleTile.png" width="256" height="16"/>
   <tile id="0">
@@ -63,9 +63,9 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 2" width="20" height="11">
+ <layer name="Tile Layer 2" width="40" height="22">
   <data encoding="base64" compression="zlib">
-   eJxjYMAEHEAsgAXzQDE2ORDmwmIWCLAg6YVhLhLkhzNgReMzUmAWMwMkHjjJ1M+IRoMAExH62IGYHwnzkmk/zCxsaYtYM9HdgiutEmsmrryAC/PjwSD7AJ+rBAE=
+   eJzdlosKwyAMRe0euJVt3f9/bQ00IJlJTIwUFrgUKuhRkxtT+o1H0beh16HWGGhtzDUjbhULajWM/0tci7ai99kgQsBdQG7MYrwz/3PqPxvI9w8ztnigjoD7gb0/mTWxbjRGic8SC/lCXIQ1kU9b28qHd4Py5Ab1KGkOC19ObW+zMqIH1XNw+5X46Flx3uutMazPWpRF4uN6BadNEMdPGWfySZJ6CO05dc338NF+ZdVIf9P4IrxnJICB29/ZfFlZfwYf9QRJWt5G83H+yb0ntbyN5Otls9RTBB/e56gHRfNZuLzv/5G3g8W7vWeA/mypN4+8fDuOXxAF
   </data>
  </layer>
 </map>
