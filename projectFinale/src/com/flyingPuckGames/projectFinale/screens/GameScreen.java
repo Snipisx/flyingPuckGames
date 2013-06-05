@@ -10,11 +10,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.controller.PlayerController;
 import com.flyingPuckGames.projectFinale.controller.MenuController;
@@ -43,7 +48,7 @@ public class GameScreen implements Screen, InputProcessor{
 	private Integer				contEsc;
 	private PlayerController	playerController;
 	private MenuController		menuController;
-	
+	private boolean 			jumping;
 	/**
 	 * Constructor
 	 * @param megaGame
@@ -68,7 +73,7 @@ public class GameScreen implements Screen, InputProcessor{
 		menuController = megaGame.getMenuController();
 		menuController.setGame(this);
 		contEsc = 0;
-		
+		jumping = false;
 		setInputProcessor();
 	}
 
@@ -123,8 +128,12 @@ public class GameScreen implements Screen, InputProcessor{
 	
 	// Inputs -------------
 	public void setInputProcessor(){
-		playerController.setInputSystems(this,stage);
-		
+		if (Gdx.app.getType() == ApplicationType.Android) {
+			playerController.setInputSystems(stage);
+		}
+		else{
+			playerController.setInputSystems(this,stage);
+		}
 	}
 	
 	public void setMenu(Stage stage){
@@ -143,7 +152,7 @@ public class GameScreen implements Screen, InputProcessor{
 		final TouchpadStyle touchPadStyle = new TouchpadStyle();
 		
 		touchPadStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture((Gdx.files.internal("textures/joystic.png")))));
-		final Touchpad touchPad = new Touchpad(4,touchPadStyle);
+		final Touchpad touchPad = new Touchpad(50,touchPadStyle);
 		touchPad.addCaptureListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -163,8 +172,26 @@ public class GameScreen implements Screen, InputProcessor{
 				
 			}
 		});
-		touchPad.setBounds(200, 200, 200, 200);
+		touchPad.setBounds(megaGame.SCREENW * 0.05f, megaGame.SCREENH * 0.1f, megaGame.SCREENW * 0.1f, megaGame.SCREENH * 0.1f);
+		
+		final Button jump = new Button(new TextureRegionDrawable(new TextureRegion(new Texture((Gdx.files.internal("textures/joystic.png"))))),new TextureRegionDrawable(new TextureRegion(new Texture((Gdx.files.internal("textures/joystic.png"))))));
+		
+		jump.setPosition(megaGame.SCREENW * 0.9f,megaGame.SCREENH * 0.1f);
+		jump.addListener(new InputListener() {
+			
+		
+	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+	                playerController.jumpPressed();
+	                return true;
+	        }
+	        
+	        public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+	        	playerController.jumpReleased();
+	        }
+		});
+		
 		stage.addActor(touchPad);
+		stage.addActor(jump);
 	}
 	
 	@Override
