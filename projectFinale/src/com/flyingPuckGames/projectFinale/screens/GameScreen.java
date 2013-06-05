@@ -123,33 +123,31 @@ public class GameScreen implements Screen, InputProcessor{
 	
 	@Override
 	public boolean keyDown(int keycode) {
-//		if (keycode == Keys.LEFT || keycode == Keys.A)
-//			playerController.leftPressed();
-//		if (keycode == Keys.RIGHT || keycode == Keys.D)
-//			playerController.rightPressed();
-//		if (keycode == Keys.Z || keycode == Keys.SPACE ||  keycode == Keys.UP)
-//			playerController.jumpPressed();
+		if (keycode == Keys.LEFT || keycode == Keys.A)
+			playerController.leftPressed();
+		if (keycode == Keys.RIGHT || keycode == Keys.D)
+			playerController.rightPressed();
+		if (keycode == Keys.Z || keycode == Keys.SPACE ||  keycode == Keys.UP)
+			playerController.jumpPressed();
 		if (keycode == Keys.X){
-//			playerController.firePressed();
 			JSONParser parser1 = new JSONParser();
 			parser1.savePlayer(player);
 		}
+		
 		return true;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-//		if (keycode == Keys.LEFT)
-//			playerController.leftReleased();
-//		if (keycode == Keys.RIGHT)
-//			playerController.rightReleased();
-//		if (keycode == Keys.Z)
-//			playerController.jumpReleased();
-//		if (keycode == Keys.X)
-//			playerController.fireReleased();
-//		if (keycode == Keys.D){
-//			System.out.println("psdfa");
-//		}
+		if (keycode == Keys.LEFT){
+			playerController.leftReleased();
+		}
+		if (keycode == Keys.RIGHT){
+			playerController.rightReleased();
+		}
+		if (keycode == Keys.SPACE){
+			playerController.jumpReleased();
+		}
 		if (keycode == Keys.ESCAPE){
 			if(contEsc == 1){
 				contEsc = 0;
@@ -193,10 +191,13 @@ public class GameScreen implements Screen, InputProcessor{
 			return false;
 		}
 		if (screenX < Gdx.graphics.getWidth() / 2 && screenY > Gdx.graphics.getHeight() / 2) {
-//			controller.leftReleased();
+			playerController.leftReleased();
 		}
 		if (screenX > Gdx.graphics.getWidth() / 2 && screenY > Gdx.graphics.getHeight() / 2) {
-//			controller.rightReleased();
+			playerController.rightReleased();
+		}
+		if ((screenX > ((Gdx.graphics.getWidth() / 2) - 50)) && (screenX  < ((Gdx.graphics.getWidth() / 2) + 50))  &&  (screenY > Gdx.graphics.getHeight() / 2)) {
+			playerController.jumpReleased();
 		}
 		
 		return true;

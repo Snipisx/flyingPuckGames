@@ -1,7 +1,11 @@
 package com.flyingPuckGames.projectFinale.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Rectangle;
@@ -14,6 +18,11 @@ import com.flyingPuckGames.projectFinale.model.player.Player.State;
 
 public class PlayerController {
 	
+	enum Keys {
+		LEFT, RIGHT, JUMP
+	}
+	public InputMultiplexer inputSystem;
+	private boolean isJumpButtonPressed;
 	private Player player;
 	private Pool<Rectangle> rectPool;
 	private Array<Rectangle> wallTiles;
@@ -22,6 +31,13 @@ public class PlayerController {
 	//Disposable
 	private Rectangle rect;
 	private Cell cell;
+	
+	static Map<PlayerController.Keys, Boolean> keys = new HashMap<PlayerController.Keys, Boolean>();
+	static {
+		keys.put(Keys.LEFT, false);
+		keys.put(Keys.RIGHT, false);
+		keys.put(Keys.JUMP, false);
+	};
 	
 	public PlayerController(Player player, TiledMapTileLayer wallsLayer) {
 		this.player = player;
@@ -42,7 +58,7 @@ public class PlayerController {
 		
 		updateTime(delta);
 		
-		processInputs();
+		processInput();
 		
 		makePlayerFall();
 		clampXVelocity();
@@ -73,33 +89,6 @@ public class PlayerController {
 		player.setXVelocity(player.getXVelocity() * Constants.DAMPING);
 	}
 	
-	private void processInputs() {
-		if (player.getStateTime() > 1f) {
-			System.out.println(player.toString());
-			player.setStateTime(0f);
-		}
-		
-		if ((Gdx.input.isKeyPressed(Keys.SPACE) & player.isGrounded())) {
-			player.setYVelocity(player.getYVelocity() + Constants.JUMP_VELOCITY);
-			player.setState(State.JUMPING);
-			player.setGrounded(false);
-		} 
-
-		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-			player.setXVelocity(-Constants.MAX_VELOCITY);
-			if (player.isGrounded())
-				player.setState(State.WALKING);
-			player.setFacesRight(false);		
-		}
-
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-			player.setXVelocity(Constants.MAX_VELOCITY);
-			if (player.isGrounded())
-				player.setState(State.WALKING);
-			player.setFacesRight(true);		
-		}		
-	}
-
 	private void updateTime(float delta) {
 		player.setStateTime(player.getStateTime() + delta);
 	}
@@ -257,25 +246,116 @@ public class PlayerController {
 		player.setYVelocity(0);
 	}
 	
+//	public void leftPressed() {
+//		player.setXVelocity(-Constants.MAX_VELOCITY);
+//		if (player.isGrounded())
+//			player.setState(State.WALKING);
+//		player.setFacesRight(false);		
+//	}
+//
+//	public void rightPressed() {
+//		player.setXVelocity(Constants.MAX_VELOCITY);
+//		if (player.isGrounded())
+//			player.setState(State.WALKING);
+//		player.setFacesRight(true);		
+//	}	
+//	
+//	public void jumpPressed() { 
+//		if (player.isGrounded()) {
+//			player.setYVelocity(player.getYVelocity() + Constants.JUMP_VELOCITY);
+//			player.setState(State.JUMPING);
+//			player.setGrounded(false);
+//		} 
+//	}
+	
+	
+	//Input process.
 	public void leftPressed() {
-		player.setXVelocity(-Constants.MAX_VELOCITY);
-		if (player.isGrounded())
-			player.setState(State.WALKING);
-		player.setFacesRight(false);		
+		keys.get(keys.put(Keys.LEFT, true));
 	}
 
 	public void rightPressed() {
-		player.setXVelocity(Constants.MAX_VELOCITY);
-		if (player.isGrounded())
-			player.setState(State.WALKING);
-		player.setFacesRight(true);		
-	}	
-	
-	public void jumpPressed() { 
-		if (player.isGrounded()) {
-			player.setYVelocity(player.getYVelocity() + Constants.JUMP_VELOCITY);
-			player.setState(State.JUMPING);
-			player.setGrounded(false);
-		} 
+		keys.get(keys.put(Keys.RIGHT, true));
 	}
+
+	public void jumpPressed() {
+		keys.get(keys.put(Keys.JUMP, true));
+	}
+	
+	public void leftReleased() {
+		keys.get(keys.put(Keys.LEFT, false));
+	}
+
+	public void rightReleased() {
+		keys.get(keys.put(Keys.RIGHT, false));
+	}
+
+	public void jumpReleased() {
+		keys.get(keys.put(Keys.JUMP, false));
+		isJumpButtonPressed = false;
+		System.out.println("Hi");
+		
+	}
+	
+	private boolean processInput() {
+		if (keys.get(Keys.JUMP)) {
+			if (!player.getState().equals(State.JUMPING)) {
+				isJumpButtonPressed = true;
+				player.setYVelocity(player.getYVelocity() + Constants.JUMP_VELOCITY);
+				player.setState(State.JUMPING);
+				player.setGrounded(false);
+			}
+			else if(isJumpButtonPressed){
+				isJumpButtonPressed = false;
+			}
+		}
+		if (keys.get(Keys.LEFT)) {
+			player.setXVelocity(-Constants.MAX_VELOCITY);
+			if (player.isGrounded()) {
+				player.setState(State.WALKING);
+				player.setFacesRight(false);	
+			}
+		} 
+		else if (keys.get(Keys.RIGHT)) {
+			player.setFacesRight(true);
+			player.setXVelocity(Constants.MAX_VELOCITY);
+			if (player.isGrounded()) {
+				player.setState(State.WALKING);
+			}
+			player.setFacesRight(true);	
+		} 
+		return false;
+	}
+	
+//	private void processInputs() {
+//	if (player.getStateTime() > 1f) {
+//		System.out.println(player.toString());
+//		player.setStateTime(0f);
+//	}
+//	
+//	if ((Gdx.input.isKeyPressed(Keys.JUMP) & player.isGrounded())) {
+//		player.setYVelocity(player.getYVelocity() + Constants.JUMP_VELOCITY);
+//		player.setState(State.JUMPING);
+//		player.setGrounded(false);
+//	} 
+//
+//	if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+//		player.setXVelocity(-Constants.MAX_VELOCITY);
+//		if (player.isGrounded())
+//			player.setState(State.WALKING);
+//		player.setFacesRight(false);		
+//	}
+//
+//	if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+//		player.setXVelocity(Constants.MAX_VELOCITY);
+//		if (player.isGrounded())
+//			player.setState(State.WALKING);
+//		player.setFacesRight(true);		
+//	}		
+//}
+
+	 public void setInputSystems(InputProcessor... processors) {
+		  inputSystem = new InputMultiplexer(processors);
+		  Gdx.input.setInputProcessor(inputSystem);
+	 }
 }
