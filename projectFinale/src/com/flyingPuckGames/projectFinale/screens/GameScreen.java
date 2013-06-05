@@ -5,8 +5,10 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -15,7 +17,10 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -152,7 +157,7 @@ public class GameScreen implements Screen, InputProcessor{
 		final TouchpadStyle touchPadStyle = new TouchpadStyle();
 		
 		touchPadStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture((Gdx.files.internal("textures/joystic.png")))));
-		final Touchpad touchPad = new Touchpad(50,touchPadStyle);
+		final Touchpad touchPad = new Touchpad(1,touchPadStyle);
 		touchPad.addCaptureListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -172,11 +177,11 @@ public class GameScreen implements Screen, InputProcessor{
 				
 			}
 		});
-		touchPad.setBounds(megaGame.SCREENW * 0.05f, megaGame.SCREENH * 0.1f, megaGame.SCREENW * 0.1f, megaGame.SCREENH * 0.1f);
+		touchPad.setBounds(megaGame.SCREENW * 0.01f, megaGame.SCREENH * 0.1f, megaGame.SCREENW * 0.2f, megaGame.SCREENH * 0.2f);
 		
-		final Button jump = new Button(new TextureRegionDrawable(new TextureRegion(new Texture((Gdx.files.internal("textures/joystic.png"))))),new TextureRegionDrawable(new TextureRegion(new Texture((Gdx.files.internal("textures/joystic.png"))))));
+		final Button jump = new Button(new TextureRegionDrawable(new TextureRegion(new Texture((Gdx.files.internal("textures/jump.png"))))),new TextureRegionDrawable(new TextureRegion(new Texture((Gdx.files.internal("textures/jump.png"))))));
 		
-		jump.setPosition(megaGame.SCREENW * 0.9f,megaGame.SCREENH * 0.1f);
+		jump.setPosition(megaGame.SCREENW * 0.9f,(megaGame.SCREENH * 0.1f + (touchPad.getHeight()/4)));
 		jump.addListener(new InputListener() {
 			
 		
@@ -190,6 +195,33 @@ public class GameScreen implements Screen, InputProcessor{
 	        }
 		});
 		
+		
+		ButtonStyle buttonStandard = new ButtonStyle();
+		buttonStandard.down = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selected2.png"))));
+		buttonStandard.over = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/hover2.png"))));
+		LabelStyle labelMenusStyle = new LabelStyle();
+		FreeTypeFontGenerator f = new FreeTypeFontGenerator(Gdx.files.internal("fonts/akiras_font.ttf"));
+		 
+		labelMenusStyle.font = f.generateFont((int) (megaGame.SCREENW * 0.012f));
+		f.dispose();
+		
+		labelMenusStyle.fontColor = Color.valueOf("ededed");
+		
+		
+		final Button menuButton = new Button(new Label("MENU",labelMenusStyle),buttonStandard);
+		
+		menuButton.addListener(new ChangeListener() {
+			
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				menuController.status(4);
+				onMenu = true;
+				
+			}
+		});
+		
+		menuButton.setBounds(megaGame.SCREENW * 0.1f, megaGame.SCREENH * 0.9f, megaGame.SCREENW * 0.1f, megaGame.SCREENH * 0.1f);
+		stage.addActor(menuButton);
 		stage.addActor(touchPad);
 		stage.addActor(jump);
 	}

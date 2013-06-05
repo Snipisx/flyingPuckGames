@@ -37,6 +37,9 @@ public class SoundMenu {
 	private ButtonStyle buttonLess;
 	private float WIDTH;
 	private float HEIGHT;
+	private Label volumeText;
+	private Label volume;
+	
 	
 	public SoundMenu(ButtonStyle button, LabelStyle label,LabelStyle statusLabel,ButtonStyle buttonMore,ButtonStyle buttonLess){
 		labelStatusStyle = statusLabel;
@@ -48,7 +51,17 @@ public class SoundMenu {
 		HEIGHT = Gdx.graphics.getHeight();
 	}
 	
+	
+	
+	private void setInfo(MenuController menuController){
+		String[] info = menuController.getSoundSettings();
+		System.out.println(info[0] + "   " + info[1]);
+		volumeText = new Label(info[0],labelMenusStyle);
+		volume = new Label(info[1],labelMenusStyle);
+	}
+	
 	public Group create(final MenuController menuController,final Boolean onMenu){
+		setInfo(menuController);
 		Group p = new Group();
 		p.addListener(new InputListener() {
 			@Override

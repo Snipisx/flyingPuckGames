@@ -97,4 +97,19 @@ public class Options {
 	public void setResolutionY(float resolutionY) {
 		this.resolutionY = resolutionY;
 	}
+
+
+	public String[] getAudioOptions() {
+		String activated;
+		String volumeLevel;
+		
+		if(sound){
+			activated = "ON";
+		}else{
+			activated = "OFF";
+		}
+		
+		volumeLevel = Integer.toString(soundVolume);
+		return new String[]{activated,volumeLevel};
+	}
 }

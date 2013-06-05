@@ -318,6 +318,17 @@ public class StatusMenu {
 				menuController.setInputProcessor();
 			}
 		});
+		
+		Button exitMenu = new Button(buttonStandard);
+		exitMenu.add(new Label("MAIN MENU",labelMenusStyle));
+		exitMenu.center();
+		exitMenu.addListener(new ChangeListener() {
+			
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				menuController.status(5);
+			}
+		});
 		optionTable.add(equip);
 		optionTable.row();
 		optionTable.add(options);
@@ -325,6 +336,8 @@ public class StatusMenu {
 		optionTable.add(grimoire);
 		optionTable.row();
 		optionTable.add(back);
+		optionTable.row();
+		optionTable.add(exitMenu);
 		
 		p.addActor(optionTable);
 		

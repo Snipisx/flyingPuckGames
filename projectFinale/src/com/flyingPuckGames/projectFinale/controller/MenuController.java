@@ -18,7 +18,7 @@ public class MenuController {
 	private Options option;
 	private GameScreen game;
 	private MenuScreen menu;
-	
+	private boolean fromGame;
 	
 	public MenuController(MegaGame megaGame){
 		this.megaGame = megaGame;
@@ -79,6 +79,9 @@ public class MenuController {
 				break;
 				
 			case 3:
+				stage = new Stage();
+				stage.addActor(menuBuilder.GrimoireMenu(this, false));
+				game.setMenu(stage);
 				break;
 				
 			case 4:
@@ -86,13 +89,22 @@ public class MenuController {
 				stage.addActor(menuBuilder.statusMenu(this));
 				game.setMenu(stage);
 				break;
+			case 5:
+				//megaGame.setScreen(this.menu);
+				break;
 		}
 	}
 	
 	public void mainMenu(Integer screen){
 		switch(screen){
 			case 1:
-				megaGame.setScreen(new GameScreen(megaGame));
+				if(fromGame){
+					megaGame.setScreen(this.game);
+				}else{
+					fromGame = true;
+					megaGame.setScreen(new GameScreen(megaGame));
+				}
+				
 				break;
 			case 2:
 				stage = new Stage();
@@ -131,6 +143,11 @@ public class MenuController {
 	
 	public void setSoundSettings(int value, boolean on){
 		option.setAudioOptions(value, on);
+	}
+	
+	public String[] getSoundSettings(){
+		
+		return option.getAudioOptions(); 
 	}
 	
 	public GameScreen getGame() {
