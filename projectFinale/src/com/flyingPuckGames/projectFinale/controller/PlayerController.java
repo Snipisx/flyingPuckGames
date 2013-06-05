@@ -80,7 +80,7 @@ public class PlayerController {
 		predictHowFarPlayerGoesInThisFrame(delta);
 
 		if (playerIsMovingInXAxis()) {
-			predictTilesInXAxis(delta);
+			predictTilesInXAxis();
 			movePlayerBoundsInXAxis();
 			collisionsInXAxis();
 			moveXBoundsPositionToPlayerPosition();
