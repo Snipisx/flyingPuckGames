@@ -93,8 +93,6 @@ public class SoundMenu {
 		
 		p.addActor(resolution);
 		
-		final Label volumeText = new Label("ON",labelMenusStyle);
-		
 		Button volumeOn = new Button(volumeText,buttonStandard);
 		
 		volumeOn.setBounds(WIDTH * 0.50f, HEIGHT * 0.575f, WIDTH * 0.09f, HEIGHT * 0.05f);
@@ -121,7 +119,7 @@ public class SoundMenu {
 		
 		Table setVolume = new Table();
 		setVolume.setBounds(WIDTH * 0.5f, HEIGHT*0.5f, WIDTH * 0.1f, HEIGHT * 0.1f);
-		final Label volume = new Label("0",labelMenusStyle);
+		
 		Button less = new Button(buttonLess);
 		less.setWidth(WIDTH * 0.3f);
 		less.addListener(new ChangeListener() {

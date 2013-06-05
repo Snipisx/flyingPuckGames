@@ -31,7 +31,7 @@ public class MegaGame extends Game {
 		options.loadOptions();
 		setMenuController(new MenuController(this));
 		setScreen(new MenuScreen(this));
-		musicController = new MusicController();
+		musicController = new MusicController(this);
 		
 		musicController.setEnabled(true);
 		musicController.setVolume(0.5f);

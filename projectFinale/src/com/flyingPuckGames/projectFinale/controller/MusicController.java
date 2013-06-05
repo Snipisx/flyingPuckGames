@@ -3,6 +3,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Disposable;
+import com.flyingPuckGames.projectFinale.MegaGame;
 
 /**
  * A service that manages the background music.
@@ -10,9 +11,17 @@ import com.badlogic.gdx.utils.Disposable;
  * Only one music may be playing at a given time.
  */
 public class MusicController implements Disposable {
-    /**
+    
+	
+	private MegaGame megaGame;
+	public MusicController(MegaGame megaGame){
+		this.megaGame = megaGame;
+	}
+	
+	/**
      * The available music files.
      */
+	
     public enum Tracks{
         MENU("music/music.mp3");
 //        LEVEL( "music/level.ogg" );
@@ -92,7 +101,7 @@ public class MusicController implements Disposable {
             throw new IllegalArgumentException( "The volume must be inside the range: [0,1]" );
         }
         this.volume = volume;
-
+        megaGame.getOptions().setSoundVolume((int) (volume * 10));
         // if there is a music being played, change its volume
         if (musicBeingPlayed != null) {
             musicBeingPlayed.setVolume(volume);
@@ -104,7 +113,7 @@ public class MusicController implements Disposable {
      */
     public void setEnabled(boolean enabled){
         this.enabled = enabled;
-
+        megaGame.getOptions().setSound(enabled);
         // if the music is being deactivated, stop any music being played
         if (!enabled) {
             stop();

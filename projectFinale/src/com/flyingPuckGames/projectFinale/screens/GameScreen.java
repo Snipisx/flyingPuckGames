@@ -84,7 +84,7 @@ public class GameScreen implements Screen, InputProcessor{
 
 	@Override
 	public void render(float delta) {
-		
+
 		if (!onMenu) {
 			playerController.update(delta);
 			RenderUtils.clearScreen();
@@ -101,6 +101,7 @@ public class GameScreen implements Screen, InputProcessor{
 
 	@Override
 	public void resize(int width, int height) {
+		System.out.println("hi");
 		worldRenderer.setActualWindowSize();
 		menuRenderer.setSize(width, height);
 		menuController.onResize(width, height);
@@ -118,12 +119,12 @@ public class GameScreen implements Screen, InputProcessor{
 
 	@Override
 	public void pause() {
-		//Ignored
+	System.out.println("pause");
 	}
 
 	@Override
 	public void resume() {
-		//Ignored
+		System.out.println("resume");
 	}
 
 	@Override
