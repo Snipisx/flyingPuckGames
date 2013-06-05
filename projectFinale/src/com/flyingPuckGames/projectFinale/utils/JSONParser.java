@@ -119,7 +119,7 @@ public class JSONParser {
 		String name;	
 		Enemy enemy = new Enemy();
 		try {
-			reader = new JsonReader(Gdx.files.local("enemys.json").reader());
+			reader = new JsonReader(Gdx.files.internal("json/enemys.json").reader());
 			reader.beginObject();
 			while(reader.hasNext()){
 				

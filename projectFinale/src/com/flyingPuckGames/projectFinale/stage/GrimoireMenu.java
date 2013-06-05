@@ -1,9 +1,12 @@
 package com.flyingPuckGames.projectFinale.stage;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -59,8 +62,9 @@ public class GrimoireMenu{
 		monsterWeak = new Label("",labelMenusStyle);
 		monsterAbsorb = new Label("",labelMenusStyle);
 		monsterExp = new Label("",labelMenusStyle);
+		monsterDrop = new Label("",labelMenusStyle);
 		monsterDesc = new Label("",labelMenusStyle);
-	//	setNextEnemy(0);
+		setNextEnemy(0);
 		
 	}
 	
@@ -76,14 +80,30 @@ public class GrimoireMenu{
 		monsterInmune.setText(enemy.getInmuneAgainst().toUpperCase());
 		monsterWeak.setText(enemy.getWeakAgainst().toUpperCase());
 		monsterAbsorb.setText(enemy.getAbsorb().toUpperCase());
-		monsterExp.setText(Float.toString(enemy.getExp()));
+		monsterExp.setText("EXP " + Float.toString(enemy.getExp()));
+		monsterDrop.setText(enemy.getDrop().toUpperCase());
 		monsterDesc.setText(enemy.getDesc().toUpperCase());
 	}
 	
 	
-	public Group create(MenuController menuController, boolean onMenu){
+	public Group create(final MenuController menuController, final boolean onMenu){
 		
 		Group stage = new Group();
+		
+		stage.addListener(new InputListener() {
+			@Override
+			public boolean keyDown(InputEvent event, int keycode) {
+				if(keycode == Keys.ESCAPE){
+					if(onMenu){
+						menuController.mainMenu(5);
+					}else{
+						menuController.status(4);
+					}
+				}
+				
+				return true;
+			}
+		});
 		
 		Image backgroundGrimoire = new Image((new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/backGrimoire.png"))))));
 		backgroundGrimoire.setBounds(WIDTH * 0.25f, HEIGHT * 0.25f, WIDTH * 0.5f,HEIGHT * 0.5f);
@@ -113,9 +133,25 @@ public class GrimoireMenu{
 		
 		Label immune = new Label("IMMUNE",labelMenusStyle);
 		immune.setBounds(WIDTH * 0.5f, HEIGHT * 0.50f, WIDTH * 0.1f, HEIGHT * 0.1f);
-		monsterInmune.setBounds(WIDTH * 0.5f, HEIGHT * 0.45f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		monsterInmune.setBounds(WIDTH * 0.53f, HEIGHT * 0.45f, WIDTH * 0.1f, HEIGHT * 0.1f);
 		stage.addActor(monsterInmune);
 		stage.addActor(immune);
+		
+		Label weak = new Label("WEAK VS.",labelMenusStyle);
+		weak.setBounds(WIDTH * 0.5f, HEIGHT * 0.4f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		monsterWeak.setBounds(WIDTH * 0.53f, HEIGHT * 0.35f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		stage.addActor(monsterWeak);
+		stage.addActor(weak);
+		
+		Label drop = new Label("DROP ITEMS",labelMenusStyle);
+		drop.setBounds(WIDTH * 0.6f, HEIGHT * 0.6f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		monsterDrop.setBounds(WIDTH * 0.63f, HEIGHT * 0.55f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		stage.addActor(monsterDrop);
+		stage.addActor(drop);
+		
+		monsterExp.setBounds(WIDTH * 0.5f, HEIGHT * 0.2f, WIDTH * 0.1f, HEIGHT * 0.1f);
+		stage.addActor(monsterExp);
+		
 		
 		
 		

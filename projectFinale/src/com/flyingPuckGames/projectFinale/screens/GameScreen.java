@@ -178,10 +178,10 @@ public class GameScreen implements Screen, InputProcessor{
 		if (screenX > Gdx.graphics.getWidth() / 2 && screenY > Gdx.graphics.getHeight() / 2) {
 			playerController.rightPressed();
 		}
-		if ((screenX > ((Gdx.graphics.getWidth() / 2) - 50)) && (screenX  < ((Gdx.graphics.getWidth() / 2) + 50))  &&  (screenY < Gdx.graphics.getHeight() / 2)) {
+		if ((screenX > ((Gdx.graphics.getWidth() / 2) - 50)) && (screenX  < ((Gdx.graphics.getWidth() / 2) + 50))  &&  (screenY > Gdx.graphics.getHeight() / 2)) {
 			playerController.jumpPressed();
 		}
-		if (screenX < Gdx.graphics.getWidth() * -0.10f && screenY > Gdx.graphics.getHeight() * 0.90f) {
+		if (screenX < Gdx.graphics.getWidth() * 0.10f && (screenY > Gdx.graphics.getHeight() * 0.01f && screenY < Gdx.graphics.getHeight() * 0.1f)) {
 			menuController.status(4);
 		}
 		return true;

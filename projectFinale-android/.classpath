@@ -8,8 +8,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/gdx-backend-android.jar" sourcepath="libs/gdx-backend-android-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="/projectFinale/libs/bodyeditor-loader.jar" sourcepath="/projectFinale/libs/bodyeditor-loader-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="/projectFinale/libs/tween-engine-api.jar" sourcepath="/projectFinale/libs/tween-engine-api-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AKIRA/android-sdks/platforms/android-17/android.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AKIRA/android-sdks/platforms/android-10/android.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AKIRA/android-sdks/platforms/android-8/android.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Snipis/Desktop/Nueva carpeta (2)/sdk/platforms/android-15/android.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
