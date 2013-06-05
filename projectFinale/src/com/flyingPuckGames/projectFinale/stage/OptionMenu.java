@@ -15,8 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.flyingPuckGames.projectFinale.controller.MenuController;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
@@ -126,7 +129,27 @@ public class OptionMenu {
 		mainTable.row();
 
 		p.addActor(mainTable);
-
+		
+		TouchpadStyle a = new TouchpadStyle();
+		a.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/gris.png"))));
+		
+		final Touchpad n = new Touchpad(4,a);
+		n.addCaptureListener(new ChangeListener() {
+			
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+					if(n.getKnobX() > 4f){
+						System.out.println("derecha");
+					}else{
+						System.out.println("izqueirda");
+					}
+				
+			}
+		});
+		
+		
+		n.setBounds(200, 200, 50, 50);
+		p.addActor(n);
 		return p;
 	}
 	
