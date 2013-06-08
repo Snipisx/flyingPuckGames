@@ -34,6 +34,11 @@ public class EquipMenu {
 		HEIGHT = Gdx.graphics.getHeight();
 	}
 	
+	
+	/*
+	 * Method that create the window
+	 */
+	
 	public Group create(final MenuController menuController){
 		
 		Group p = new Group();

@@ -60,6 +60,10 @@ public class StatusMenu {
 		HEIGHT = Gdx.graphics.getHeight();
 	}	
 	
+	
+	/*
+	 * Method that load all the labels of the menu.
+	 */
 	private void loadLabels(PlayerStatus playerStatus){
 		
 		levelInfo = new Label(playerStatus.getLevel().toString(),labelStatusStyle);
@@ -79,6 +83,10 @@ public class StatusMenu {
 		defInfo = new Label(playerStatus.getDef().toString(),labelStatusStyle);
 	}
 	
+	
+	/*
+	 * Method that create the window
+	 */
 	public Group create(final MenuController menuController){
 		loadLabels(menuController.getPlayerStatus());
 		

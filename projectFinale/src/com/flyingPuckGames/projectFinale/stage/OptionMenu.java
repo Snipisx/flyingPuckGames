@@ -38,7 +38,7 @@ public class OptionMenu {
 		HEIGHT = Gdx.graphics.getHeight();
 	}
 	/*
-	 * OptionMenu from gameScreen
+	 * Method that create the window
 	 */
 	public Group create(final MenuController menuController,final boolean onMenu) {
 		System.out.println(WIDTH + "      " + HEIGHT);

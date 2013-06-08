@@ -8,3 +8,5 @@ projectFinale-desktop/bin/**/*
 projectFinale-desktop/bin
 projectFinale-desktop/.project
 .classpath
+projectFinale-desktop/.settings
+projectFinale-desktop/.settings/**/*

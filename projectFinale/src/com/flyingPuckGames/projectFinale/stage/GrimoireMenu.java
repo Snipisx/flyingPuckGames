@@ -74,6 +74,9 @@ public class GrimoireMenu{
 		monsterSelected = 0;
 	}
 	
+	/*
+	 * Method that set the info of the nextEnemy
+	 */
 	
 	private void setNextEnemy(int index){
 		Enemy enemy = parser.getEnemy(index);
@@ -91,7 +94,9 @@ public class GrimoireMenu{
 		monsterDesc.setText(enemy.getDesc().toUpperCase());
 	}
 	
-	
+	/*
+	 * Method that create the window
+	 */
 	public Group create(final MenuController menuController, final boolean onMenu){
 		
 		Group stage = new Group();

@@ -20,6 +20,10 @@ public class MenuController {
 	private MenuScreen menu;
 	private boolean fromGame;
 	
+	
+	/*
+	 * Init a new menuController with his own menuBuilder
+	 */
 	public MenuController(MegaGame megaGame){
 		this.megaGame = megaGame;
 		this.menuBuilder = new MenuBuilder();
@@ -27,11 +31,22 @@ public class MenuController {
 		option = megaGame.getOptions();
 	}
 	
+	
+	/**
+	 * Method called when the window has resized
+	 * These call to the method OnResize of the menuBuilder, to set the new size to all the menus
+	 * @param width
+	 * @param height
+	 */
 	public void onResize(float width, float height){
 		menuBuilder.onResize(width, height);
 		
 	}
 	
+	
+	/*
+	 * Method that create and set the options for the Game.
+	 */
 	public void optionsGame(int i) {
 		switch(i){
 		case 1:
@@ -48,6 +63,9 @@ public class MenuController {
 		
 	}
 	
+	/*
+	 * Method that create and set the options for the Main Menu.
+	 */
 	public void optionsMenu(int i){
 		switch(i){
 		case 1:
@@ -64,6 +82,10 @@ public class MenuController {
 		}
 	}
 	
+	
+	/*
+	 * Method that create and set different windows from StatusMenu.
+	 */
 	public void status(int menu){
 		switch(menu){
 			case 1:
@@ -94,6 +116,10 @@ public class MenuController {
 				break;
 		}
 	}
+	
+	/*
+	 * Method that create and set differents windows from MainMenu
+	 */
 	
 	public void mainMenu(Integer screen){
 		switch(screen){
