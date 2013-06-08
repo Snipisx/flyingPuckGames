@@ -20,22 +20,24 @@ public class Constants {
 
 	//Resources paths
 	public static final String TEST_TILEMAP_PATH 		= "maps/plahTilemap.tmx";
-	public static final String TEST_PLAYER_TEXTURE_PATH = "data/plahCharacter.png";
+	public static final String TEST_PLAYER_TEXTURE_PATH = "data/plahCharacter2.png";
 	public static final String TEST_BACKGROUND_PATH 	= "maps/background.png";
+
 	
+
 	//Options
 	public static final float RESOLUTION_X 	= 1280f;
 	public static final float RESOLUTION_Y 	= 720f;
 	public static final boolean SOUND 		= true;
 	public static final Short SOUND_VOLUME 	= 10;
-	public static final Integer[][] RESOLUTIONS = { {1024,768},{1280,720},{1366,768},{1600,900},{1920,1080} };
-	//Test positions.
-	public static final Vector2 PLAYER_STARTING_POSITION = new Vector2(2,5);
+	public static final Integer[][] RESOLUTIONS = {{1024,768},{1280,720},{1366,768},{1600,900},{1920,1080}};
 	
 	//Player constants.
 	public static final float MAX_VELOCITY		 = 10f;
 	public static final float JUMP_VELOCITY 	 = 40f;
 	public static final float GRAVITY 			 = -2.5f;
 	public static final float DAMPING 			 = 0.87f;
+	
+	public static final Vector2 PLAYER_STARTING_POSITION = new Vector2(2f,5f);
 
 }

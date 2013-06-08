@@ -342,8 +342,6 @@ public class PlayerController {
 	public void jumpReleased() {
 		keys.get(keys.put(Keys.JUMP, false));
 		isJumpButtonPressed = false;
-		System.out.println("Hi");
-		
 	}
 	
 	/**

@@ -51,6 +51,7 @@ public class GameScreen implements Screen, InputProcessor{
 	private Integer				contEsc;
 	private PlayerController	playerController;
 	private MenuController		menuController;
+	
 	/**
 	 * Constructor
 	 * @param megaGame
@@ -97,7 +98,6 @@ public class GameScreen implements Screen, InputProcessor{
 
 	@Override
 	public void resize(int width, int height) {
-		System.out.println("hi");
 		worldRenderer.setActualWindowSize();
 		menuRenderer.setSize(width, height);
 		menuController.onResize(width, height);
