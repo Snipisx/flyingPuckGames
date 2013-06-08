@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
@@ -24,7 +23,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Touchpad.TouchpadStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.controller.PlayerController;
 import com.flyingPuckGames.projectFinale.controller.MenuController;
@@ -53,7 +51,6 @@ public class GameScreen implements Screen, InputProcessor{
 	private Integer				contEsc;
 	private PlayerController	playerController;
 	private MenuController		menuController;
-	private boolean 			jumping;
 	/**
 	 * Constructor
 	 * @param megaGame
@@ -78,7 +75,6 @@ public class GameScreen implements Screen, InputProcessor{
 		menuController = megaGame.getMenuController();
 		menuController.setGame(this);
 		contEsc = 0;
-		jumping = false;
 		setInputProcessor();
 	}
 

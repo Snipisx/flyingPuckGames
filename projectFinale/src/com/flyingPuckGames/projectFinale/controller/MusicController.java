@@ -14,6 +14,8 @@ public class MusicController implements Disposable {
     
 	
 	private MegaGame megaGame;
+	private boolean musicPlaying;
+	
 	public MusicController(MegaGame megaGame){
 		this.megaGame = megaGame;
 	}
@@ -127,4 +129,8 @@ public class MusicController implements Disposable {
         Gdx.app.log("MusicLog", "Disposing music manager");
         stop();
     }
+
+	public boolean isEnabled() {
+		return enabled;
+	}
 }

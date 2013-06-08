@@ -2,6 +2,7 @@ package com.flyingPuckGames.projectFinale.model;
 
 import com.badlogic.gdx.Gdx;
 import com.flyingPuckGames.projectFinale.MegaGame;
+import com.flyingPuckGames.projectFinale.controller.MusicController.Tracks;
 import com.flyingPuckGames.projectFinale.utils.Constants;
 import com.flyingPuckGames.projectFinale.utils.JSONParser;
 
@@ -62,8 +63,14 @@ public class Options {
 		setSoundVolume(volumeLvl);
 		saveOptions();
 		
-		megaGame.getMusicController().setEnabled(soundOn);
 		megaGame.getMusicController().setVolume(volumeLvl*0.10f);
+		if(soundOn && megaGame.getMusicController().isEnabled() == false){
+			megaGame.getMusicController().setEnabled(soundOn);
+			megaGame.getMusicController().play(Tracks.MENU);
+		} else {
+			megaGame.getMusicController().setEnabled(soundOn);
+		}
+	
 	}
 
 	public int getSoundVolume() {
