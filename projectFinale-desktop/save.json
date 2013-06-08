@@ -2,13 +2,13 @@
   "height": 0.96,
   "width": 1.92,
   "bounds": {
-    "x": 2.0,
-    "y": 2.0,
+    "x": 16.919367,
+    "y": 22.0,
     "width": 0.95,
     "height": 1.91
   },
   "state": "IDLE",
-  "facesRight": true,
+  "facesRight": false,
   "grounded": true,
   "longJump": false,
   "status": {
@@ -31,12 +31,12 @@
   },
   "entityType": "PlayerEntity",
   "position": {
-    "x": 2.0,
-    "y": 2.0
+    "x": 16.919367,
+    "y": 22.0
   },
   "velocity": {
     "x": 0.0,
     "y": 0.0
   },
-  "stateTime": 2.7850664
+  "stateTime": 41.08192
 }

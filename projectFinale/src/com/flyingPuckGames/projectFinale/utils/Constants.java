@@ -28,9 +28,11 @@ public class Constants {
 	//Options
 	public static final float RESOLUTION_X 	= 1280f;
 	public static final float RESOLUTION_Y 	= 720f;
+	public static final int RESOLUTION_POS = 0;
 	public static final boolean SOUND 		= true;
 	public static final Short SOUND_VOLUME 	= 10;
-	public static final Integer[][] RESOLUTIONS = {{1024,768},{1280,720},{1366,768},{1600,900},{1920,1080}};
+	public static final Integer[][] RESOLUTIONS = { {1280,720},{1366,768},{1600,900},{1920,1080} };
+
 	
 	//Player constants.
 	public static final float MAX_VELOCITY		 = 10f;

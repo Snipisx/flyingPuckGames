@@ -43,7 +43,7 @@ public class MenuScreen implements Screen,InputProcessor {
 	}
 	
 	public void setMenu(Stage stage){
-
+		
 		renderer.setStage(stage);
 	}
 	

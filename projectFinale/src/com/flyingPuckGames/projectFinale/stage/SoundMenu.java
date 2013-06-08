@@ -52,13 +52,19 @@ public class SoundMenu {
 	}
 	
 	
-	
+	/*
+	 * Method to set the info of the sound in the labels of the screen.
+	 */
 	private void setInfo(MenuController menuController){
 		String[] info = menuController.getSoundSettings();
 		System.out.println(info[0] + "   " + info[1]);
 		volumeText = new Label(info[0],labelMenusStyle);
 		volume = new Label(info[1],labelMenusStyle);
 	}
+	
+	/*
+	 * Method that create the window
+	 */
 	
 	public Group create(final MenuController menuController,final Boolean onMenu){
 		setInfo(menuController);

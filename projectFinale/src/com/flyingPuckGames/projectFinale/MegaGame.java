@@ -8,6 +8,7 @@ import com.flyingPuckGames.projectFinale.controller.MusicController.Tracks;
 import com.flyingPuckGames.projectFinale.model.Options;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
+import com.flyingPuckGames.projectFinale.utils.JSONParser;
 import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
 
 
@@ -33,10 +34,14 @@ public class MegaGame extends Game {
 		setMenuController(new MenuController(this));
 		setScreen(new GameScreen(this));
 		musicController = new MusicController(this);
-		
 //		musicController.setEnabled(true);
 //		musicController.setVolume(0.5f);
 //		musicController.play(Tracks.MENU);
+
+		new JSONParser().saveItems();
+		musicController.setEnabled(true);
+		musicController.setVolume(0.5f);
+		musicController.play(Tracks.MENU);
 	}
 
 	public MenuBuilder getMenuBuilder(){

@@ -1,5 +1,7 @@
 package com.flyingPuckGames.projectFinale.model.player;
 
+import java.util.ArrayList;
+
 
 public class PlayerStatus {
 
@@ -23,8 +25,13 @@ public class PlayerStatus {
 	private Integer dmg = 2;
 	private Integer def = 2;
 
+	
+	//inventory
+	private ArrayList<Item> inventory;
+	
+	
 	public PlayerStatus(){
-		
+		inventory = new ArrayList<Item>();
 	}
 
 	public Integer getMaxHp() {
@@ -155,4 +162,15 @@ public class PlayerStatus {
 		this.def = def;
 	}
 
+	public ArrayList<Item> getItems() {
+		return inventory;
+	}
+	
+	public void setItems(ArrayList<Item> items) {
+		this.inventory = items;
+	}
+	
+	public Item getItem(int itemId){
+		return inventory.get(itemId);
+	}
 }

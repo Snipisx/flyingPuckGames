@@ -164,7 +164,7 @@ public class MenuController {
 	}
 	
 	public void setVideoSettings(int selectionIndex) {
-		option.setVideoOptions(Constants.RESOLUTIONS[selectionIndex][0], Constants.RESOLUTIONS[selectionIndex][1]);
+		option.setVideoOptions(Constants.RESOLUTIONS[selectionIndex][0], Constants.RESOLUTIONS[selectionIndex][1],selectionIndex);
 	}
 	
 	public void setSoundSettings(int value, boolean on){
@@ -199,6 +199,11 @@ public class MenuController {
 	
 	public PlayerStatus getPlayerStatus(){
 		return game.getPlayerStatus();
+	}
+
+
+	public int getVideoSettings() {
+		return option.getVideoOptions();
 	}
 	
 }

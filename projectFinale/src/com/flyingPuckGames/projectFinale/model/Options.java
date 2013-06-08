@@ -11,6 +11,7 @@ public class Options {
 	private MegaGame megaGame;
 	private float resolutionX;
 	private float resolutionY;
+	private int resolutionPosition;
 	private boolean sound;
 	private int soundVolume;
 	private JSONParser parser;
@@ -46,13 +47,14 @@ public class Options {
 		setResolutionY(Constants.RESOLUTION_Y);
 		setSound(Constants.SOUND);
 		setSoundVolume(Constants.SOUND_VOLUME);
-		
+		setResolutionPosition(Constants.RESOLUTION_POS);
 		saveOptions();
 	}
 	
-	public void setVideoOptions(Integer resolutionX,Integer resolutionY){
+	public void setVideoOptions(Integer resolutionX,Integer resolutionY,Integer resolutionPosition){
 		this.setResolutionX(resolutionX);
 		this.setResolutionY(resolutionY);
+		this.setResolutionPosition(resolutionPosition);
 		Gdx.graphics.setDisplayMode(resolutionX, resolutionY, false);
 		saveOptions();
 	}
@@ -118,5 +120,21 @@ public class Options {
 		
 		volumeLevel = Integer.toString(soundVolume);
 		return new String[]{activated,volumeLevel};
+	}
+
+
+	public int getResolutionPosition() {
+		return resolutionPosition;
+	}
+
+
+	public void setResolutionPosition(int resolutionPosition) {
+		this.resolutionPosition = resolutionPosition;
+	}
+
+
+	public int getVideoOptions() {
+		
+		return resolutionPosition;
 	}
 }

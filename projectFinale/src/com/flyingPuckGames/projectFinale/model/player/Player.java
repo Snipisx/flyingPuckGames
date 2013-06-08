@@ -1,5 +1,7 @@
 package com.flyingPuckGames.projectFinale.model.player;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
@@ -25,7 +27,11 @@ public class Player extends Entity {
 	private Texture texture;
 	private PlayerStatus status;
 
-	 
+	
+	
+	
+
+	
 	
 	public Player(Vector2 position){
 		texture = new Texture(Gdx.files.internal(Constants.TEST_PLAYER_TEXTURE_PATH));
@@ -190,6 +196,7 @@ public class Player extends Entity {
 	public void setStatus(PlayerStatus status) {
 		this.status = status;
 	}
+	
 	
 	@Override
 	public String toString() {

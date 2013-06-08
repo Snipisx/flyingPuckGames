@@ -6,8 +6,10 @@ import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.model.Options;
 import com.flyingPuckGames.projectFinale.model.enemy.Enemy;
+import com.flyingPuckGames.projectFinale.model.player.Item;
 import com.flyingPuckGames.projectFinale.model.player.Player;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
@@ -16,10 +18,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
-
+/*
+ * A class that contains all the methods to load or save Json archives
+ */
 public class JSONParser {
 	
-	Gson gson = new GsonBuilder().setPrettyPrinting().addSerializationExclusionStrategy(new ExclusionStrategy() {
+	Gson gson = new GsonBuilder().setPrettyPrinting().addSerializationExclusionStrategy(new ExclusionStrategy() 
+	{//these add a exclusion Strategy to the Gson to ignore some fields when serialize.
 		
 		@Override
 		public boolean shouldSkipField(FieldAttributes f) {
@@ -32,14 +37,13 @@ public class JSONParser {
 		}
 	}).create();
 	
-	public JSONParser(){
-
-	}
 	
+	/*
+	 * Method that save the options.java in a Json archive.
+	 */
 	public void saveOptions(Options options){
 		JsonWriter writer;
 		
-		//writer = new JsonWriter(Gdx.files.external("projectFinale/json/options.json").writer(false));
 		writer = new JsonWriter(Gdx.files.local("options.json").writer(false));
 		try {
 			writer.beginObject();
@@ -47,6 +51,7 @@ public class JSONParser {
 			writer.name("volumeOn").value(gson.toJson(options.isSound()));
 			writer.name("sizeX").value(gson.toJson(options.getResolutionX()));
 			writer.name("sizeY").value(gson.toJson(options.getResolutionY()));
+			writer.name("resolutionPos").value(gson.toJson(options.getResolutionPosition()));
 			writer.endObject();
 			writer.close();	
 		} catch (IOException e) {
@@ -55,6 +60,9 @@ public class JSONParser {
 		}
 	}
 	
+	/*
+	 * Method that read the options from a Json archive, and load it in my actual Options object.
+	 */
 	public boolean getOptions(Options options){
 		JsonReader reader;
 		String name;		
@@ -65,13 +73,15 @@ public class JSONParser {
 				name = reader.nextName();
 				if(name.equals("volumen")){
 					options.setSoundVolume(reader.nextInt());
-				}else if(name.equals("volumenOn")){
+				}else if (name.equals("volumenOn")) {
 					options.setSound(reader.nextBoolean());
-				}else if(name.equals("sizeX")){
+				}else if (name.equals("sizeX")) {
 					options.setResolutionX(reader.nextLong());
-				}else if(name.equals("sizeY")){
+				}else if (name.equals("sizeY")) {
 					options.setResolutionY(reader.nextLong());
-				} else {
+				} else if (name.equals("resolutionPos")) {
+					options.setResolutionPosition(reader.nextInt());
+				}else{
 					reader.skipValue(); 
 				}
 			}
@@ -85,6 +95,10 @@ public class JSONParser {
 		return true;
 	}
 	
+	
+	/*
+	 * Method to generate 10 placeholder Enemy's in a Json archive.
+	 */
 	public void saveEnemy(){
 		JsonWriter writer;		
 		writer = new JsonWriter(Gdx.files.local("enemys.json").writer(false));
@@ -114,6 +128,10 @@ public class JSONParser {
 		}
 	}
 
+	/*
+	 * Method that return an Enemy loaded from a Json using his ID.
+	 * 
+	 */
 	public Enemy getEnemy(int id){
 		JsonReader reader;
 		String name;	
@@ -168,10 +186,11 @@ public class JSONParser {
 		
 		System.out.println(enemy.toString());
 		return enemy;
-		
-		
 	}
 	
+	/*
+	 * Method that save the State of the Player to a Json.
+	 */
 	public void savePlayer(Player player){
 
 		try {
@@ -184,6 +203,9 @@ public class JSONParser {
 		}
 	}
 	
+	/*
+	 * Method that load the state of the player from a Json and return it.
+	 */
 	public Player loadPlayer(){
 		
 		BufferedReader br = new BufferedReader(Gdx.files.local("save.json").reader());
@@ -191,9 +213,81 @@ public class JSONParser {
 		jugador = gson.fromJson(br, Player.class);
 		
 		return jugador;
-		
 	}
 	
 	
+	public void saveItems(){
+		JsonWriter writer;		
+		writer = new JsonWriter(Gdx.files.local("items.json").writer(false));
+		writer.setIndent(" ");
+		try {
+			writer.beginObject();
+			for(int id = 0; id < 30; id++){	
+				writer.name("item" + id).beginObject();
+					writer.name("name").value("item" + id);
+					writer.name("quantity").value(id);
+					writer.name("description").value(id);
+					writer.name("id").value(id);
+					writer.name("equiped").value(false);
+					writer.name("acquired").value(true);
+					writer.name("type").value("object");
+					writer.name("accesoryPos").value(0);
+					writer.endObject();
+			}
+			writer.endObject();
+			writer.close();	
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+	}
 	
+	public Item getItem(Integer id){
+		JsonReader reader;
+		String name;	
+		Item item = new Item();
+		try {
+			reader = new JsonReader(Gdx.files.internal("json/items.json").reader());
+			reader.beginObject();
+			while(reader.hasNext()){
+				
+				name = reader.nextName();
+				
+				if(name.equals("item" + id)){
+//					System.out.println(name);
+					reader.beginObject();
+						while(reader.hasNext()){
+							name = reader.nextName();
+//							System.out.println(name);
+							if(name.equals("name")){
+								item.setName(reader.nextString());
+							}else if(name.equals("quantity")){
+								item.setQuantity(reader.nextInt());
+							}else if(name.equals("description")){
+								item.setDescription(reader.nextString());
+							}else if(name.equals("id")){
+								item.setIdItem(reader.nextInt());
+							}else if(name.equals("equiped")){
+								item.setEquiped(reader.nextBoolean());
+							}else if(name.equals("acquired")){
+								item.setAcquired(reader.nextBoolean());
+							}else if(name.equals("type")){
+								item.setType(reader.nextString());
+							}else if(name.equals("accesoryPos")){
+								item.setAccesoryPos(reader.nextInt());
+							}
+						}
+						reader.endObject();
+				}else{
+					reader.skipValue();
+				}
+			}
+			reader.endObject();
+			reader.close();
+		} catch (GdxRuntimeException e) {
+		} catch (IOException e1){
+		}
+		
+		return item;
+	}
 }

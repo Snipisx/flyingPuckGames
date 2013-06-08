@@ -30,6 +30,7 @@ public class VideoMenu {
 	private LabelStyle labelMenusStyle;
 	private float WIDTH;
 	private float HEIGHT;
+	private SelectBox resolutionBox;
 	
 	public VideoMenu(ButtonStyle button, LabelStyle label, SelectBoxStyle selectBox,LabelStyle statusLabel){
 		labelStatusStyle = statusLabel;
@@ -40,9 +41,30 @@ public class VideoMenu {
 		HEIGHT = Gdx.graphics.getHeight();
 	}
 
+	
+	/*
+	 * set the info of the Video Options.
+	 */
+	private void setInfo(MenuController menuController){
+		
+		String resolutions[] = new String[4];
+		resolutions[0] = " 1280*720";
+		resolutions[1] = " 1366*768";
+		resolutions[2] = " 1600*900";
+		resolutions[3] = " 1920*1080";
+		
+		resolutionBox = new SelectBox(resolutions,boxStyle);
+		resolutionBox.setSelection(menuController.getVideoSettings()); 
+		
+	}
+	/*
+	 * Method that create the window
+	 */
+	
 	public Group create(final MenuController menuController, final boolean onMenu){
-		Group p = new Group();
-		p.addListener(new InputListener() {
+		setInfo(menuController);
+		Group stage = new Group();
+		stage.addListener(new InputListener() {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
 				if(keycode == Keys.ESCAPE){
@@ -60,17 +82,17 @@ public class VideoMenu {
 		background.setBounds(0, 0, WIDTH, HEIGHT);
 		background.setColor(0.5f,0.5f, 0.5f, 0.8f);
 		
-		p.addActor(background);		
+		stage.addActor(background);		
 		
 		Label title = new Label("VIDEO CONFIGURATION",labelStatusStyle);
 		title.setBounds(WIDTH * 0.38f, HEIGHT * 0.65f, WIDTH * 0.25f,HEIGHT * 0.1f);
 		
-		p.addActor(title);
+		stage.addActor(title);
 		
 		Label resolution = new Label("RESOLUTION",labelMenusStyle);
 		resolution.setBounds(WIDTH * 0.38f, HEIGHT * 0.55f, WIDTH * 0.25f,HEIGHT * 0.1f);
 		
-		p.addActor(resolution);
+		stage.addActor(resolution);
 		
 //		DisplayMode displays[] = Gdx.graphics.getDisplayModes();
 //		int numberOfDisplays = displays.length;
@@ -84,24 +106,15 @@ public class VideoMenu {
 //			i++;
 //		}
 //		
-		String resolutions[] = new String[5];
-		resolutions[0] = " 1024*768";
-		resolutions[1] = " 1280*720";
-		resolutions[2] = " 1366*768";
-		resolutions[3] = " 1600*900";
-		resolutions[4] = " 1920*1080";
-		
-		final SelectBox resolutionBox = new SelectBox(resolutions,boxStyle);
 		
 		resolutionBox.setBounds(WIDTH * 0.55f, HEIGHT * 0.575f, WIDTH * 0.13f, HEIGHT * 0.05f);
-		resolutionBox.setSelection(2);
-		p.addActor(resolutionBox);
+		stage.addActor(resolutionBox);
 		
 		
-		Button save = new Button(new Label("APPLY",labelMenusStyle),buttonStandard);
+		Button saveButton = new Button(new Label("APPLY",labelMenusStyle),buttonStandard);
 		
-		save.setBounds(WIDTH * 0.40f, HEIGHT * 0.45f, WIDTH * 0.1f, HEIGHT * 0.05f);
-		save.addListener(new ChangeListener() {
+		saveButton.setBounds(WIDTH * 0.40f, HEIGHT * 0.45f, WIDTH * 0.1f, HEIGHT * 0.05f);
+		saveButton.addListener(new ChangeListener() {
 			
 			@Override
 			public void changed(ChangeEvent event,Actor actor) {
@@ -113,12 +126,12 @@ public class VideoMenu {
 				menuController.setVideoSettings(resolutionBox.getSelectionIndex());
 			}
 		});
-		p.addActor(save);
+		stage.addActor(saveButton);
 		
-		Button back = new Button(new Label("BACK",labelMenusStyle),buttonStandard);
+		Button backButton = new Button(new Label("BACK",labelMenusStyle),buttonStandard);
 		
-		back.setBounds(WIDTH * 0.55f, HEIGHT * 0.45f, WIDTH * 0.1f, HEIGHT * 0.05f);
-		back.addListener(new ChangeListener() {
+		backButton.setBounds(WIDTH * 0.55f, HEIGHT * 0.45f, WIDTH * 0.1f, HEIGHT * 0.05f);
+		backButton.addListener(new ChangeListener() {
 			
 			@Override
 			public void changed(ChangeEvent event,Actor actor) {
@@ -131,9 +144,9 @@ public class VideoMenu {
 			}
 		});
 		
-		p.addActor(back);
+		stage.addActor(backButton);
 	
-		return p;
+		return stage;
 	}
 
 	public void setResolution(float width, float height) {

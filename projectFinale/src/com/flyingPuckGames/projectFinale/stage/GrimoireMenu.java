@@ -58,6 +58,10 @@ public class GrimoireMenu{
 		init();
 	}
 	
+	
+	/*
+	 * This method initialize all the labels with the info of the first enemy
+	 */
 	private void init(){
 		monsterName = new Label("",labelMenusStyle);
 		monsterLevel = new Label("",labelMenusStyle);
