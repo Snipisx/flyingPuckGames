@@ -176,4 +176,8 @@ public class EquipMenu {
 	public void setDescription(String description) {
 		this.description.setText(description);
 	}
+	
+	public Table getInventoryTab(){
+		return inventoryTab;
+	}
 }

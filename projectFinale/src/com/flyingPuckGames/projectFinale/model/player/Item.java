@@ -25,7 +25,14 @@ public class Item {
 	}
 	
 	
-
+	public ItemWidget getItemWidget(){
+		return itemWidget;
+	}
+	
+	public void setITemWidget(ItemWidget itemWidget){
+		this.itemWidget = itemWidget;
+	}
+	
 	public String getName() {
 		return name;
 	}

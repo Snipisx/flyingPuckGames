@@ -25,7 +25,7 @@ public class ItemWidget extends Group {
 	}
 
 	public void init(){
-		nameLabel = new Label("???????",inventoryController.getSelectedLabelStyle());
+		nameLabel = new Label("???????",inventoryController.getNormalLabelStyle());
 		quantityLabel = new Label("",inventoryController.getNormalLabelStyle());
 		addActor(nameLabel);
 		addActor(quantityLabel);
@@ -62,16 +62,16 @@ public class ItemWidget extends Group {
 		return nameLabel;
 	}
 
-	public void setNameLabel(Label nameLabel) {
-		this.nameLabel = nameLabel;
+	public void setNameLabel(String label) {
+		nameLabel.setText(label);
 	}
 
 	public Label getQuantityLabel() {
 		return quantityLabel;
 	}
 
-	public void setQuantityLabel(Label quantityLabel) {
-		this.quantityLabel = quantityLabel;
+	public void setQuantityLabel(String quantity) {
+		this.quantityLabel.setText(quantity);
 	}
 
 	public Item getItem() {
@@ -80,6 +80,10 @@ public class ItemWidget extends Group {
 
 	public void setItem(Item item) {
 		this.item = item;
+	}
+	
+	public void setNameLabelStyle(LabelStyle style){
+		nameLabel.setStyle(style);
 	}
 
 }

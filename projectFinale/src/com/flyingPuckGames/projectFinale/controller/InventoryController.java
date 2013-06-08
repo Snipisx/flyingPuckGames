@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.flyingPuckGames.projectFinale.MegaGame;
 import com.flyingPuckGames.projectFinale.model.player.Inventory;
 import com.flyingPuckGames.projectFinale.model.player.Item;
+import com.flyingPuckGames.projectFinale.model.player.ItemWidget;
 import com.flyingPuckGames.projectFinale.model.player.PlayerStatus;
 import com.flyingPuckGames.projectFinale.stage.EquipMenu;
 import com.flyingPuckGames.projectFinale.utils.JSONParser;
@@ -19,11 +20,11 @@ public class InventoryController {
 	private MegaGame megaGame;
 	private EquipMenu equipMenu;
 	private Integer selectedItem;
+	private Integer changeItem;
 	private LabelStyle normalLabelStyle = new LabelStyle();
 	private LabelStyle selectedLabelStyle = new LabelStyle();
 	private LabelStyle changeLabelStyle = new LabelStyle();
 	private boolean itemsBloqued;
-	private JSONParser parser;
 	private Item itemSelected;
 	private Item itemToChange;
 	private PlayerStatus playerStatus;
@@ -32,6 +33,7 @@ public class InventoryController {
 	public InventoryController(BitmapFont font,EquipMenu equipMenu){
 		this.equipMenu = equipMenu;
 		setStyles(font);
+		itemsBloqued = true;
 		
 	}
 	
@@ -47,36 +49,54 @@ public class InventoryController {
 	
 
 	public void equipedItemSelected(Integer itemId){
-		
-		itemSelected = playerStatus.getItem(itemId);
-		setSelectedDescription(itemSelected);
-		showChangeEquiped();
+//		if(itemsBloqued){
+			selectedItem = itemId;
+			itemSelected = playerStatus.getItem(itemId);
+//			itemSelected.getItemWidget().setNameLabelStyle(selectedLabelStyle);
+			setSelectedDescription(itemSelected);
+//			showChangeEquiped();
+//		}
 	}
 	
 
 	public void noEquipedItemSelected(Integer itemId) {
-		if(itemsBloqued){
-			return;
-		}
-		itemSelected = playerStatus.getItem(itemId);
-		setSelectedDescription(itemSelected);
-		showEquipItem();
+//		if(!itemsBloqued){
+			
 		
+			itemSelected = playerStatus.getItem(itemId);
+			setSelectedDescription(itemSelected);
+//			showEquipItem();
+//		}
 		
 	}
 	
 	private void showEquipItem() {
-		
+		equipItem();
 	}
 
+	public void equipItem(){
+		itemsBloqued = true;
+		int adicional = selectedItem;
+		//itemSelected.getItemWidget().setNameLabel(itemToChange.getItemWidget().getItem().getName().toUpperCase());
+		//itemSelected.getItemWidget().setQuantityLabel(itemToChange.getItemWidget().getItem().getQuantity().toString());
+		//itemSelected.setITemWidget(itemToChange.getItemWidget());
+		playerStatus.setItem(selectedItem,playerStatus.getItem(changeItem));
+		
+		//itemToChange.getItemWidget().setNameLabel(adicional.getItemWidget().getItem().getName().toUpperCase());
+		//itemToChange.getItemWidget().setQuantityLabel(adicional.getItemWidget().getItem().getQuantity().toString());
+		//itemToChange.setITemWidget(adicional.getItemWidget());
+	}
 
 	private void showChangeEquiped() {
+		changeEquiped();
+		
 		
 	}
 
 
 	public void changeEquiped(){
 		itemToChange = itemSelected;
+		changeItem = selectedItem;
 		itemsBloqued = false;
 	}
 	

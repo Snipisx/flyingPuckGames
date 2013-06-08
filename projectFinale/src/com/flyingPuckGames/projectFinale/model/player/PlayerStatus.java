@@ -173,4 +173,9 @@ public class PlayerStatus {
 	public Item getItem(int itemId){
 		return inventory.get(itemId);
 	}
+
+	public void setItem(Integer selectedItem, Item item) {
+		// TODO Auto-generated method stub
+		
+	}
 }
