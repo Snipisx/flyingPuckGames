@@ -2,14 +2,23 @@ package com.flyingPuckGames.projectFinale;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.flyingPuckGames.projectFinale.controller.MenuController;
 import com.flyingPuckGames.projectFinale.controller.MusicController;
 import com.flyingPuckGames.projectFinale.controller.MusicController.Tracks;
+import com.flyingPuckGames.projectFinale.controller.PlayerController;
+import com.flyingPuckGames.projectFinale.model.Level;
 import com.flyingPuckGames.projectFinale.model.Options;
+import com.flyingPuckGames.projectFinale.model.player.Player;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.screens.MenuScreen;
+import com.flyingPuckGames.projectFinale.utils.Constants;
 import com.flyingPuckGames.projectFinale.utils.JSONParser;
 import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
+import com.flyingPuckGames.projectFinale.view.MenuRenderer;
+import com.flyingPuckGames.projectFinale.view.PlayerRenderer;
+import com.flyingPuckGames.projectFinale.view.WorldRenderer;
 
 
 
@@ -23,6 +32,12 @@ public class MegaGame extends Game {
 	public static final String LOG = "projectFinale - ";
 	public float SCREENW;
 	public float SCREENH;
+
+	private PlayerRenderer playerRenderer;
+	private Player player;
+	private Level level;
+	private PlayerController playerController;
+	private WorldRenderer worldRenderer;
 	private MenuBuilder menuBuilder;
 	private Options options;
 	private MenuController menuController;
@@ -53,8 +68,16 @@ public class MegaGame extends Game {
 		soundFXController.setEnabled(true);
 		soundFXController.setVolume(1);
 	
-		
+		loadAll();
 		setScreen(new MenuScreen(this));
+	}
+
+	private void loadAll() {
+		level = new Level(new TmxMapLoader().load(Constants.TEST_TILEMAP_PATH));
+		player = new Player(Constants.PLAYER_STARTING_POSITION);
+		worldRenderer = new WorldRenderer(level);
+		playerRenderer = new PlayerRenderer(player);
+		playerController = new PlayerController(player, (TiledMapTileLayer) level.getTiledMap().getLayers().get(0), this);		
 	}
 
 	public MenuBuilder getMenuBuilder(){
@@ -119,5 +142,45 @@ public class MegaGame extends Game {
 	public void setSoundFXController(MusicController soundFXController) {
 		this.soundFXController = soundFXController;
 	}
+	public PlayerRenderer getPlayerRenderer() {
+		return playerRenderer;
+	}
+
+	public void setPlayerRenderer(PlayerRenderer playerRenderer) {
+		this.playerRenderer = playerRenderer;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public Level getLevel() {
+		return level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+
+	public PlayerController getPlayerController() {
+		return playerController;
+	}
+
+	public void setPlayerController(PlayerController playerController) {
+		this.playerController = playerController;
+	}
+
+	public WorldRenderer getWorldRenderer() {
+		return worldRenderer;
+	}
+
+	public void setWorldRenderer(WorldRenderer worldRenderer) {
+		this.worldRenderer = worldRenderer;
+	}
+
 	
 }
