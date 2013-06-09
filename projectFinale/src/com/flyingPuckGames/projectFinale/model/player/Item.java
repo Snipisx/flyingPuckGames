@@ -9,7 +9,6 @@ public class Item {
 	private Integer quantity;
 	private String description = "??????";
 	private boolean equiped;
-	private ItemWidget itemWidget;
 	private String type = "object";
 
 	private boolean acquired;
@@ -17,21 +16,7 @@ public class Item {
 	
 	public Item(){
 		
-	}
-
-	public ItemWidget createItemWidger(InventoryController inventoryController){
-		itemWidget = new ItemWidget(inventoryController,this);
-		return itemWidget;
-	}
-	
-	
-	public ItemWidget getItemWidget(){
-		return itemWidget;
-	}
-	
-	public void setITemWidget(ItemWidget itemWidget){
-		this.itemWidget = itemWidget;
-	}
+	}	
 	
 	public String getName() {
 		return name;

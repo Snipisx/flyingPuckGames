@@ -1,14 +1,15 @@
 {
-  "height": 0.96,
-  "width": 1.92,
+  "width": 0.96,
+  "height": 1.92,
   "bounds": {
-    "x": 16.919367,
+    "x": 18.61086,
     "y": 22.0,
     "width": 0.95,
     "height": 1.91
   },
   "state": "IDLE",
-  "facesRight": false,
+  "previousState": "IDLE",
+  "facesRight": true,
   "grounded": true,
   "longJump": false,
   "status": {
@@ -27,16 +28,17 @@
     "con": 1,
     "lck": 1,
     "dmg": 2,
-    "def": 2
+    "def": 2,
+    "inventory": []
   },
   "entityType": "PlayerEntity",
   "position": {
-    "x": 16.919367,
+    "x": 18.61086,
     "y": 22.0
   },
   "velocity": {
     "x": 0.0,
     "y": 0.0
   },
-  "stateTime": 41.08192
+  "stateTime": 27.665333
 }

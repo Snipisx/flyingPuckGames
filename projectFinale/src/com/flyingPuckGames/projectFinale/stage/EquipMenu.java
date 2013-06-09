@@ -73,7 +73,7 @@ public class EquipMenu {
 				inventoryTab.row();
 				cols = 0;
 			}
-			itemWidget = parser.getItem(i).createItemWidger(inventoryController);
+			itemWidget = new ItemWidget(inventoryController,parser.getItem(i));
 			itemWidget.init();
 			itemList.add(itemWidget.getItem());
 			if(itemWidget.getItem().isEquiped()){

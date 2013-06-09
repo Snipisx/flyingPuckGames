@@ -25,8 +25,8 @@ public class InventoryController {
 	private LabelStyle selectedLabelStyle = new LabelStyle();
 	private LabelStyle changeLabelStyle = new LabelStyle();
 	private boolean itemsBloqued;
-	private Item itemSelected;
-	private Item itemToChange;
+	private ItemWidget itemSelected;
+	private ItemWidget itemToChange;
 	private PlayerStatus playerStatus;
 	
 	
@@ -48,25 +48,22 @@ public class InventoryController {
 	}
 	
 
-	public void equipedItemSelected(Integer itemId){
-//		if(itemsBloqued){
-			selectedItem = itemId;
-			itemSelected = playerStatus.getItem(itemId);
-//			itemSelected.getItemWidget().setNameLabelStyle(selectedLabelStyle);
-			setSelectedDescription(itemSelected);
-//			showChangeEquiped();
-//		}
+	public void equipedItemSelected(ItemWidget selected){
+		if(itemsBloqued){
+			itemSelected = selected;
+			setSelectedDescription(itemSelected.getItem());
+			showChangeEquiped();
+		}
 	}
 	
 
-	public void noEquipedItemSelected(Integer itemId) {
-//		if(!itemsBloqued){
+	public void noEquipedItemSelected(ItemWidget widget) {
+		if(!itemsBloqued){
 			
-		
-			itemSelected = playerStatus.getItem(itemId);
-			setSelectedDescription(itemSelected);
-//			showEquipItem();
-//		}
+			itemSelected = widget;
+			setSelectedDescription(itemSelected.getItem());
+			showEquipItem();
+		}
 		
 	}
 	
@@ -76,15 +73,12 @@ public class InventoryController {
 
 	public void equipItem(){
 		itemsBloqued = true;
-		int adicional = selectedItem;
-		//itemSelected.getItemWidget().setNameLabel(itemToChange.getItemWidget().getItem().getName().toUpperCase());
-		//itemSelected.getItemWidget().setQuantityLabel(itemToChange.getItemWidget().getItem().getQuantity().toString());
-		//itemSelected.setITemWidget(itemToChange.getItemWidget());
-		playerStatus.setItem(selectedItem,playerStatus.getItem(changeItem));
+		Item adicional = itemSelected.getItem();
 		
-		//itemToChange.getItemWidget().setNameLabel(adicional.getItemWidget().getItem().getName().toUpperCase());
-		//itemToChange.getItemWidget().setQuantityLabel(adicional.getItemWidget().getItem().getQuantity().toString());
-		//itemToChange.setITemWidget(adicional.getItemWidget());
+		itemSelected.setItem(itemToChange.getItem());
+		
+		itemToChange.setItem(adicional);
+		
 	}
 
 	private void showChangeEquiped() {

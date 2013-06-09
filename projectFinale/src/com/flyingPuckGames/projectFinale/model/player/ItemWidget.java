@@ -14,13 +14,14 @@ public class ItemWidget extends Group {
 	private Label nameLabel;
 	private Label quantityLabel;
 	private Item item;
-	
+	private ItemWidget widget;
 	
 	public ItemWidget(InventoryController inventoryController,Item item){
 		this.item = item;
 		this.inventoryController = inventoryController;
 		this.setWidth(Gdx.graphics.getWidth() * 0.33f);
 		this.setHeight(Gdx.graphics.getHeight() * 0.1f);
+		widget = this;
 		
 	}
 
@@ -40,12 +41,13 @@ public class ItemWidget extends Group {
 	
 	public void setListeners(){
 		nameLabel.addListener(new InputListener() {
+			
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 				if(item.isEquiped()){
 					System.out.println(item.getIdItem());
-					inventoryController.equipedItemSelected(item.getIdItem());
+					inventoryController.equipedItemSelected(widget);
 				}else{
-					inventoryController.noEquipedItemSelected(item.getIdItem());
+					inventoryController.noEquipedItemSelected(widget);
 				}
 	        	return false;
 	        }	        
@@ -80,6 +82,13 @@ public class ItemWidget extends Group {
 
 	public void setItem(Item item) {
 		this.item = item;
+		setNameLabel(item.getName().toUpperCase());
+		setQuantityLabel(item.getQuantity().toString());
+		if(item.isEquiped()){
+			item.setEquiped(false);
+		}else{
+			item.setEquiped(true);
+		}
 	}
 	
 	public void setNameLabelStyle(LabelStyle style){
