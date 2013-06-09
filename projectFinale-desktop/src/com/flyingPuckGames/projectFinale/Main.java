@@ -8,9 +8,9 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "projectFinale - " + MegaGame.VERSION ;
 		cfg.useGL20 = true;
-		cfg.width = 1100;
-		cfg.height = 600;
-		
+		cfg.resizable = false;
+		cfg.width = 1280;
+		cfg.height = 720;
 		new LwjglApplication(new MegaGame(), cfg);
 	}
 }

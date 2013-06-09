@@ -1,0 +1,42 @@
+{
+  "height": 0.96,
+  "width": 1.92,
+  "bounds": {
+    "x": 16.919367,
+    "y": 22.0,
+    "width": 0.95,
+    "height": 1.91
+  },
+  "state": "IDLE",
+  "facesRight": false,
+  "grounded": true,
+  "longJump": false,
+  "status": {
+    "HP": 5,
+    "maxHp": 10,
+    "MP": 5,
+    "maxMp": 10,
+    "expActual": 10.0,
+    "expNextLvl": 10.0,
+    "level": 1,
+    "status": "NORMAL",
+    "coins": 999.0,
+    "time": 200.0,
+    "str": 1,
+    "inte": 1,
+    "con": 1,
+    "lck": 1,
+    "dmg": 2,
+    "def": 2
+  },
+  "entityType": "PlayerEntity",
+  "position": {
+    "x": 16.919367,
+    "y": 22.0
+  },
+  "velocity": {
+    "x": 0.0,
+    "y": 0.0
+  },
+  "stateTime": 41.08192
+}
