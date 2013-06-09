@@ -41,6 +41,10 @@ public class MenuBuilder {
 	private SoundMenu soundMenu;
 	private GrimoireMenu grimoireMenu;
 	
+	/**
+	 * Method that set all the styles to create all the menus.
+	 * @param resize
+	 */
 	private void setStyles(boolean resize){
 		//labels
 		if(!resize)
@@ -81,6 +85,12 @@ public class MenuBuilder {
 		setResolutions(width,height);
 	}
 	
+	
+	/**
+	 * Method that set all the resolutions for all the menus when a resize is called
+	 * @param width
+	 * @param height
+	 */
 	public void setResolutions(float width,float height){
 		mainMenu.setResolution(width,height);
 		optionMenu.setResolution(width,height);
@@ -100,6 +110,9 @@ public class MenuBuilder {
 		setStyles(true);
 	}
 	
+	/**
+	 * Method that initialize all the menus.
+	 */
 	public void init(){
 		setStyles(false);
 		mainMenu = new MainMenu(buttonStandard,labelMenusStyle);
@@ -131,16 +144,12 @@ public class MenuBuilder {
 		return equip;
 	}
 	
-	/*
-	 * Create the menu of Video Options 
-	 */
+
 	public Group videoOptions(final MenuController menuController, boolean onMenu){
 		Group video = videoMenu.create(menuController,onMenu);
 		return video;
 	}
-	/*
-	 * Create the menu of Audio options 
-	 */
+
 
 	public Group SoundOptions(final MenuController menuController, boolean onMenu){
 		Group sound = soundMenu.create(menuController,onMenu);

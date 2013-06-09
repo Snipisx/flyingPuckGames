@@ -19,7 +19,7 @@ public class Constants {
 	public static final float PLAYER_HEIGHT_IN_UNITS 		= PLAYER_WIDTH_IN_UNITS * 2;
 	
 	//Resources paths
-	public static final String TEST_TILEMAP_PATH 			= "maps/plahTilemap.tmx";
+	public static final String TEST_TILEMAP_PATH 			= "maps/plahTilemap2.tmx";
 	public static final String TEST_BACKGROUND_PATH 		= "maps/background.png";
 	public static final String TEST_PLAYER_TEXTURE_PATH 	= "player/plahCharacter.png";
 	public static final String ASSET_FORMAT					= ".png";

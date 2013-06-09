@@ -242,6 +242,12 @@ public class JSONParser {
 		}
 	}
 	
+	/**
+	 * 
+	 * Method that return  a item from items.json using his id
+	 * @param id
+	 * @return Item
+	 */
 	public Item getItem(Integer id){
 		JsonReader reader;
 		String name;	

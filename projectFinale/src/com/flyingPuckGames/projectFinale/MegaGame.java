@@ -65,7 +65,7 @@ public class MegaGame extends Game {
 		soundFXController = new MusicController(this);
 		soundFXController.setEnabled(true);
 		soundFXController.setVolume(1);
-	
+		
 		loadAll();
 		setScreen(new MenuScreen(this));
 	}

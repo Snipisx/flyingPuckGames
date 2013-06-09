@@ -1,6 +1,5 @@
 package com.flyingPuckGames.projectFinale.model.player;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -26,18 +25,26 @@ public class ItemWidget extends Group {
 	public ItemWidget(InventoryController inventoryController,Item item){
 		this.item = item;
 		this.inventoryController = inventoryController;
-		this.setWidth(Gdx.graphics.getWidth() * 0.33f);
-		this.setHeight(Gdx.graphics.getHeight() * 0.1f);
+		
+		
 		widget = this;
 		
 	}
-
+	
+	
+	
+	public void setSize(float width, float height){
+		System.out.println("item");
+		this.setWidth(width * 0.33f);
+		this.setHeight(height * 0.1f);
+	}
+	
 	/**
 	 * Method that initialize all the labels on the widget
 	 */
 	public void init(){
 		nameLabel = new Label("???????",inventoryController.getNormalLabelStyle());
-		nameLabel.setWidth(this.getWidth() * 0.75f);
+		nameLabel.setWidth(this.getWidth() * 0.6f);
 		quantityLabel = new Label("",inventoryController.getNormalLabelStyle());
 		addActor(nameLabel);
 		addActor(quantityLabel);
@@ -51,7 +58,7 @@ public class ItemWidget extends Group {
 	}
 	
 	/**
-	 * 
+	 * Method that set the listeners to the labels of the widget
 	 */
 	public void setListeners(){
 		nameLabel.addListener(new InputListener() {
@@ -94,6 +101,10 @@ public class ItemWidget extends Group {
 		return item;
 	}
 
+	/**
+	 * Method that set the item to the widget, set the labels and set if is equipped or not.
+	 * @param item
+	 */
 	public void setItem(Item item) {
 		this.item = item;
 		setNameLabel(item.getName().toUpperCase());

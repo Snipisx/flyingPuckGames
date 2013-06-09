@@ -20,16 +20,20 @@ public class InventoryController {
 	private MegaGame megaGame;
 	private EquipMenu equipMenu;
 	private Integer selectedItem;
-	private Integer changeItem;
 	private LabelStyle normalLabelStyle = new LabelStyle();
 	private LabelStyle selectedLabelStyle = new LabelStyle();
 	private LabelStyle changeLabelStyle = new LabelStyle();
 	private boolean itemsBloqued;
 	private ItemWidget itemSelected;
 	private ItemWidget itemToChange;
-	private PlayerStatus playerStatus;
 	
 	
+	
+	/**
+	 * Create new InvetoryController and initialize the styles.
+	 * @param font
+	 * @param equipMenu
+	 */
 	public InventoryController(BitmapFont font,EquipMenu equipMenu){
 		this.equipMenu = equipMenu;
 		setStyles(font);
@@ -84,14 +88,11 @@ public class InventoryController {
 
 	private void showChangeEquiped() {
 		changeEquiped();
-		
-		
 	}
 
 
 	public void changeEquiped(){
 		itemToChange = itemSelected;
-		changeItem = selectedItem;
 		itemsBloqued = false;
 	}
 	
@@ -131,11 +132,4 @@ public class InventoryController {
 		this.changeLabelStyle = changeLabelStyle;
 	}
 
-	public void setPlayer(PlayerStatus playerStatus) {
-		this.playerStatus = playerStatus;
-	}
-
-
-	
-	
 }

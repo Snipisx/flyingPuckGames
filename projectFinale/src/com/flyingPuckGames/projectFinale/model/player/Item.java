@@ -1,6 +1,5 @@
 package com.flyingPuckGames.projectFinale.model.player;
 
-import com.flyingPuckGames.projectFinale.controller.InventoryController;
 
 public class Item {
 

@@ -57,7 +57,7 @@ public class EquipMenu {
 		int cols = 0;
 		description = new Label("-------------",lStyle);
 		inventoryTab = new Table();
-		inventoryTab.defaults().width(WIDTH * 0.36f);
+		inventoryTab.defaults().width(WIDTH * 0.34f);
 		inventoryTab.defaults().height(HEIGHT * 0.1f);
 		ItemWidget itemWidget;
 		
@@ -74,7 +74,9 @@ public class EquipMenu {
 				cols = 0;
 			}
 			itemWidget = new ItemWidget(inventoryController,parser.getItem(i));
+			itemWidget.setSize(WIDTH, HEIGHT);
 			itemWidget.init();
+			
 			itemList.add(itemWidget.getItem());
 			if(itemWidget.getItem().isEquiped()){
 				Item itemEquiped = itemWidget.getItem();
@@ -106,7 +108,6 @@ public class EquipMenu {
 		setTables();
 		Group p = new Group();
 		menuController.getPlayerStatus().setItems(itemList);
-		inventoryController.setPlayer(menuController.getPlayerStatus());
 		p.addListener(new InputListener() {
 			@Override
 			public boolean keyDown(InputEvent event, int keycode) {
@@ -147,14 +148,6 @@ public class EquipMenu {
 		});
 		
 		p.addActor(back);
-		
-		
-		
-		
-		
-//		Label item1 = new Label("Espada de la ostia",lStyle);
-//		inventoryTab.add(item1);
-		
 		
 		ScrollPane inventory = new ScrollPane(inventoryTab);
 		inventory.setBounds(WIDTH * 0.02f, HEIGHT * 0.25f, WIDTH*1.1f, HEIGHT*0.22f);
