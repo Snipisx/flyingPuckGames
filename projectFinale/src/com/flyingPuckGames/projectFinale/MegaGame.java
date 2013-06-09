@@ -56,8 +56,6 @@ public class MegaGame extends Game {
 		options = new Options(this);
 		options.loadOptions();
 		
-		new JSONParser().saveItems();
-
 		menuController = new MenuController(this);
 		musicController = new MusicController(this);
 		musicController.setEnabled(true);

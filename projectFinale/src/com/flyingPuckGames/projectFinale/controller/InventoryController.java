@@ -42,7 +42,7 @@ public class InventoryController {
 		normalLabelStyle.font = font;
 		selectedLabelStyle.font = font;
 		changeLabelStyle.font = font;
-		selectedLabelStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selected2.png"))));
+		selectedLabelStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/hover3.png"))));
 		changeLabelStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/selectBox1.png"))));
 		
 	}
@@ -52,6 +52,7 @@ public class InventoryController {
 		if(itemsBloqued){
 			itemSelected = selected;
 			setSelectedDescription(itemSelected.getItem());
+			itemSelected.setNameLabelStyle(selectedLabelStyle);
 			showChangeEquiped();
 		}
 	}
@@ -74,7 +75,7 @@ public class InventoryController {
 	public void equipItem(){
 		itemsBloqued = true;
 		Item adicional = itemSelected.getItem();
-		
+		itemToChange.setNameLabelStyle(normalLabelStyle);
 		itemSelected.setItem(itemToChange.getItem());
 		
 		itemToChange.setItem(adicional);

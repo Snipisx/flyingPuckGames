@@ -16,6 +16,13 @@ public class ItemWidget extends Group {
 	private Item item;
 	private ItemWidget widget;
 	
+	
+	
+	/**
+	 * Create new ItemWidget, setting to that the inventoryController, and the item.
+	 * @param inventoryController
+	 * @param item
+	 */
 	public ItemWidget(InventoryController inventoryController,Item item){
 		this.item = item;
 		this.inventoryController = inventoryController;
@@ -25,8 +32,12 @@ public class ItemWidget extends Group {
 		
 	}
 
+	/**
+	 * Method that initialize all the labels on the widget
+	 */
 	public void init(){
 		nameLabel = new Label("???????",inventoryController.getNormalLabelStyle());
+		nameLabel.setWidth(this.getWidth() * 0.75f);
 		quantityLabel = new Label("",inventoryController.getNormalLabelStyle());
 		addActor(nameLabel);
 		addActor(quantityLabel);
@@ -39,6 +50,9 @@ public class ItemWidget extends Group {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void setListeners(){
 		nameLabel.addListener(new InputListener() {
 			
