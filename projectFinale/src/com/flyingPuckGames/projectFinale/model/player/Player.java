@@ -1,7 +1,5 @@
 package com.flyingPuckGames.projectFinale.model.player;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
@@ -15,11 +13,12 @@ public class Player extends Entity {
 		IDLE, WALKING, JUMPING
 	}
 	
-	private float height;
 	private float width;
+	private float height;
 	
 	private Rectangle bounds 		= new Rectangle();
 	private State	state 			= State.IDLE;
+	private State 	previousState 	= State.IDLE;
 	private boolean	facesRight 		= true;
 	private boolean grounded		= false;
 	private boolean	longJump 		= false;
@@ -28,20 +27,15 @@ public class Player extends Entity {
 	private PlayerStatus status;
 
 	
-	
-	
-
-	
-	
 	public Player(Vector2 position){
 		texture = new Texture(Gdx.files.internal(Constants.TEST_PLAYER_TEXTURE_PATH));
 		this.position = position;
 		this.bounds.x = position.x;
 		this.bounds.y = position.y;
-		height = Constants.PLAYER_WIDTH_IN_UNITS * texture.getWidth();
-		width = Constants.PLAYER_HEIGHT_IN_UNITS * texture.getHeight();
-		this.bounds.width = height;
-		this.bounds.height = width;
+		width = Constants.PLAYER_WIDTH_IN_UNITS * texture.getWidth();
+		height = Constants.PLAYER_HEIGHT_IN_UNITS * texture.getHeight();
+		this.bounds.width = width;
+		this.bounds.height = height ;
 		this.entityType = EntityType.PlayerEntity;
 		texture = new Texture(Gdx.files.internal(Constants.TEST_PLAYER_TEXTURE_PATH));
 		this.status = new PlayerStatus();
@@ -162,6 +156,7 @@ public class Player extends Entity {
 		return state;
 	}
 	public void setState(State newState) {
+		setPreviousState(state);
 		this.state = newState;
 	}
 	public boolean isFacesRight() {
@@ -176,11 +171,11 @@ public class Player extends Entity {
 	public void setLongJump(boolean longJump) {
 		this.longJump = longJump;
 	}
-	public float getHsize() {
-		return width;
-	}
-	public float getWsize() {
+	public float getHeight() {
 		return height;
+	}
+	public float getWidth() {
+		return width;
 	}
 	public boolean isGrounded() {
 		return grounded;
@@ -197,10 +192,17 @@ public class Player extends Entity {
 		this.status = status;
 	}
 	
-	
+	public State getPreviousState() {
+		return previousState;
+	}
+
+	public void setPreviousState(State previousState) {
+		this.previousState = previousState;
+	}
+
 	@Override
 	public String toString() {
-		return "Player [WSIZE=" + height + ", HSIZE=" + width + ", bounds="
+		return "Player [WSIZE=" + width + ", HSIZE=" + height + ", bounds="
 				+ bounds + ", state=" + state + ", facesRight=" + facesRight
 				+ ", grounded=" + grounded + ", longJump=" + longJump
 				+ ", position=" + position + ", velocity=" + velocity

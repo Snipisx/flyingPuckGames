@@ -70,9 +70,6 @@ public class GameScreen implements Screen, InputProcessor{
 		playerRenderer = new PlayerRenderer(player);
 		menuRenderer = new MenuRenderer(megaGame);
 		
-		worldRenderer = new WorldRenderer(level);
-		playerRenderer = new PlayerRenderer(player);
-		menuRenderer = new MenuRenderer(megaGame);
 		menuController = megaGame.getMenuController();
 		menuController.setGame(this);
 		contEsc = 0;
@@ -139,8 +136,7 @@ public class GameScreen implements Screen, InputProcessor{
 	}
 	
 	public void setMenu(Stage stage){
-//		playerController.rightReleased();
-//		playerController.leftReleased();
+		
 		menuRenderer.setStage(stage);
 	}
 	
@@ -225,12 +221,18 @@ public class GameScreen implements Screen, InputProcessor{
 	
 	@Override
 	public boolean keyDown(int keycode) {
-		if (keycode == Keys.LEFT || keycode == Keys.A)
+		if (keycode == Keys.LEFT || keycode == Keys.A) {
 			playerController.leftPressed();
-		if (keycode == Keys.RIGHT || keycode == Keys.D)
+		}
+		if (keycode == Keys.RIGHT || keycode == Keys.D) {
 			playerController.rightPressed();
-		if (keycode == Keys.Z || keycode == Keys.SPACE ||  keycode == Keys.UP)
+		}
+		if (keycode == Keys.Z || keycode == Keys.SPACE ||  keycode == Keys.UP || keycode == Keys.W) {
 			playerController.jumpPressed();
+		}
+		if (keycode == Keys.F10) {
+			playerController.debugPressed();
+		}
 		if (keycode == Keys.X){
 			JSONParser parser1 = new JSONParser();
 			parser1.savePlayer(player);
@@ -241,14 +243,17 @@ public class GameScreen implements Screen, InputProcessor{
 
 	@Override
 	public boolean keyUp(int keycode) {
-		if (keycode == Keys.LEFT){
+		if (keycode == Keys.LEFT || keycode == Keys.A){
 			playerController.leftReleased();
 		}
-		if (keycode == Keys.RIGHT){
+		if (keycode == Keys.RIGHT || keycode == Keys.D){
 			playerController.rightReleased();
 		}
-		if (keycode == Keys.SPACE){
+		if (keycode == Keys.Z || keycode == Keys.SPACE ||  keycode == Keys.UP || keycode == Keys.W){
 			playerController.jumpReleased();
+		}
+		if (keycode == Keys.F10) {
+			playerController.debugReleased();
 		}
 		if (keycode == Keys.ESCAPE){
 			if(contEsc == 1){

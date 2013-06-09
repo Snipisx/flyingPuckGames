@@ -7,14 +7,13 @@ import com.flyingPuckGames.projectFinale.controller.MusicController;
 import com.flyingPuckGames.projectFinale.controller.MusicController.Tracks;
 import com.flyingPuckGames.projectFinale.model.Options;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
-import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 import com.flyingPuckGames.projectFinale.utils.JSONParser;
 import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
 
 
 public class MegaGame extends Game {
 
-	public static final String VERSION = "0.0.7 Snipis revenge.";
+	public static final String VERSION = "0.1.1 Alpha Footage";
 	public static final String LOG = "projectFinale - ";
 	public float SCREENW;
 	public float SCREENH;
@@ -34,9 +33,6 @@ public class MegaGame extends Game {
 		setMenuController(new MenuController(this));
 		setScreen(new GameScreen(this));
 		musicController = new MusicController(this);
-//		musicController.setEnabled(true);
-//		musicController.setVolume(0.5f);
-//		musicController.play(Tracks.MENU);
 
 		new JSONParser().saveItems();
 		musicController.setEnabled(true);

@@ -24,7 +24,7 @@ public class PlayerController {
 
 	/** Keys allowed to be pressed */
 	enum Keys {
-		LEFT, RIGHT, JUMP
+		LEFT, RIGHT, JUMP, DEBUG
 	}
 	
 	public InputMultiplexer inputSystem;
@@ -44,6 +44,7 @@ public class PlayerController {
 		keys.put(Keys.LEFT, false);
 		keys.put(Keys.RIGHT, false);
 		keys.put(Keys.JUMP, false);
+		keys.put(Keys.DEBUG, false);
 	};
 	
 	/** Constructor */
@@ -113,7 +114,7 @@ public class PlayerController {
 	 */
 	private void readyBounds() {
 		player.setBounds(rectPool.obtain());
-		player.setBounds(player.getXPosition(), player.getYPosition(), player.getWsize()-.01f, player.getHsize()-.01f);
+		player.setBounds(player.getXPosition(), player.getYPosition(), player.getWidth()-.01f, player.getHeight()-.01f);
 	}
 
 	/**
@@ -298,7 +299,7 @@ public class PlayerController {
 			if (player.getBounds().overlaps(wallTile)) {
 				//Upward collisions
 				if (player.getYVelocity() > 0) {
-					player.setYPosition(wallTile.y - player.getHsize());
+					player.setYPosition(wallTile.y - player.getHeight());
 				} 
 				//Downward collision
 				else {
@@ -322,26 +323,27 @@ public class PlayerController {
 	public void leftPressed() {
 		keys.get(keys.put(Keys.LEFT, true));
 	}
-
-	public void rightPressed() {
-		keys.get(keys.put(Keys.RIGHT, true));
-	}
-
-	public void jumpPressed() {
-		keys.get(keys.put(Keys.JUMP, true));
-	}
-	
 	public void leftReleased() {
 		keys.get(keys.put(Keys.LEFT, false));
 	}
-
+	public void rightPressed() {
+		keys.get(keys.put(Keys.RIGHT, true));
+	}
 	public void rightReleased() {
 		keys.get(keys.put(Keys.RIGHT, false));
 	}
-
+	public void jumpPressed() {
+		keys.get(keys.put(Keys.JUMP, true));
+	}
 	public void jumpReleased() {
 		keys.get(keys.put(Keys.JUMP, false));
 		isJumpButtonPressed = false;
+	}
+	public void debugPressed() {
+		keys.get(keys.put(Keys.DEBUG, true));
+	}
+	public void debugReleased() {
+		keys.get(keys.put(Keys.DEBUG, false));
 	}
 	
 	/**
@@ -364,8 +366,9 @@ public class PlayerController {
 			player.setXVelocity(-Constants.MAX_VELOCITY);
 			if (player.isGrounded()) {
 				player.setState(State.WALKING);
-				player.setFacesRight(false);	
 			}
+			player.setFacesRight(false);	
+
 		} 
 		else if (keys.get(Keys.RIGHT)) {
 			player.setFacesRight(true);
@@ -375,6 +378,12 @@ public class PlayerController {
 			}
 			player.setFacesRight(true);	
 		} 
+		if (keys.get(Keys.DEBUG)){
+			player.setVelocity(new Vector2(0f,0f));
+			player.setBounds(Constants.PLAYER_STARTING_POSITION.x, Constants.PLAYER_STARTING_POSITION.x, player.getWidth()-.01f, player.getHeight()-.01f);
+			player.setPosition(Constants.PLAYER_STARTING_POSITION);
+			player.setBoundsPosition(Constants.PLAYER_STARTING_POSITION);
+		}
 		return false;
 	}
 	
