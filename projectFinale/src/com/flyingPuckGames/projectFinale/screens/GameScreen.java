@@ -63,9 +63,11 @@ public class GameScreen implements Screen, InputProcessor{
 		player = new Player(Constants.PLAYER_STARTING_POSITION);
 		JSONParser jsonParser = new JSONParser();
 		//player = a.loadPlayer();
-		playerController = new PlayerController(player, (TiledMapTileLayer) level.getTiledMap().getLayers().get(0));
+		playerController = new PlayerController(player, (TiledMapTileLayer) level.getTiledMap().getLayers().get(0), megaGame);
 		stage = new Stage();
-		initJoystick();
+		if(((Gdx.app.getType()) == ApplicationType.Android)){
+			initJoystick();	
+		}
 		worldRenderer = new WorldRenderer(level);
 		playerRenderer = new PlayerRenderer(player);
 		menuRenderer = new MenuRenderer(megaGame);

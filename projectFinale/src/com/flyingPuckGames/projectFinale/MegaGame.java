@@ -7,10 +7,16 @@ import com.flyingPuckGames.projectFinale.controller.MusicController;
 import com.flyingPuckGames.projectFinale.controller.MusicController.Tracks;
 import com.flyingPuckGames.projectFinale.model.Options;
 import com.flyingPuckGames.projectFinale.screens.GameScreen;
+import com.flyingPuckGames.projectFinale.screens.MenuScreen;
 import com.flyingPuckGames.projectFinale.utils.JSONParser;
 import com.flyingPuckGames.projectFinale.utils.MenuBuilder;
 
 
+
+/**
+ * This is the Game
+ * @author flyingPuck(games);
+ */
 public class MegaGame extends Game {
 
 	public static final String VERSION = "0.1.1 Alpha Footage";
@@ -21,23 +27,34 @@ public class MegaGame extends Game {
 	private Options options;
 	private MenuController menuController;
 	private MusicController musicController;
+	private MusicController soundFXController;
+
 	
 	@Override
 	public void create() {
 		SCREENW = Gdx.graphics.getWidth();
 		SCREENH = Gdx.graphics.getHeight();
+		
 		System.out.println(SCREENW);
 		System.out.println(SCREENH);
-		setOptions(new Options(this));
+		
+		options = new Options(this);
 		options.loadOptions();
-		setMenuController(new MenuController(this));
-		setScreen(new GameScreen(this));
-		musicController = new MusicController(this);
-
+		
 		new JSONParser().saveItems();
+
+		menuController = new MenuController(this);
+		musicController = new MusicController(this);
 		musicController.setEnabled(true);
-		musicController.setVolume(0.5f);
-		musicController.play(Tracks.MENU);
+		musicController.setVolume(0.2f);
+		musicController.play(Tracks.MENU, true);
+		
+		soundFXController = new MusicController(this);
+		soundFXController.setEnabled(true);
+		soundFXController.setVolume(1);
+	
+		
+		setScreen(new MenuScreen(this));
 	}
 
 	public MenuBuilder getMenuBuilder(){
@@ -93,6 +110,14 @@ public class MegaGame extends Game {
 
 	public void setMusicController(MusicController musicController) {
 		this.musicController = musicController;
+	}
+
+	public MusicController getSoundFXController() {
+		return soundFXController;
+	}
+
+	public void setSoundFXController(MusicController soundFXController) {
+		this.soundFXController = soundFXController;
 	}
 	
 }

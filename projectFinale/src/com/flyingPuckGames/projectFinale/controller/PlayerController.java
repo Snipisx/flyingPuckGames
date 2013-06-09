@@ -12,7 +12,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
+import com.flyingPuckGames.projectFinale.MegaGame;
+import com.flyingPuckGames.projectFinale.screens.GameScreen;
 import com.flyingPuckGames.projectFinale.utils.Constants;
+import com.flyingPuckGames.projectFinale.controller.MusicController.Tracks;
 import com.flyingPuckGames.projectFinale.model.player.Player;
 import com.flyingPuckGames.projectFinale.model.player.Player.State;
 
@@ -27,8 +30,9 @@ public class PlayerController {
 		LEFT, RIGHT, JUMP, DEBUG
 	}
 	
-	public InputMultiplexer inputSystem;
+	private InputMultiplexer inputSystem;
 	private boolean isJumpButtonPressed;
+	private MegaGame megaGame;
 	private Player player;
 	private Pool<Rectangle> rectPool;
 	private Array<Rectangle> wallTiles;
@@ -48,8 +52,9 @@ public class PlayerController {
 	};
 	
 	/** Constructor */
-	public PlayerController(Player player, TiledMapTileLayer wallsLayer) {
+	public PlayerController(Player player, TiledMapTileLayer wallsLayer, MegaGame megaGame) {
 		this.player = player;
+		this.megaGame = megaGame;
 		rectPool = new Pool<Rectangle>() {
 			@Override
 			protected Rectangle newObject() {
@@ -357,6 +362,7 @@ public class PlayerController {
 				player.setYVelocity(player.getYVelocity() + Constants.JUMP_VELOCITY);
 				player.setState(State.JUMPING);
 				player.setGrounded(false);
+				playCollision();
 			}
 			else if(isJumpButtonPressed){
 				isJumpButtonPressed = false;
@@ -391,4 +397,19 @@ public class PlayerController {
 		  inputSystem = new InputMultiplexer(processors);
 		  Gdx.input.setInputProcessor(inputSystem);
 	 }
+	 
+	 // Sound Effects
+	 public void playCollision(){
+		 megaGame.getSoundFXController().play(Tracks.LAND, false);
+	 }
+	 public void playJump(){
+		 megaGame.getSoundFXController().play(Tracks.LAND, false);
+	 }
+	 public void playStep(){
+		 megaGame.getSoundFXController().play(Tracks.LAND, false);
+	 }
+	 
+	 
+	 
+	 
 }

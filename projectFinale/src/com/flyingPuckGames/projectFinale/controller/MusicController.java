@@ -25,8 +25,11 @@ public class MusicController implements Disposable {
      */
 	
     public enum Tracks{
-        MENU("music/music.mp3");
-//        LEVEL( "music/level.ogg" );
+        MENU("music/music.mp3"),
+        STEP("music/music.mp3"),
+        JUMP("music/music.mp3"),
+        LAND("music/collision.wav");
+
 
         private final String fileName;
 
@@ -65,7 +68,7 @@ public class MusicController implements Disposable {
      * <p>
      * If there is already a music being played it is stopped automatically.
      */
-    public void play(Tracks music) {
+    public void play(Tracks music, boolean loop) {
         // check if the music is enabled
         if (!enabled) return;
 
@@ -77,7 +80,7 @@ public class MusicController implements Disposable {
         FileHandle musicFile = Gdx.files.internal(music.getFileName());
         musicBeingPlayed = Gdx.audio.newMusic(musicFile);
         musicBeingPlayed.setVolume(volume);
-        musicBeingPlayed.setLooping(true);
+        musicBeingPlayed.setLooping(loop);
         musicBeingPlayed.play();
     }
 

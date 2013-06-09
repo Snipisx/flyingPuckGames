@@ -68,7 +68,7 @@ public class Options {
 		megaGame.getMusicController().setVolume(volumeLvl*0.10f);
 		if(soundOn && megaGame.getMusicController().isEnabled() == false){
 			megaGame.getMusicController().setEnabled(soundOn);
-			megaGame.getMusicController().play(Tracks.MENU);
+			megaGame.getMusicController().play(Tracks.MENU, true);
 		} else {
 			megaGame.getMusicController().setEnabled(soundOn);
 		}
