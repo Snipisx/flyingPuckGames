@@ -120,6 +120,7 @@ public class PlayerRenderer {
 	 * @return
 	 */
 	private TextureRegion decideFrame() {
+		
 		if (player.isFacesRight() && player.getState() == State.IDLE && player.getVelocity().y == 0) {
 			return actualStateFrame = idleRight.getKeyFrame(player.getStateTime(), true);
 		} 
